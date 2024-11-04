@@ -7,7 +7,6 @@ public class CameraManager : MonoBehaviour
 	private CinemachineCamera currentCam;
 	private CameraPosition cameraPosition;
 	
-	
 	public void Awake()
 	{
 		this.cams = GetComponentsInChildren<CinemachineCamera>();

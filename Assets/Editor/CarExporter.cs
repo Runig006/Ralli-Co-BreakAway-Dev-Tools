@@ -51,10 +51,11 @@ public class CarExporter : MonoBehaviour
 
 	static void BuildCircuitAssetBundle(List<string> assetPaths, string bundleName, string outputPath)
 	{
-		if (!Directory.Exists(outputPath))
-		{
-			Directory.CreateDirectory(outputPath);
-		}
+		string tempOutputPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+		string sourceBundlePath = Path.Combine(tempOutputPath, bundleName);
+		string finalBundlePath = Path.Combine(outputPath, bundleName);
+		
+		Directory.CreateDirectory(tempOutputPath);
 
 		AssetBundleBuild bundleBuild = new AssetBundleBuild
 		{
@@ -62,10 +63,16 @@ public class CarExporter : MonoBehaviour
 			assetNames = assetPaths.ToArray(),
 		};
 
-		bool success = BuildPipeline.BuildAssetBundles(outputPath, new AssetBundleBuild[] { bundleBuild }, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
-		if(success)
+		BuildPipeline.BuildAssetBundles(tempOutputPath, new AssetBundleBuild[] { bundleBuild }, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
+		if (File.Exists(sourceBundlePath))
 		{
+			File.Move(sourceBundlePath, finalBundlePath);
+			Directory.Delete(tempOutputPath, true);
 			Debug.Log(bundleName + " Exported in: " + outputPath + ". Have Fun :D");
+		}
+		else
+		{
+			Debug.LogError("Failed to export " + bundleName + ".");
 		}
 	}
 }

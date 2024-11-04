@@ -46,8 +46,6 @@ public class SkyBoxInfo : MonoBehaviour
 	[SerializeField] private Cubemap CloudsCubemap = null;
 	[SerializeField] private Cubemap starsCubemap = null;
 	
-	private float timer = 0.0f;
-	
 	public void Start()
 	{
 	}

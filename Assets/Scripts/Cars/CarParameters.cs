@@ -300,8 +300,13 @@ public class CarParameters : MonoBehaviour
 	{
 		return this.boostMultiplayer;
 	}
+	
+	public float GetBoostAvailable()
+	{
+		return this.boostAvailable;
+	}
 
-	public float GetBoostingNormalice()
+	public float GetBoostAvailableNormalice()
 	{
 		return Mathf.Clamp(this.boostAvailable / this.boostAmmount,0,1);
 	}

@@ -21,7 +21,7 @@ public class DebugUI : MonoBehaviour
 	{
 		this.gear.text = "Gear: " + (this.carParameters.GetCurrentGear() + 1);
 		this.speed.text = "Speed: " + (this.carParameters.GetForwardVelocity() * 3.6f).ToString("F0");
-		this.boost.text = "Boost: " +  (this.carParameters.GetBoostingNormalice() * 100).ToString("F0") + "%";
+		this.boost.text = "Boost: " +  (this.carParameters.GetBoostAvailableNormalice() * 100).ToString("F0") + "%";
 		this.rpm.text = "RPM: " + this.carParameters.GetFakeRPM().ToString("F0");
 	}
 }
