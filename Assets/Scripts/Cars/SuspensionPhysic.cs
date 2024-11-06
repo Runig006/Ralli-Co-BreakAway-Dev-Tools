@@ -32,7 +32,7 @@ public class SuspensionPhysic : MonoBehaviour
 	private float grip;
 	
 	private Transform wheel = null;
-	private float fuckingCurrentRotation = 0;
+	private float currentWheelRotation = 0;
 	
 	private bool isGrounded = true;
 	private bool terrainFound = false;
@@ -232,16 +232,19 @@ public class SuspensionPhysic : MonoBehaviour
 	
 	void RotateWheelSpeed()
 	{
-		this.fuckingCurrentRotation += this.carParameters.GetForwardVelocity() / 2;
-		if(this.fuckingCurrentRotation >= 360)
+		float wheelCircumference = 2 * Mathf.PI * this.wheelRadius;
+		float rotationIncrement = (this.carParameters.GetForwardVelocity() / wheelCircumference) * 360 * Time.deltaTime;
+		this.currentWheelRotation += rotationIncrement;
+		
+		if(this.currentWheelRotation >= 360)
 		{
-			this.fuckingCurrentRotation -= 360;
+			this.currentWheelRotation -= 360;
 		}
-		if(this.fuckingCurrentRotation <= -360)
+		if(this.currentWheelRotation <= -360)
 		{
-			this.fuckingCurrentRotation = 360;
+			this.currentWheelRotation = 360;
 		}
-		this.wheel.localRotation = Quaternion.Euler(this.fuckingCurrentRotation, this.transform.localEulerAngles.y, 0);
+		this.wheel.localRotation = Quaternion.Euler(this.currentWheelRotation, this.transform.localEulerAngles.y, 0);
 	}
 	
 	void TurnWheel()

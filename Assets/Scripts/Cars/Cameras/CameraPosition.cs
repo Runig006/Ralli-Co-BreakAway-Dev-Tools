@@ -3,8 +3,14 @@ using UnityEngine;
 public class CameraPosition : MonoBehaviour
 {
 	[SerializeField] private bool interior = true;
-	[SerializeField] private float masterVolume = 1.0f;
+	[SerializeField] private float engineVolume = 1.0f;
 	[SerializeField] private int baseFov = 45;
+	
+	[SerializeField] bool hideTopLeftUi;
+	[SerializeField] bool hideTopRightUi;
+	[SerializeField] bool hideBottomLeftUi;
+	[SerializeField] bool hideBottomRightUi;
+	[SerializeField] bool hideRemainerTimeUi;
 	
 	[Header("Options for Cinemachine Follow")]
 	[SerializeField] private Vector3 maxRotationDamping = new Vector3(1.0f,5.0f,0.0f);
@@ -17,9 +23,9 @@ public class CameraPosition : MonoBehaviour
 		return this.interior;
 	}
 	
-	public float GetMasterVolume()
+	public float GetEngineVolume()
 	{
-		return this.masterVolume;
+		return this.engineVolume;
 	}
 	
 	public int GetBaseFov()
@@ -30,6 +36,31 @@ public class CameraPosition : MonoBehaviour
 	public void SetBaseFov(int baseFov)
 	{
 		this.baseFov = baseFov;
+	}
+	
+	public bool GetHideTopLeftUi()
+	{
+		return this.hideTopLeftUi;
+	}
+	
+	public bool GetHideTopRightUi()
+	{
+		return this.hideTopRightUi;
+	}
+	
+	public bool GetHideBottomLeftUi()
+	{
+		return this.hideBottomLeftUi;
+	}
+	
+	public bool GetHideBottomRightUi()
+	{
+		return this.hideBottomRightUi;
+	}
+	
+	public bool GetHideRemainertUi()
+	{
+		return this.hideRemainerTimeUi;
 	}
 	
 	public Vector3 GetMaxRotationDamping()

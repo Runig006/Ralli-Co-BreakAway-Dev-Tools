@@ -12,16 +12,6 @@ public class CameraManager : MonoBehaviour
 		this.cams = GetComponentsInChildren<CinemachineCamera>();
 	}
 	
-	public bool GetIsInternalCamera()
-	{
-		return this.cameraPosition != null ? this.cameraPosition.GetInterior() : false;
-	}
-	
-	public float GetMasterVolume()
-	{
-		return this.cameraPosition != null ? this.cameraPosition.GetMasterVolume() : 1.0f;
-	}
-	
 	//Cameras
 	public void SetCamera(CinemachineCamera currentCam)
 	{
