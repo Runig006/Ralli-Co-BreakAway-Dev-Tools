@@ -16,6 +16,8 @@ public class TrackExporter : MonoBehaviour
 		}
 		
 		string folderPath = EditorUtility.SaveFolderPanel("Select a folder to save the track (Remember that it has to be GameLocation/Tracks/CollectionFolder, so it can be read for the game)", "", "");
+		
+		
 		if (string.IsNullOrEmpty(folderPath))
 		{
 		   return;
@@ -43,6 +45,7 @@ public class TrackExporter : MonoBehaviour
 			{
 				continue;
 			}
+			
 			
 			filteredDependencies.Add(dependency);
 		}

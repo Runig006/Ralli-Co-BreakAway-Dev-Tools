@@ -2693,7 +2693,7 @@ MonoBehaviour:
   Name: SunFlower Run
   Icon: {fileID: 21300000, guid: e89274c79bdd26c4a8b5974c4bf20867, type: 3}
   BackgroundPhoto: {fileID: 21300000, guid: d771fb4e3c46aec40bc4c732474dbafd, type: 3}
-  Dificulty: 2
+  Dificulty: 0
   TimePar: 75
   TrafficStart: 0.01
   TrafficDensitySteps: 0.01
@@ -2719,7 +2719,7 @@ MonoBehaviour:
   forcedCarLight: 0
   hour: 16
   TopColor: {r: 0.015686275, g: 0.41960788, b: 0.59607846, a: 1}
-  MiddleColor: {r: 0.40730688, g: 0.5586279, b: 0.764151, a: 1}
+  MiddleColor: {r: 0.48584908, g: 0.70052034, b: 1, a: 1}
   BottomColor: {r: 0.011764707, g: 0.28235295, b: 0.40000004, a: 1}
   TopExponent: 1
   BottomExponent: 1
@@ -2731,7 +2731,7 @@ MonoBehaviour:
   sunHalo: 0.9
   sunTintColor: {r: 0.90588236, g: 0.88235295, b: 0.654902, a: 1}
   sunLightColor: {r: 1, g: 1, b: 1, a: 1}
-  sunLightIntensity: 0.9
+  sunLightIntensity: 0.7
   sunAltitude: 45
   sunLongitude: 0
   sunFlare: 1
@@ -3151,11 +3151,11 @@ MonoBehaviour:
   moonEnabled: 0
   starsEnabled: 0
   cloudsEnabled: 1
-  sunSize: 0.75
+  sunSize: 0.65
   sunHalo: 0.9
   sunTintColor: {r: 1, g: 0.454902, b: 0.5176471, a: 1}
   sunLightColor: {r: 0.7686275, g: 0.454902, b: 0.6745098, a: 1}
-  sunLightIntensity: 0.6
+  sunLightIntensity: 0.4
   sunAltitude: 45
   sunLongitude: 0
   sunFlare: 1
@@ -54403,6 +54403,7 @@ MonoBehaviour:
   enableDriftSound: 1
   driftGameObject: {fileID: 2332812611918500665, guid: 3685088c2326ba8429f2f47089fbf3e6, type: 3}
   dustGameObject: {fileID: 0}
+  dustSound: {fileID: 0}
   roughness: 0
 --- !u!4 &5598540054899215881 stripped
 Transform:
@@ -83454,6 +83455,7 @@ MonoBehaviour:
   enableDriftSound: 0
   driftGameObject: {fileID: 0}
   dustGameObject: {fileID: 4698366189786584864, guid: 2b6c4fa0cb91f094ca62397cb5bbe2d3, type: 3}
+  dustSound: {fileID: 8300000, guid: 917e583aca63cfc448904865588230ad, type: 3}
   roughness: 0.15
 --- !u!1001 &8235780588225209476
 PrefabInstance:

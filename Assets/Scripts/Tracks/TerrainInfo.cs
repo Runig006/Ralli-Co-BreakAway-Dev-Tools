@@ -8,6 +8,7 @@ public class TerrainInfo : MonoBehaviour
 	[SerializeField] private bool enableDriftSound = true; 
 	[SerializeField] private GameObject driftGameObject; 	
 	[SerializeField] private GameObject dustGameObject; 	
+	[SerializeField] private AudioClip dustSound; 
 	
 	[SerializeField] [Range(0.0f, 1.0f)] private float roughness = 0.0f;
 
@@ -38,6 +39,11 @@ public class TerrainInfo : MonoBehaviour
 	public GameObject GetDustGameObject()
 	{
 		return this.dustGameObject;
+	}
+	
+	public AudioClip GetDustSound()
+	{
+		return this.dustSound;
 	}
 	
 	//For FFB

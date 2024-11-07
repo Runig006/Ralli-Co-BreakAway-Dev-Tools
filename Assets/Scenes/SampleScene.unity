@@ -180,7 +180,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 8000
-  field of view: 50
+  field of view: 45
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -206,8 +206,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -0.4900003, y: 0.71099997, z: -389.25012}
+  m_LocalRotation: {x: 0.035118207, y: -0.7062342, z: 0.03511821, w: 0.7062342}
+  m_LocalPosition: {x: 6.2999997, y: 1.9610001, z: -388.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -467,6 +467,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 249284639044537054, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00012183191
+      objectReference: {fileID: 0}
+    - target: {fileID: 249284639044537054, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.22999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 249284639044537054, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.0900009
+      objectReference: {fileID: 0}
     - target: {fileID: 5017151291724231190, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -507,29 +519,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5610079943363053459, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
-      propertyPath: 'gears.Array.data[0]'
-      value: 2.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610079943363053459, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
-      propertyPath: 'gears.Array.data[1]'
-      value: 1.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610079943363053459, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
-      propertyPath: 'gears.Array.data[2]'
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610079943363053459, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
-      propertyPath: 'gears.Array.data[3]'
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610079943363053459, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
-      propertyPath: 'gears.Array.data[4]'
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6114805390933327801, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
       propertyPath: m_Name
       value: RalliJR
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346375285533239694, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.99876595
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346375285533239694, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.049664646
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346375285533239694, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346375285533239694, guid: 7a694f737c36f184b890f729880e39ae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.000000005268356
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -547,6 +555,10 @@ PrefabInstance:
     - target: {fileID: 8156480235738053201, guid: 5b0a72431130ed74592ec171ed315506, type: 3}
       propertyPath: m_Name
       value: SunFlower
+      objectReference: {fileID: 0}
+    - target: {fileID: 8504305909877451503, guid: 5b0a72431130ed74592ec171ed315506, type: 3}
+      propertyPath: sunLightIntensity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9002738129530364376, guid: 5b0a72431130ed74592ec171ed315506, type: 3}
       propertyPath: m_LocalPosition.x

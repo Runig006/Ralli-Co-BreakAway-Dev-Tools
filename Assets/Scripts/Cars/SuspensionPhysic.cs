@@ -25,6 +25,9 @@ public class SuspensionPhysic : MonoBehaviour
 	[SerializeField] private float wheelMaxY = 0.00f;
 	[SerializeField] private bool useThisForDriftAudio = false;
 	
+	[Header("Drift")]
+	[SerializeField] private float driftMinSideForce = 0.5f;
+	
 	//Others
 	private CarParameters carParameters;
 	private Rigidbody carBody;
@@ -45,6 +48,9 @@ public class SuspensionPhysic : MonoBehaviour
 	private float suspensionForceNormalice;
 	
 	private TerrainInfo currentTerrain;
+	
+	private bool driftEnable;
+	private bool dustEnable;
 		
 	//GETTERS/SETTER
 	public bool GetGrounded()
@@ -81,6 +87,17 @@ public class SuspensionPhysic : MonoBehaviour
 	public bool GetUseThisForDriftAudio()
 	{
 		return this.useThisForDriftAudio;
+	}
+	
+		
+	public bool GetDriftEnable()
+	{
+		return this.driftEnable;
+	}
+	
+	public bool GetDustEnable()
+	{
+		return this.dustEnable;
 	}
 	
 	//Terrain
@@ -135,7 +152,8 @@ public class SuspensionPhysic : MonoBehaviour
 			this.CalculateRotation();
 			this.CalculateSpeed();
 		}
-
+		this.CheckForDust();
+		this.CheckForDrift();
 	}
 	
 	void CalculateSuspension()
@@ -213,6 +231,34 @@ public class SuspensionPhysic : MonoBehaviour
 			this.carBody.AddForceAtPosition(this.grip * torque * this.transform.forward * this.GetPowerMultipler(), this.transform.position);
 		}
 	}
+	
+	//Terrain
+	private void CheckForDust()
+	{
+		if(this.isGrounded && this.carParameters.GetVelocityNormalice() > 0.05f)
+		{
+			this.dustEnable = true;
+		}
+		
+		else
+		{
+			this.dustEnable = false;
+		}
+	}
+	
+	private void CheckForDrift()
+	{
+		if(this.sideForce > this.driftMinSideForce && this.isGrounded)
+		{
+			this.driftEnable = true;
+		}
+		
+		else
+		{
+			this.driftEnable = false;
+		}
+	}
+	
 	
 	// Animations
 	void MoveVerticalWheel()
