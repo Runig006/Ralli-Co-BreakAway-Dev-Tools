@@ -41,7 +41,7 @@ public class DashboardDigitalTextElement : MonoBehaviour
 				value = this.normalice ? this.carParameters.GetVelocityNormalice().ToString(this.numberFormat, CultureInfo.InvariantCulture) : MathF.Abs(this.carParameters.GetForwardVelocity() * 3.6f).ToString(this.numberFormat, CultureInfo.InvariantCulture);
 				break;
 			case DashboardPrintableValuesEnum.nitro:
-				value = this.normalice ? this.carParameters.GetBoostAvailableNormalice().ToString(this.numberFormat, CultureInfo.InvariantCulture) : this.carParameters.GetBoostAvailable().ToString(this.numberFormat, CultureInfo.InvariantCulture);
+				value = this.carParameters.GetBoostTemperature().ToString(this.numberFormat, CultureInfo.InvariantCulture);
 				break;
 			case DashboardPrintableValuesEnum.currentTimer:
 				value = this.FormatTime(this.scoringDetector.GetTimeInLevel());

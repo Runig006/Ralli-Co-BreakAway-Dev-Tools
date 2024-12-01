@@ -13,6 +13,7 @@ public class UserController : MonoBehaviour
 	private InputAction boostInput;
 	
 	private float currentTurnValue = 0.0f;
+	private float automaticClutchTimer = 0.0f;
 
 	public void Awake()
 	{
@@ -32,13 +33,34 @@ public class UserController : MonoBehaviour
 	{
 		this.carParameters.SetBoosting(this.boostInput.IsPressed());
 		this.UpdateThrottle();
+		this.UpdateClutch();
 		this.UpdateBrake();
 		this.UpdateTurn();
+		
+		if(this.carParameters.GetCurrentGear() == null)
+		{
+			this.ChangeGear(0);
+		}
 	}
 	
 	private void UpdateThrottle()
 	{
 		this.carParameters.SetThrottle(this.throttleInput.ReadValue<float>());
+	}
+	
+	private void UpdateClutch()
+	{
+		float clutchValue;
+		if (this.automaticClutchTimer > 0)
+		{
+			this.automaticClutchTimer -= Time.deltaTime;
+			clutchValue = 1.0f;
+		}
+		else
+		{
+			clutchValue = 0.0f;
+		}
+		this.carParameters.SetClutch(clutchValue);
 	}
 	
 	private void UpdateBrake()
@@ -69,4 +91,17 @@ public class UserController : MonoBehaviour
 	{
 		this.cameraManager.NextCamera();
 	}
+	
+	private void ChangeGear(int? value)
+	{
+		if (value != null && (value > this.carParameters.GetMaxGear() || value < -1))
+		{
+			return;
+		}
+
+		this.automaticClutchTimer = this.carParameters.GetClutchDelay();
+		this.carParameters.SetClutch(1.0f);
+		this.carParameters.SetGear(value);
+	}
+
 }

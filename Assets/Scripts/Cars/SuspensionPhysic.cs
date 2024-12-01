@@ -100,6 +100,21 @@ public class SuspensionPhysic : MonoBehaviour
 		return this.dustEnable;
 	}
 	
+	public float GetSpringRestPosition()
+	{
+		return this.springRestPosition;
+	}
+	
+	public float GetSpringMaxTravel()
+	{
+		return this.springMaxTravel;
+	}
+	
+	public float GetWheelRadius()
+	{
+		return this.wheelRadius;
+	}
+	
 	//Terrain
 	public TerrainInfo GetCurrentTerrain()
 	{
@@ -222,7 +237,7 @@ public class SuspensionPhysic : MonoBehaviour
 			this.carBody.AddForceAtPosition(this.carParameters.GetBrake() * this.carParameters.GetBrakePower() * this.transform.forward * direction, this.transform.position);
 		}
 		
-		if(this.speedWheel && this.carParameters.GetThrottle() > 0.0f){
+		if(this.speedWheel && this.carParameters.GetThrottle() > 0.0f && this.carParameters.GetTorque() > 0 && this.carParameters.GetRPMNormalice(true) <= 1.0f){
 			float torque = this.carParameters.GetTorque() * this.carParameters.GetThrottle();
 			if(this.differentialWheel != null && this.differentialWheel.GetGrounded() == false)
 			{
@@ -235,7 +250,7 @@ public class SuspensionPhysic : MonoBehaviour
 	//Terrain
 	private void CheckForDust()
 	{
-		if(this.isGrounded && this.carParameters.GetVelocityNormalice() > 0.05f)
+		if(this.isGrounded && this.carParameters.GetForwardVelocity() > 8.0f)
 		{
 			this.dustEnable = true;
 		}

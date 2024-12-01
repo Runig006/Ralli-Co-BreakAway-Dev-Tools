@@ -17,7 +17,6 @@ public class Level : MonoBehaviour
 	
 	[Header("Road parts (Can be set or they will try to fill it automatic)")]
 	[SerializeField] private SplineContainer[] roadSplineContainers;
-	[SerializeField] private SplineContainer lastRoadSplineContainer;
 	[SerializeField] private Transform startPoint;
 	[SerializeField] private Transform endPoint;
 	[SerializeField] private SkyBoxInfo SkyBoxInfo;
@@ -26,10 +25,6 @@ public class Level : MonoBehaviour
 	{
 		if(this.roadSplineContainers == null || this.roadSplineContainers.Length == 0){
 			this.roadSplineContainers = this.GetComponentsInChildren<SplineContainer>();
-		}
-		if(this.lastRoadSplineContainer == null)
-		{
-			this.lastRoadSplineContainer = this.roadSplineContainers[^1];
 		}
 		
 		if(this.startPoint == null)
@@ -85,11 +80,6 @@ public class Level : MonoBehaviour
 	public SplineContainer[] GetRoadContainers()
 	{
 		return this.roadSplineContainers;
-	}
-	
-	public SplineContainer GetLastContainer()
-	{
-		return this.lastRoadSplineContainer;
 	}
 	
 	public Transform GetStartPoint()

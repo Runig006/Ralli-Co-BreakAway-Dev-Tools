@@ -33,7 +33,17 @@ public class DashboardDigitalTextColorElement : MonoBehaviour
 		switch (this.printing)
 		{
 			case DashboardPrintableValuesEnum.gear:
-				value =  this.carParameters.GetIsInReverse() ? -1 : this.carParameters.GetCurrentGear() + 1;
+				if(this.carParameters.GetIsInReverse())
+				{
+					value = -1;
+					break;
+				}
+				if(this.carParameters.GetCurrentGear() == null)
+				{
+					value = 0;
+					break;
+				}
+				value = this.carParameters.GetCurrentGear() ?? 0 + 1;
 				break;
 			case DashboardPrintableValuesEnum.rpm:
 				value =  this.normalice ? this.carParameters.GetRPMNormalice() : this.carParameters.GetFakeRPM();
@@ -42,7 +52,7 @@ public class DashboardDigitalTextColorElement : MonoBehaviour
 				value =  this.normalice ? this.carParameters.GetVelocityNormalice() : MathF.Abs(this.carParameters.GetForwardVelocity() * 3.6f);
 				break;
 			case DashboardPrintableValuesEnum.nitro:
-				value =  this.normalice ? this.carParameters.GetBoostAvailableNormalice() : this.carParameters.GetBoostAvailable();
+				value = this.carParameters.GetBoostTemperature();
 				break;
 			case DashboardPrintableValuesEnum.currentTimer:
 				value =  this.scoringDetector.GetTimeInLevel();

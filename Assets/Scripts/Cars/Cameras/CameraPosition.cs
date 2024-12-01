@@ -17,6 +17,9 @@ public class CameraPosition : MonoBehaviour
 	[SerializeField] private Vector3 minRotationDamping = new Vector3(1.0f,1.0f,0.0f);
 	[SerializeField] private float maxSpeedForDamping = 70.0f;
 	
+	[SerializeField] private float minHeightOffset = 1.7f;
+	[SerializeField] private float maxHeightOffset = 4.5f;
+	
 	
 	public bool GetInterior()
 	{
@@ -76,5 +79,15 @@ public class CameraPosition : MonoBehaviour
 	public float GetMaxSpeedForDamping()
 	{
 		return this.maxSpeedForDamping;
+	}
+	
+	public float GetMinHeightOffset()
+	{
+		return this.minHeightOffset;
+	}
+	
+	public float GetMaxHeightOffset()
+	{
+		return this.maxHeightOffset;
 	}
 }

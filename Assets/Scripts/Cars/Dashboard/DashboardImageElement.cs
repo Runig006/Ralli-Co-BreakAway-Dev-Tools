@@ -31,7 +31,7 @@ public class DashboardImageElement : MonoBehaviour
                 value = this.carParameters.GetVelocityNormalice();
                 break;
             case DashboardPrintableValuesEnum.nitro:
-                value = this.carParameters.GetBoostAvailableNormalice();
+                value = this.carParameters.GetBoostTemperature();
                 break;
             case DashboardPrintableValuesEnum.currentTimer:
                 Debug.LogError("Current Timer is not valid for this input");

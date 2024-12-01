@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class CarExporter : MonoBehaviour
 {
+	private const string LastFolderKey = "CarExporter_LastFolderPath";
+
 	[MenuItem("Assets/Export Car")]
 	static void ExportSelectedPrefab()
 	{
@@ -15,30 +17,40 @@ public class CarExporter : MonoBehaviour
 			return;
 		}
 		
-		string folderPath = EditorUtility.SaveFolderPanel("Select a folder to save the Car (Remember that it has to be GameLocation/Cars/CollectionFolder, so it can be read for the game)", "", "");
+		// Obtener la última carpeta utilizada
+		string lastUsedFolder = EditorPrefs.GetString(LastFolderKey, "");
+		string folderPath = EditorUtility.SaveFolderPanel(
+			"Select a folder to save the Car (Remember that it has to be GameLocation/Cars/CollectionFolder, so it can be read for the game)", 
+			lastUsedFolder, 
+			""
+		);
+
 		if (string.IsNullOrEmpty(folderPath))
 		{
 		   return;
 		}
 
-		// Get the prefab path and filter dependencies
+		// Guardar la última carpeta utilizada
+		EditorPrefs.SetString(LastFolderKey, folderPath);
+
+		// Obtener la ruta del prefab y filtrar las dependencias
 		string prefabPath = AssetDatabase.GetAssetPath(selectedObject);
-		HashSet<string> dependencies = new HashSet<string>(FilterAssets(prefabPath));  // Use HashSet to ensure unique assets
+		HashSet<string> dependencies = new HashSet<string>(FilterAssets(prefabPath));  // Usar HashSet para asegurar assets únicos
 		dependencies.Add(prefabPath); 
 		
 		List<string> uniqueAssets = new List<string>(dependencies);
 		
-		// Create the asset bundle
+		// Crear el asset bundle
 		string bundleName = selectedObject.name.ToLower() + ".car";
-		BuildCircuitAssetBundle(uniqueAssets, bundleName, folderPath);
+		BuildCarAssetBundle(uniqueAssets, bundleName, folderPath);
 	}
 	
 	static HashSet<string> FilterAssets(string prefabPath)
 	{
-		HashSet<string> filteredDependencies = new HashSet<string>();  // HashSet to prevent duplicate entries
+		HashSet<string> filteredDependencies = new HashSet<string>();  // HashSet para evitar duplicados
 		foreach (var dependency in AssetDatabase.GetDependencies(prefabPath, true))
 		{
-			// Exclude scripts and editor/package files
+			// Excluir scripts y archivos de editor/paquetes
 			if (dependency.EndsWith(".cs") || dependency.Contains("/Editor/") || dependency.Contains("/Packages/"))
 			{
 				continue;
@@ -49,7 +61,7 @@ public class CarExporter : MonoBehaviour
 		return filteredDependencies;
 	}
 
-	static void BuildCircuitAssetBundle(List<string> assetPaths, string bundleName, string outputPath)
+	static void BuildCarAssetBundle(List<string> assetPaths, string bundleName, string outputPath)
 	{
 		string tempOutputPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 		string sourceBundlePath = Path.Combine(tempOutputPath, bundleName);
@@ -64,6 +76,12 @@ public class CarExporter : MonoBehaviour
 		};
 
 		BuildPipeline.BuildAssetBundles(tempOutputPath, new AssetBundleBuild[] { bundleBuild }, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
+		
+		if (File.Exists(finalBundlePath))
+		{
+			File.Delete(finalBundlePath);
+		}
+
 		if (File.Exists(sourceBundlePath))
 		{
 			File.Move(sourceBundlePath, finalBundlePath);
