@@ -11,9 +11,23 @@ public class TrackExporter : MonoBehaviour
 	static void ExportSelectedPrefab()
 	{
 		Object selectedObject = Selection.activeObject;
+		string prefabPath = AssetDatabase.GetAssetPath(selectedObject);
+		
 		if (selectedObject == null || !(selectedObject is GameObject))
 		{
 			Debug.LogError("Please select a track first");
+			return;
+		}
+		
+		if (PrefabUtility.GetPrefabAssetType(selectedObject) == PrefabAssetType.NotAPrefab)
+		{
+			Debug.LogError("The selected object is not a valid prefab.");
+			return;
+		}
+		
+		if (string.IsNullOrEmpty(prefabPath))
+		{
+			Debug.LogError("Could not determine the path of the selected asset.");
 			return;
 		}
 		
@@ -30,27 +44,22 @@ public class TrackExporter : MonoBehaviour
 		   return;
 		}
 
-		// Guardar la última carpeta utilizada
 		EditorPrefs.SetString(LastFolderKey, folderPath);
 
-		// Obtener la ruta del prefab y filtrar las dependencias
-		string prefabPath = AssetDatabase.GetAssetPath(selectedObject);
-		HashSet<string> dependencies = new HashSet<string>(FilterAssets(prefabPath));  // Usar HashSet para asegurar assets únicos
+		HashSet<string> dependencies = new HashSet<string>(FilterAssets(prefabPath));
 		dependencies.Add(prefabPath); 
 		
 		List<string> uniqueAssets = new List<string>(dependencies);
 		
-		// Crear el asset bundle
 		string bundleName = selectedObject.name.ToLower() + ".track";
 		BuildCircuitAssetBundle(uniqueAssets, bundleName, folderPath);
 	}
 	
 	static HashSet<string> FilterAssets(string prefabPath)
 	{
-		HashSet<string> filteredDependencies = new HashSet<string>();  // HashSet para evitar duplicados
+		HashSet<string> filteredDependencies = new HashSet<string>();
 		foreach (var dependency in AssetDatabase.GetDependencies(prefabPath, true))
 		{
-			// Excluir scripts y archivos de editor/paquetes
 			if (dependency.EndsWith(".cs") || dependency.Contains("/Editor/") || dependency.Contains("/Packages/"))
 			{
 				continue;

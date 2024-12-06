@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum EngineSoundPrefabs
@@ -47,7 +46,9 @@ public class CarParameters : MonoBehaviour
 	
 	[Header("Brake")]
 	[SerializeField] private float brakePower = 750.0f;
-	[SerializeField] private float dragBrake = 250.0f;
+	
+	[Header("Drag")]
+	[SerializeField] private float maxDrag = 0.2f;
 	
 	[Header("Curves")]
 	[SerializeField] private AnimationCurve engineCurve;
@@ -96,32 +97,20 @@ public class CarParameters : MonoBehaviour
 	private float boostTemperature = 0.0f;
 	public bool boostBurned = false;
 	private float burnCheckTimer = 0.0f;
+	private int? previousGear = null;
+	private bool isDownshifting = false;
 	
 	//EasyCalculate RPM
 	private int RPMMultiplier;
-	private int? lastGear = null;
 	private float lastRPM = 0.0f;
+	private float lastRPMBoost = 0.0f;
+	private float simulatedRPM = 0.0f;
 	
 	//Spipstream
 	private float slipstreamFactor = 1.0f;
 	private int slipStreamMask;
 	private bool isSlipstreaming = false;
 	private float slipstreamTimer = 0.0f;
-	
-	//GameLoop Events
-	private List<(Action callback, int priority)> onGameCountDown = new List<(Action, int)>();
-	private List<(Action callback, int priority)> onGameStartActions = new List<(Action, int)>();
-	private List<(Action callback, int priority)> onGameResumedActions = new List<(Action, int)>();
-	private List<(Action callback, int priority)> onGamePausedActions = new List<(Action, int)>();
-	private List<(Action callback, int priority)> onGameStoppedActions = new List<(Action, int)>();
-	
-	//Level Events
-	private List<(Action callback, int priority)> onLevelStartActions = new List<(Action, int)>();
-	
-	//Collision Events
-	private List<(Action<Collision> callback, int priority)> onCarCollisionActions = new List<(Action<Collision>, int)>();
-	private List<(Action<Collision> callback, int priority)> onCarCollisionStayActions = new List<(Action<Collision>, int)>();
-	private List<(Action<Collision> callback, int priority)> onCarCollisionExitActions = new List<(Action<Collision>, int)>();
 	
 	//PlayerControls
 	private int playerId = 0;
@@ -144,9 +133,11 @@ public class CarParameters : MonoBehaviour
 	{
 		carBody.AddForce(-Vector3.up * this.downforce, ForceMode.Acceleration);
 	
-		this.UpdateBoost();
 		this.UpdateBrakeTime();
+	
+		this.UpdateBoost();
 		this.CheckForSlipstream();
+		this.UpdateDrag();
 	}
 	
 	private void UpdateBoost()
@@ -172,16 +163,13 @@ public class CarParameters : MonoBehaviour
 			}
 		}
 		
-		else
+		else if(this.GetRPMNormalice() <= 1.10f)
 		{
 			float reduce = this.boostRecoverSpeed * Time.deltaTime;
-			if(this.GetThrottle() < 0.2f)
-			{
-				reduce *= 1.5f;
-			}
+			reduce *= (1.5f - this.GetRPMNormalice());
 			if(this.boostBurned)
 			{
-				reduce *= 0.50f;
+				reduce *= 0.75f;
 			}
 			this.boostTemperature -= reduce;
 			this.boostTemperature = MathF.Max(this.boostTemperature, 0);
@@ -189,7 +177,22 @@ public class CarParameters : MonoBehaviour
 			{
 				this.boostBurned = false;
 			}
+			this.isDownshifting = false;
 		}
+		
+		else if (this.GetRPMNormalice() > 1.00f)
+		{
+			if (this.previousGear != null && this.currentGear != null && this.currentGear < this.previousGear) //Check if is boost or price
+			{
+				isDownshifting = true;
+			}
+
+			if (isDownshifting)
+			{
+				this.boostTemperature += (this.GetRPMNormalice() - 1.0f) * 200 * Time.deltaTime;
+			}
+		}
+		this.previousGear = this.currentGear;
 	}
 	
 	private void UpdateBrakeTime()
@@ -256,6 +259,23 @@ public class CarParameters : MonoBehaviour
 		}
 		return false;
 	}
+	
+	private void UpdateDrag()
+	{
+		float drag = 0.0f;
+		
+		if (this.inputThrottleValue <= 0.1f || this.GetRPMNormalice() > 1.1f)
+		{
+			drag = this.maxDrag * Mathf.Clamp01(this.GetRPMNormalice() - 0.1f);
+		}
+		
+		if(this.boostBurned)
+		{
+			drag = this.maxDrag;
+		}
+		this.carBody.linearDamping = drag;
+	}
+	
 
 	
 	//Normaly, i put the gets at the start...but there are too fucking many of them...
@@ -434,11 +454,16 @@ public class CarParameters : MonoBehaviour
 		return this.gears[this.currentGear ?? 0];
 	}
 
-	public bool SetGear(int? gear)
+	public bool SetGear(int? gear, bool force = false)
 	{
 		if(gear > this.gears.Length - 1 || gear < -1)
 		{
 			return false;
+		}
+		if(force == false && this.inputClutchValue <= 0.8f)
+		{
+			//this.currentGear = null;
+			//return false;
 		}
 		this.currentGear = gear;
 		return true;
@@ -494,7 +519,7 @@ public class CarParameters : MonoBehaviour
 		power *= this.slipstreamFactor;
 		if (this.boostBurned == true)
 		{
-			power = this.power * 0.50f;
+			power = this.power * 0.75f;
 		}
 		return power;
 	}
@@ -502,11 +527,6 @@ public class CarParameters : MonoBehaviour
 	public float GetBrakePower()
 	{
 		return this.brakePower;
-	}
-
-	public float GetDragBrake()
-	{
-		return this.dragBrake;
 	}
 
 	public AnimationCurve GetEngineCurve()
@@ -530,52 +550,25 @@ public class CarParameters : MonoBehaviour
 		return this.minRPM + (this.GetRPMNormalice() * this.RPMMultiplier);
 	}
 
-	public float GetRPMNormalice(bool takeAccountBoost = false)
+	public float GetRPMNormalice()
 	{
 		float maxSpeed = this.maxSpeed;
-		float currentRPM;
-		
-		if(takeAccountBoost)
-		{
-			if(this.isSlipstreaming && maxSpeed < this.maxSpeedSlip)
-			{
-				maxSpeed = this.maxSpeedSlip;
-			}
-			if(this.GetIsBoosting() && maxSpeed < this.maxSpeedBoost)
-			{
-				maxSpeed = this.maxSpeedBoost;
-			}
-		}
-		
-		//If we are pressing the clutch or we are changing gears
-		if (this.currentGear == null || this.inputClutchValue > 0.8f)
-		{
-			if (this.currentGear != null)
-			{
-				this.lastGear = this.GetIsInReverse() ? 0 : this.currentGear; 
-			}
+		float clutchThreshold = 0.8f;
+		float rpmChangeRate = this.inputThrottleValue > 0 ? 0.3f : 0.05f;
+		float clutchLerpFactor = Mathf.Clamp01((this.inputClutchValue - clutchThreshold) / (1 - clutchThreshold));
 
-			if (this.lastGear != null)
-			{
-				float gearRatio = this.gears[this.lastGear.Value];
-				float rpmFromGear = Mathf.Abs(this.GetForwardVelocity()) * gearRatio / maxSpeed;
-				currentRPM = Mathf.Lerp(this.lastRPM, rpmFromGear, Time.deltaTime * 2.0f);
-			}
-			else
-			{
-				currentRPM = Mathf.Lerp(this.lastRPM, this.inputThrottleValue, Time.deltaTime * 2.0f);
-			}
+		if (this.inputClutchValue > clutchThreshold)
+		{
+			this.simulatedRPM = Mathf.Lerp(this.simulatedRPM, this.inputThrottleValue, Time.deltaTime * rpmChangeRate);
 		}
-		
 		else
 		{
-			float rpmNormalize = Mathf.Abs(this.GetForwardVelocity()) * this.GetGearRatio() / maxSpeed;
-			currentRPM = Mathf.Clamp01(rpmNormalize);
+			float targetRPM = Mathf.Abs(this.GetForwardVelocity()) * this.GetGearRatio() / maxSpeed;
+			this.simulatedRPM = Mathf.Lerp(this.simulatedRPM, targetRPM, Time.deltaTime * (1 - clutchLerpFactor));
 		}
-		this.lastRPM = currentRPM;
-		return currentRPM;
+		return this.simulatedRPM;
 	}
-	
+		
 	public float GetRPMDangerThresholdPercentage()
 	{
 		return this.rpmDangerThresholdPercentage;
@@ -610,25 +603,46 @@ public class CarParameters : MonoBehaviour
 
 	public float GetTorque()
 	{
-		if(this.currentGear == null || this.inputClutchValue > 0.8f)
+		float rpmNormalize = this.GetRPMNormalice();
+		float torque = this.GetEngineCurve().Evaluate(rpmNormalize);
+		
+		if (
+			this.ReachedMaxSpeed() ||
+			this.currentGear == null || 
+			this.inputClutchValue > 0.8f
+			)
 		{
 			return 0.0f;
 		}
-		float rpmNormalize = GetRPMNormalice(this.GetCurrentGear() == this.GetMaxGear());
-		float torque = this.GetEngineCurve().Evaluate(rpmNormalize);
+		
 		if(this.GetIsInReverse())
 		{
 			torque *= -1;
 		}
 		return torque * this.GetPower() * (1 - this.inputClutchValue);
 	}
-
-	public float GetEngineBrake()
+	
+	private bool ReachedMaxSpeed()
 	{
-		float rpmPer = GetRPMNormalice();
-		return this.dragBrake * this.GetGearRatio() * rpmPer;
-	}
+		if (this.currentGear == null) 
+		{
+			return true;
+		}
 
+   		float maxAllowedSpeed = this.maxSpeed / this.GetGearRatio();
+		if (this.GetCurrentGear() == this.GetMaxGear())
+		{
+			if (this.isSlipstreaming && maxAllowedSpeed < this.maxSpeedSlip)
+			{
+				maxAllowedSpeed = this.maxSpeedSlip;
+			}
+			if (this.GetIsBoosting() && maxAllowedSpeed < this.maxSpeedBoost)
+			{
+				maxAllowedSpeed = this.maxSpeedBoost;
+			}
+		}
+		return this.GetForwardVelocity() >= maxAllowedSpeed;
+	}
 	
 	//Audio	
 	public int GetEngineSoundPrefab()

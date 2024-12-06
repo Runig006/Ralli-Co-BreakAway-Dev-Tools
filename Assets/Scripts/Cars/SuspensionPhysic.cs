@@ -223,23 +223,21 @@ public class SuspensionPhysic : MonoBehaviour
 		}
 	}
 	
-	void CalculateSpeed()
+	private void CalculateSpeed()
 	{
-		//If the car is overRpm or no throttle is not pressing drag
-		if(this.carParameters.GetForwardVelocity() > 1.00f && (this.carParameters.GetThrottle() == 0.0f || this.carParameters.GetRPMNormalice(true) > 1.0f))
+		if (this.carParameters.GetBrake() > 0.0f && this.carParameters.GetForwardVelocity() != 0.0f)
 		{
-			this.carBody.AddForceAtPosition(this.carParameters.GetEngineBrake() * this.transform.forward * -1, this.transform.position);
-		}
-		
-		//If is braking..brake
-		if(this.carParameters.GetBrake() > 0.0f && this.carParameters.GetForwardVelocity() != 0.00f){
 			float direction = this.carParameters.GetForwardVelocity() > 0.0f ? -1 : 1;
-			this.carBody.AddForceAtPosition(this.carParameters.GetBrake() * this.carParameters.GetBrakePower() * this.transform.forward * direction, this.transform.position);
+			this.carBody.AddForceAtPosition(
+				this.carParameters.GetBrake() * this.carParameters.GetBrakePower() * this.transform.forward * direction,
+				this.transform.position
+			);
 		}
-		
-		if(this.speedWheel && this.carParameters.GetThrottle() > 0.0f && this.carParameters.GetTorque() > 0 && this.carParameters.GetRPMNormalice(true) <= 1.0f){
+
+		if (this.speedWheel && this.carParameters.GetThrottle() > 0.0f && Mathf.Abs(this.carParameters.GetTorque()) > 0)
+		{
 			float torque = this.carParameters.GetTorque() * this.carParameters.GetThrottle();
-			if(this.differentialWheel != null && this.differentialWheel.GetGrounded() == false)
+			if (this.differentialWheel != null && !this.differentialWheel.GetGrounded())
 			{
 				torque *= this.differentialMultiplier;
 			}

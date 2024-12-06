@@ -3069,10 +3069,10 @@ MonoBehaviour:
   gearsDefaultMode: 3
   clutchMode: 2
   gears:
-  - 2.1
-  - 1.7
-  - 1.4
-  - 1.2
+  - 3.4
+  - 2.5
+  - 1.9
+  - 1.3
   - 1
   clutchDelay: 0.2
   maxSpeedSlip: 76
@@ -3086,8 +3086,8 @@ MonoBehaviour:
   maxLateralSpeed: 38
   maxTurnAngle: 32
   downforce: 15
-  brakePower: 3550
-  dragBrake: 3000
+  brakePower: 4125
+  maxDrag: 0.2
   engineCurve:
     serializedVersion: 2
     m_Curve:
@@ -3103,29 +3103,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.5892962
       value: 0.9678646
-      inSlope: 0.71201867
-      outSlope: 0.71201867
+      inSlope: 0.8673392
+      outSlope: 0.8673392
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.15785794
-      outWeight: 0.56535053
+      outWeight: 0.27862543
     - serializedVersion: 3
-      time: 0.95
+      time: 1
       value: 1
-      inSlope: -0.41623384
-      outSlope: -0.41623384
+      inSlope: -0.9529734
+      outSlope: -0.9529734
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.2880436
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.96
-      value: 0
-      inSlope: -100.0001
-      outSlope: -100.0001
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.19643852
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
