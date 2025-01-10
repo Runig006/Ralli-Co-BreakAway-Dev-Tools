@@ -4,7 +4,6 @@ public class TerrainInfo : MonoBehaviour
 {
 	[SerializeField] private float powerMultipler = 1.0f;
 	[SerializeField] private float gripMultiplier = 1.0f;
-	[SerializeField] private float gripBackMultiplier = 1.0f;
 	[SerializeField] private bool enableDriftSound = true; 
 	[SerializeField] private GameObject driftGameObject; 	
 	[SerializeField] private GameObject dustGameObject; 	
@@ -17,13 +16,10 @@ public class TerrainInfo : MonoBehaviour
 	{
 		return this.powerMultipler;
 	}
+	
 	public float GetGripMultipler()
 	{
 		return this.gripMultiplier;
-	}
-	public float GetBackGripMultipler()
-	{
-		return this.gripBackMultiplier;
 	}
 	
 	public bool GetEnableDriftSound()

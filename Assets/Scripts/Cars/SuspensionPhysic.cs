@@ -4,11 +4,20 @@ using UnityEngine;
 public class SuspensionPhysic : MonoBehaviour
 {	
 	[Header("Engine Settings")]
-	[SerializeField] private bool speedWheel = false;
-	[SerializeField] private bool rotateWheel = true;
-	[SerializeField] private bool backGrip = false;
-	[SerializeField] private float differentialMultiplier = 0.0f; //If the other wheel is in the air, use this Multiplier
-	[SerializeField] private SuspensionPhysic differentialWheel;
+	[Range(0,1)][SerializeField] private float powerMultiplayer = 0.0f;
+	[Range(0,1)][SerializeField] private float powerTerrainInfluence = 0.0f;
+	
+	[Range(0,1)][SerializeField] private float differentialMultiplier = 0.0f;
+	[SerializeField] private SuspensionPhysic oppositeWheel;
+	
+	[Header("Turn Settings")]
+	[SerializeField] private bool turnWheel = true;
+	[SerializeField] private float maxTurnAngle = 32.0f;
+	
+	[Header("Grip Settings")]
+	[Range(0,1)][SerializeField] private float gripTerrainInfluence = 0.0f;
+	[SerializeField] private float maxLateralSpeed = 36.0f;
+	[SerializeField] private AnimationCurve gripCurve;
 	
 	[Header("Suspension Settings")]
 	[SerializeField] private float springStiff = 1250.0f;
@@ -26,7 +35,7 @@ public class SuspensionPhysic : MonoBehaviour
 	[SerializeField] private bool useThisForDriftAudio = false;
 	
 	[Header("Drift")]
-	[SerializeField] private float driftMinSideForce = 0.5f;
+	[Range(0,1)][SerializeField] private float driftMinSideForce = 0.5f;
 	
 	//Others
 	private CarParameters carParameters;
@@ -58,9 +67,9 @@ public class SuspensionPhysic : MonoBehaviour
 		return this.isGrounded;
 	}
 	
-	public bool GetRotateWheel()
+	public bool GetTurnWheel()
 	{
-		return this.rotateWheel;
+		return this.turnWheel;
 	}
 
 	/* Is normaliced between 0 and 1 */
@@ -125,7 +134,7 @@ public class SuspensionPhysic : MonoBehaviour
 	{
 		if(this.currentTerrain)
 		{
-			return Mathf.Lerp(1, this.currentTerrain.GetPowerMultipler(), this.carParameters.GetPowerStep());
+			return Mathf.Lerp(1, this.currentTerrain.GetPowerMultipler(), this.powerTerrainInfluence);
 		}else{
 			return 1;
 		}
@@ -135,9 +144,7 @@ public class SuspensionPhysic : MonoBehaviour
 	{
 		if(this.currentTerrain)
 		{
-			float grip = this.backGrip ? this.currentTerrain.GetBackGripMultipler() : this.currentTerrain.GetGripMultipler();
-			float step = this.backGrip ? this.carParameters.GetBackGripStep() : this.carParameters.GetGripStep();
-			return Mathf.Lerp(1, grip, step);
+			return Mathf.Lerp(1, this.currentTerrain.GetGripMultipler(), this.gripTerrainInfluence);
 		}else
 		{
 			return 1;
@@ -155,7 +162,7 @@ public class SuspensionPhysic : MonoBehaviour
 	void FixedUpdate()
 	{		
 		this.RotateWheelSpeed();
-		if(this.rotateWheel)
+		if(this.turnWheel)
 		{
 			this.TurnWheel();
 		}
@@ -207,14 +214,14 @@ public class SuspensionPhysic : MonoBehaviour
 			Vector3 steeringDir = this.transform.right;
 			Vector3 tireWorldVel = this.carBody.GetPointVelocity(this.transform.position);
 			float steeringVel = Vector3.Dot(steeringDir, tireWorldVel);
-			float normalized = Mathf.Clamp01(Mathf.Abs(steeringVel) / this.carParameters.GetMaxLateralSpeed());
+			float normalized = Mathf.Clamp01(Mathf.Abs(steeringVel) / this.maxLateralSpeed);
 			
 			//Set the variables for external scripts
 			this.sideForce = normalized;
 			this.sideForceDirection = steeringVel >= 0 ? -1 : 1;
 			
 			//The real logic
-			float newGrip = this.carParameters.GetGripCurve(this.backGrip).Evaluate(normalized);
+			float newGrip = this.gripCurve.Evaluate(normalized);
 			this.grip = Mathf.Lerp(this.grip, newGrip, 0.5f);
 			
 			float desiredVelChange = -steeringVel * this.grip;
@@ -234,10 +241,11 @@ public class SuspensionPhysic : MonoBehaviour
 			);
 		}
 
-		if (this.speedWheel && this.carParameters.GetThrottle() > 0.0f && Mathf.Abs(this.carParameters.GetTorque()) > 0)
+		if (this.powerMultiplayer > 0.0f && this.carParameters.GetThrottle() > 0.0f && Mathf.Abs(this.carParameters.GetTorque()) > 0)
 		{
 			float torque = this.carParameters.GetTorque() * this.carParameters.GetThrottle();
-			if (this.differentialWheel != null && !this.differentialWheel.GetGrounded())
+			torque *= this.powerMultiplayer;
+			if (this.oppositeWheel != null && !this.oppositeWheel.GetGrounded())
 			{
 				torque *= this.differentialMultiplier;
 			}
@@ -308,6 +316,6 @@ public class SuspensionPhysic : MonoBehaviour
 	
 	void TurnWheel()
 	{
-		this.transform.localRotation = Quaternion.AngleAxis(this.carParameters.GetTurn() * this.carParameters.GetMaxTurnAngle(), Vector3.up);
+		this.transform.localRotation = Quaternion.AngleAxis(this.carParameters.GetTurn() * this.maxTurnAngle, Vector3.up);
 	}
 }

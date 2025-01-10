@@ -10,6 +10,7 @@ public class CarParameters : MonoBehaviour
 {
 	[Header("Info")]
 	[SerializeField] private string carName;
+	[SerializeField] private string brandName;
 	[SerializeField] private Sprite photo;
 	[Range(0,5)][SerializeField] private int difficulty;
 	[Range(0,5)][SerializeField] private int acceleration;
@@ -20,6 +21,7 @@ public class CarParameters : MonoBehaviour
 	[Tooltip("In M/S...because unity by default work that way")]
 	[SerializeField] private float maxSpeed = 70.0f;
 	[SerializeField] private float power = 2450.0f;
+	[SerializeField] private AnimationCurve engineCurve;
 	
 	[Header("Gears")]
 	[SerializeField] private GearsMode gearsDefaultMode = GearsMode.Secuencial;
@@ -33,32 +35,20 @@ public class CarParameters : MonoBehaviour
 	[SerializeField] private float slipStreamDistance = 350.00f;
 	[SerializeField] private float slipstreamDuration = 1.5f;
 	
+	[Header("DownForce")]
+	[SerializeField] private AnimationCurve downforceCurve;
+	
 	[Header("Boost")]
 	[SerializeField] private float maxSpeedBoost = 85.0f;
 	[SerializeField] private float boostMultiplayer = 3.0f;
 	[SerializeField] private float boostAmmountSpeed = 10.0f;
 	[SerializeField] private float boostRecoverSpeed = 0.5f;
 	
-	[Header("Turn")]
-	[SerializeField] private float maxLateralSpeed = 12.0f;
-	[SerializeField] private float maxTurnAngle = 45.0f;
-	[SerializeField] private float downforce = 3.0f;
-	
 	[Header("Brake")]
 	[SerializeField] private float brakePower = 750.0f;
 	
 	[Header("Drag")]
 	[SerializeField] private float maxDrag = 0.2f;
-	
-	[Header("Curves")]
-	[SerializeField] private AnimationCurve engineCurve;
-	[SerializeField] private AnimationCurve frontGrip;
-	[SerializeField] private AnimationCurve backGrip;
-	
-	[Header("Terrains (Less score more 'Off-road')")]
-	[Range(0.0f,1.0f)][SerializeField] private float powerStep = 1.0f;
-	[Range(0.0f,1.0f)][SerializeField] private float gripStep = 1.0f;
-	[Range(0.0f,1.0f)][SerializeField] private float backGripStep = 1.0f;
 	
 	[Header("Brake (Visual)")]
 	[SerializeField] private float brakeStrongThreshold = 0.35f;
@@ -131,7 +121,7 @@ public class CarParameters : MonoBehaviour
 	
 	void FixedUpdate()
 	{
-		carBody.AddForce(-Vector3.up * this.downforce, ForceMode.Acceleration);
+		carBody.AddForce(-Vector3.up * this.downforceCurve.Evaluate(this.GetVelocityNormalice()), ForceMode.Acceleration);
 	
 		this.UpdateBrakeTime();
 	
@@ -276,8 +266,6 @@ public class CarParameters : MonoBehaviour
 		this.carBody.linearDamping = drag;
 	}
 	
-
-	
 	//Normaly, i put the gets at the start...but there are too fucking many of them...
 	//PlayerID
 	public void SetPlayerId(int playerId)
@@ -295,6 +283,11 @@ public class CarParameters : MonoBehaviour
 	public string GetCarName()
 	{
 		return this.carName;
+	}
+	
+	public string GetBrandName()
+	{
+		return this.brandName;
 	}
 	
 	public Sprite GetPhoto()
@@ -499,16 +492,6 @@ public class CarParameters : MonoBehaviour
 		return this.maxSpeed;
 	}
 
-	public float GetMaxLateralSpeed()
-	{
-		return this.maxLateralSpeed;
-	}
-	
-	public float GetMaxTurnAngle()
-	{
-		return this.maxTurnAngle;
-	}
-
 	public float GetPower()
 	{
 		float power = this.power;
@@ -532,11 +515,6 @@ public class CarParameters : MonoBehaviour
 	public AnimationCurve GetEngineCurve()
 	{
 		return this.engineCurve;
-	}
-
-	public AnimationCurve GetGripCurve(bool back)
-	{
-		return back ? this.backGrip : this.frontGrip;
 	}
 
 	// RPM
@@ -572,22 +550,6 @@ public class CarParameters : MonoBehaviour
 	public float GetRPMDangerThresholdPercentage()
 	{
 		return this.rpmDangerThresholdPercentage;
-	}
-	
-	//Terrain
-	public float GetPowerStep()
-	{
-		return this.powerStep;
-	}
-	
-	public float GetGripStep()
-	{
-		return this.gripStep;
-	}
-	
-	public float GetBackGripStep()
-	{
-		return this.backGripStep;
 	}
 
 	// Calculated
