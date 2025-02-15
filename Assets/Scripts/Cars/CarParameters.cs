@@ -4,6 +4,7 @@ using UnityEngine;
 public enum EngineSoundPrefabs
 	{
 		SmallTurboEngine = 0,
+		AmericanV8Engine = 1,
 	}
 
 public class CarParameters : MonoBehaviour
@@ -535,7 +536,7 @@ public class CarParameters : MonoBehaviour
 		float rpmChangeRate = this.inputThrottleValue > 0 ? 0.3f : 0.05f;
 		float clutchLerpFactor = Mathf.Clamp01((this.inputClutchValue - clutchThreshold) / (1 - clutchThreshold));
 
-		if (this.inputClutchValue > clutchThreshold)
+		if (this.inputClutchValue > clutchThreshold || this.GetGrounded() == false)
 		{
 			this.simulatedRPM = Mathf.Lerp(this.simulatedRPM, this.inputThrottleValue, Time.deltaTime * rpmChangeRate);
 		}

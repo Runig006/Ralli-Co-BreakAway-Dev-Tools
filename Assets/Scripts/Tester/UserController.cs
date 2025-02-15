@@ -17,7 +17,6 @@ public class UserController : MonoBehaviour
 
 	public void Awake()
 	{
-		
 		this.carParameters = GetComponentInParent<CarParameters>();
 		this.input = GetComponent<PlayerInput>();
 		this.cameraManager = transform.parent.gameObject.GetComponentInChildren<CameraManager>();
@@ -25,8 +24,32 @@ public class UserController : MonoBehaviour
 		this.throttleInput = this.input.actions["throttle"];
 		this.brakeInput = this.input.actions["brake"];
 		this.turnInput = this.input.actions["turn"];
-		this.boostInput = this.input.actions["boost"];
+		this.boostInput = this.input.actions["boost"];	
+		
+		this.CreateParticlesWheels(this.carParameters.gameObject);	
 	}
+	
+	private void CreateParticlesWheels(GameObject car)
+	{
+		GameObject particlesParent = car.transform.Find("Particles").gameObject;
+		GameObject particle;
+		if(particlesParent == null)
+		{
+			return;
+		}
+		foreach(SuspensionPhysic suspensionPhysic in car.GetComponentsInChildren<SuspensionPhysic>())
+		{
+			float groundOffset = suspensionPhysic.GetSpringRestPosition();
+		
+			
+			particle = new GameObject(suspensionPhysic.name);
+			particle.transform.SetParent(particlesParent.transform);
+			particle.transform.position = suspensionPhysic.gameObject.transform.position - suspensionPhysic.transform.up * groundOffset;
+			particle.transform.rotation = suspensionPhysic.gameObject.transform.rotation;
+			particle.AddComponent<WheelParticles>();
+		}
+	}
+	
 	
 	// Update is called once per frame
 	public void Update()
