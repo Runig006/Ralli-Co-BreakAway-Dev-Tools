@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e507284c6830bbd4795ab49e4f1f37b8, type: 2}
+  - {fileID: 2100000, guid: d7261cb16c2498142b93bee5d579e8c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -317,8 +317,10 @@ MonoBehaviour:
   brakesLights:
   - {fileID: 2471124011742341685}
   - {fileID: 4504442214174624778}
-  frontLightMaterial: {fileID: 2100000, guid: a0a56233bbd683a4f99a187ffb447d3d, type: 2}
-  backLightMaterial: {fileID: 2100000, guid: 9d8009739c05fd644b4e9cc799715945, type: 2}
+  frontLightRender: {fileID: 1878392392009314546}
+  backLightRender: {fileID: 1878392392009314546}
+  frontLightMaterialIndex: 3
+  backLightMaterialIndex: 2
 --- !u!1 &1047798702691868940
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +504,7 @@ Transform:
   m_GameObject: {fileID: 1096169821678255674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.385, y: 0.45000005, z: 0.48999977}
+  m_LocalPosition: {x: -0.385, y: 0.45, z: 0.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -615,8 +617,8 @@ MonoBehaviour:
   hideBottomLeftUi: 1
   hideBottomRightUi: 1
   hideRemainerTimeUi: 1
-  maxRotationDamping: {x: 1, y: 5, z: 0}
-  minRotationDamping: {x: 1, y: 1, z: 0}
+  maxRotationDamping: {x: 0.1, y: 5, z: 0}
+  minRotationDamping: {x: 0.1, y: 1, z: 0}
   maxSpeedForDamping: 70
   minHeightOffset: 1.7
   maxHeightOffset: 4.5
@@ -1217,7 +1219,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2290235531784076757}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.61960787, a: 1}
@@ -2034,7 +2036,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4171734099739959158}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.61960787, a: 1}
@@ -2333,13 +2335,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4742631687907539648}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: -0.15, z: -0.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 148586199839567942}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!33 &5975652660654592904
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2371,7 +2373,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9cf4103e7a8ed7644aecb702ae4b9002, type: 2}
+  - {fileID: 2100000, guid: d7261cb16c2498142b93bee5d579e8c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2419,13 +2421,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4762746733959640695}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.15, z: -0.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 148586199839567942}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!33 &7205382592432609292
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2457,7 +2459,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9cf4103e7a8ed7644aecb702ae4b9002, type: 2}
+  - {fileID: 2100000, guid: d7261cb16c2498142b93bee5d579e8c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2543,7 +2545,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e507284c6830bbd4795ab49e4f1f37b8, type: 2}
+  - {fileID: 2100000, guid: d7261cb16c2498142b93bee5d579e8c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2611,7 +2613,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerMultiplayer: 0
   powerTerrainInfluence: 1
-  differentialMultiplier: 0
+  maxTorqueByDifferential: 2
+  minTorqueByDifferential: 0
   oppositeWheel: {fileID: 2413488266229526029}
   turnWheel: 0
   maxTurnAngle: 0
@@ -2695,13 +2698,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5460942433970008504}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -0.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 148586199839567942}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!33 &2584090747048612709
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2733,7 +2736,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9cf4103e7a8ed7644aecb702ae4b9002, type: 2}
+  - {fileID: 2100000, guid: d7261cb16c2498142b93bee5d579e8c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2801,7 +2804,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerMultiplayer: 1
   powerTerrainInfluence: 1
-  differentialMultiplier: 0
+  maxTorqueByDifferential: 2
+  minTorqueByDifferential: 0
   oppositeWheel: {fileID: 0}
   turnWheel: 1
   maxTurnAngle: 32
@@ -3148,7 +3152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed472b666e1c7b4cae3145ca2a10a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carName: Ralli (Beta)
+  carName: Party
   brandName: Tork
   photo: {fileID: 21300000, guid: 87d76b5251f2ff14d8d05d14d996f234, type: 3}
   difficulty: 2
@@ -3566,13 +3570,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6456169417887202913}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.019865736, y: -0.23, z: 0.014}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.423, y: -0.117, z: 0.236}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 148586199839567942}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &5107692713694859005
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3580,7 +3584,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6456169417887202913}
-  m_Mesh: {fileID: -1843689209865246678, guid: 01a12bb72f13e024f9f6bd3f0d79fdda, type: 3}
+  m_Mesh: {fileID: -6827640314013697367, guid: 01a12bb72f13e024f9f6bd3f0d79fdda, type: 3}
 --- !u!23 &9162540690599573949
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3604,7 +3608,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 380bb27b8184ca746b00a088d1a67f17, type: 2}
+  - {fileID: 2100000, guid: d7261cb16c2498142b93bee5d579e8c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3818,7 +3822,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e507284c6830bbd4795ab49e4f1f37b8, type: 2}
+  - {fileID: 2100000, guid: d7261cb16c2498142b93bee5d579e8c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3932,7 +3936,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerMultiplayer: 0
   powerTerrainInfluence: 1
-  differentialMultiplier: 0
+  maxTorqueByDifferential: 2
+  minTorqueByDifferential: 0
   oppositeWheel: {fileID: 741803569096599115}
   turnWheel: 0
   maxTurnAngle: 0
@@ -4660,7 +4665,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e507284c6830bbd4795ab49e4f1f37b8, type: 2}
+  - {fileID: 2100000, guid: d7261cb16c2498142b93bee5d579e8c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5026,7 +5031,7 @@ Transform:
   m_GameObject: {fileID: 8557688524880040412}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.000015020372, y: 0.22999999, z: 2.0900009}
+  m_LocalPosition: {x: 0, y: 0.23, z: 2.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5190,7 +5195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerMultiplayer: 1
   powerTerrainInfluence: 1
-  differentialMultiplier: 0
+  maxTorqueByDifferential: 2
+  minTorqueByDifferential: 0
   oppositeWheel: {fileID: 0}
   turnWheel: 1
   maxTurnAngle: 32

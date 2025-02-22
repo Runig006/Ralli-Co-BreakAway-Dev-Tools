@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Ralli Tracks.sln"
+    "dotnet.defaultSolution": "Ralli-Co-BreakAway-Dev-Tools.sln"
 }

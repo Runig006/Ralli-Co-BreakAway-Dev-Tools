@@ -5,8 +5,10 @@ public class CarLightManager : MonoBehaviour
 	CarParameters carParameters;
 	[SerializeField] Light[] frontsLight;
 	[SerializeField] Light[] brakesLights;
-	[SerializeField] Material frontLightMaterial;
-	[SerializeField] Material backLightMaterial;
+	[SerializeField] MeshRenderer frontLightRender;
+	[SerializeField] MeshRenderer backLightRender;
+	[SerializeField] int frontLightMaterialIndex;
+	[SerializeField] int backLightMaterialIndex;
 	
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
@@ -22,13 +24,13 @@ public class CarLightManager : MonoBehaviour
 		}
 		if(status)
 		{
-			frontLightMaterial.EnableKeyword("_EMISSION");
-			backLightMaterial.EnableKeyword("_EMISSION");
+			this.frontLightRender.materials[this.frontLightMaterialIndex].EnableKeyword("_EMISSION");
+			this.backLightRender.materials[this.backLightMaterialIndex].EnableKeyword("_EMISSION");
 		}
 		else
 		{
-			frontLightMaterial.DisableKeyword("_EMISSION");
-			backLightMaterial.DisableKeyword("_EMISSION");
+			this.frontLightRender.materials[this.frontLightMaterialIndex].DisableKeyword("_EMISSION");
+			this.backLightRender.materials[this.backLightMaterialIndex].DisableKeyword("_EMISSION");
 		}
 	}
 

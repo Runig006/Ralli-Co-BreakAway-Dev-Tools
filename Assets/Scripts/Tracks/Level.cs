@@ -20,6 +20,9 @@ public class Level : MonoBehaviour
 	[SerializeField] private Transform startPoint;
 	[SerializeField] private Transform endPoint;
 	[SerializeField] private SkyBoxInfo SkyBoxInfo;
+		
+	[Header("Heavy Loaders (Objects that will be activated progressively)")]
+	[SerializeField] private GameObject[] heavyLoaders;
 	
 	public void Awake()
 	{
@@ -95,5 +98,10 @@ public class Level : MonoBehaviour
 	public SkyBoxInfo GetSkyBoxInfo()
 	{
 		return this.SkyBoxInfo;
+	}
+	
+	public GameObject[] GetHeavyLoaders()
+	{
+		return this.heavyLoaders;
 	}
 }

@@ -7,7 +7,9 @@ public class SuspensionPhysic : MonoBehaviour
 	[Range(0,1)][SerializeField] private float powerMultiplayer = 0.0f;
 	[Range(0,1)][SerializeField] private float powerTerrainInfluence = 0.0f;
 	
-	[Range(0,1)][SerializeField] private float differentialMultiplier = 0.0f;
+	[Header("Diferencial")]
+	[Range(0,5)][SerializeField] private float maxTorqueByDifferential = 2.0f;
+	[Range(0,5)][SerializeField] private float minTorqueByDifferential = 0.0f;
 	[SerializeField] private SuspensionPhysic oppositeWheel;
 	
 	[Header("Turn Settings")]
@@ -76,6 +78,11 @@ public class SuspensionPhysic : MonoBehaviour
 	public float GetSideForce()
 	{
 		return this.sideForce;
+	}
+	
+	public float GetGrip()
+	{
+		return this.grip;
 	}
 	
 	public int GetSideForceDirection()
@@ -245,10 +252,16 @@ public class SuspensionPhysic : MonoBehaviour
 		{
 			float torque = this.carParameters.GetTorque() * this.carParameters.GetThrottle();
 			torque *= this.powerMultiplayer;
-			if (this.oppositeWheel != null && !this.oppositeWheel.GetGrounded())
+						
+			if (this.oppositeWheel != null)
 			{
-				torque *= this.differentialMultiplier;
+				float oppositeGrip = this.oppositeWheel.grip;
+				float totalGrip = this.grip + this.oppositeWheel.GetGrip() + 0.001f;
+				float gripRatio = this.grip / totalGrip;
+				
+				torque *= Mathf.Lerp(this.maxTorqueByDifferential, this.minTorqueByDifferential, gripRatio);
 			}
+			
 			this.carBody.AddForceAtPosition(this.grip * torque * this.transform.forward * this.GetPowerMultipler(), this.transform.position);
 		}
 	}

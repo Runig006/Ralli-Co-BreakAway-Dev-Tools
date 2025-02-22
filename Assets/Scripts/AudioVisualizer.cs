@@ -32,7 +32,7 @@ public class AudioVisualizer : MonoBehaviour
 		this.PrecomputeRanges();
 	}
 	
-	 void PrecomputeRanges()
+	void PrecomputeRanges()
 	{
 		precomputedRanges[0] = ComputeRange(0, 10);
 		precomputedRanges[1] = ComputeRange(10, 40);
