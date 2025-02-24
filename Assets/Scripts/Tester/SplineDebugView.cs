@@ -7,10 +7,6 @@ public class SplineDebugView : MonoBehaviour
 {
 	[SerializeField] private SplineContainer splineContainer;
 	[SerializeField] private float speed = 5f;
-	[SerializeField] private float hoverOffset = 1.25f;
-	[SerializeField] private float maxHeightDifference =  0.08f;
-	[SerializeField] private float interpolationSpeed = 25f;
-	[SerializeField] private LayerMask floorLayerMask;
 
 	[Header("Debug variables")]
 	public float differenceBetweenFloor; // Debug variable
@@ -20,9 +16,16 @@ public class SplineDebugView : MonoBehaviour
 	private float previousHeight;
 	
 	private GameObject debugCube;
-	private Vector3[] raycastPoints = new Vector3[4];
-	private float maxRaycastDistance = 20f;
 	private Camera debugCamera;
+
+	private LayerMask floorLayerMask;
+
+	private Vector3[] raycastPoints = new Vector3[4];
+	private float hoverOffset = 1.25f;
+	private float interpolationSpeed = 20f;
+	
+	private float rayCastAddedHeight = 5.0f;
+	private float maxRaycastDistance = 10f;
 
 	void Start()
 	{
@@ -31,18 +34,22 @@ public class SplineDebugView : MonoBehaviour
 			this.splineContainer = GetComponent<SplineContainer>();
 			return;
 		}
+
+		this.floorLayerMask = LayerMask.GetMask("Track");
 		
 		// Create the Debug Cube
 		this.debugCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		this.debugCube.transform.SetParent(transform);
-		this.debugCube.transform.localScale = Vector3.one;
+		this.debugCube.transform.localScale = new Vector3(1.5f,1.2f,3.7f);
 		this.debugCube.GetComponent<Renderer>().material.color = Color.red;
 		
 		// Create the Debug Camera
 		this.debugCamera = new GameObject("DebugCamera").AddComponent<Camera>();
-		this.debugCamera.transform.SetParent(this.debugCube.transform);
-		this.debugCamera.transform.localPosition = new Vector3(0, 2, -5);
-		this.debugCamera.transform.LookAt(this.debugCube.transform);
+		this.debugCamera.transform.SetParent(this.transform);
+		this.debugCamera.transform.localPosition = new Vector3(0, 2.5f, -6);
+		
+
+		this.debugCamera.transform.rotation = Quaternion.Euler(new Vector3(14f,0f,0f));
 		
 		// Prepare
 		this.previousHeight = this.transform.position.y;
@@ -78,7 +85,11 @@ public class SplineDebugView : MonoBehaviour
 	{
 		(Vector3 position, Vector3 tangent, Vector3 groundNormal) = this.GetAllInfoFromPosition(this.splineContainer, this.progress);
 		
-		this.transform.rotation = Quaternion.LookRotation(tangent, groundNormal);
+		Quaternion targetRotation = Quaternion.LookRotation(tangent, groundNormal);
+		Vector3 eulerRotation = targetRotation.eulerAngles;
+		eulerRotation.z = this.transform.rotation.eulerAngles.z;
+		this.transform.rotation = Quaternion.Euler(eulerRotation);
+
 		this.AdjustHeightToGround(position);
 	}
 
@@ -105,17 +116,15 @@ public class SplineDebugView : MonoBehaviour
 	{
 		RaycastHit hit;
 		Vector3 averageNormal = Vector3.zero;
-		Vector3 originalPosition = position;
 		
 		float averageHeight = 0f;
 		int hitCount = 0;
-
-
+		
 		//Find the points
 		foreach (Vector3 localPoint in this.raycastPoints)
 		{
-			Vector3 worldPoint = this.debugCube.transform.TransformPoint(localPoint);
-			if (Physics.Raycast(worldPoint + Vector3.up * 5f, Vector3.down, out hit, this.maxRaycastDistance, this.floorLayerMask))
+			Vector3 worldPoint = this.transform.TransformPoint(localPoint);
+			if (Physics.Raycast(worldPoint + Vector3.up * this.rayCastAddedHeight, Vector3.down, out hit, this.maxRaycastDistance, this.floorLayerMask))
 			{
 				Debug.DrawRay(hit.point, hit.normal * 2f, Color.blue);
 				averageNormal += hit.normal;
@@ -128,40 +137,32 @@ public class SplineDebugView : MonoBehaviour
 		{
 			// Normalize the floor
 			averageNormal.Normalize();
+			Debug.DrawRay(transform.position, averageNormal * 2f, Color.green);
+
 			averageHeight /= hitCount;
 			
-			//For Debug
-			this.differenceBetweenFloor = Mathf.Abs(this.debugCube.transform.position.y - averageHeight);
-			this.differenceBetweenFloorSpline = Mathf.Abs(position.y - averageHeight);
-			
-			float desiredHeight = averageHeight + this.hoverOffset;
-			
-			//If we are to low from the spliter
-			if (position.y > desiredHeight + 1.0f)
+			float desiredHeight = averageHeight + this.hoverOffset;	
+					
+			//If we are too low from the spline
+			if (desiredHeight < position.y - 1.0f)
 			{
 				desiredHeight = position.y;
 			}
-			//To much distance for the floor
-			else if (this.differenceBetweenFloor > this.hoverOffset + this.maxHeightDifference)
+			//We are too high for the spline
+			else if	(desiredHeight > position.y + 5.0f)
 			{
-				desiredHeight -=  (this.differenceBetweenFloor - this.hoverOffset);
+				desiredHeight = position.y;
 			}
+			
 			// Move it like it is a newborn
 			position.y = Mathf.Lerp(this.previousHeight, desiredHeight, Time.deltaTime * this.interpolationSpeed);
 			this.transform.position = position;
 
 
 			///////////////////////ROLL///////////////////////////////
-			// Make the roll
-			Vector3 currentEuler = transform.rotation.eulerAngles;
+			Quaternion targetRotation = Quaternion.LookRotation(transform.forward, averageNormal);
+			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * this.interpolationSpeed);
 
-			// Get the euler
-			Quaternion targetRotation = Quaternion.FromToRotation(Vector3.up, averageNormal);
-			Vector3 targetEuler = targetRotation.eulerAngles;
-
-			// Create a custom Euler
-			targetEuler = new Vector3(currentEuler.x, currentEuler.y, targetEuler.z);
-			transform.rotation = Quaternion.Slerp(Quaternion.Euler(currentEuler), Quaternion.Euler(targetEuler), Time.deltaTime * 5f);
 		}
 		else
 		{
