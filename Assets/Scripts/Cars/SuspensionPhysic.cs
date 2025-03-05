@@ -163,7 +163,7 @@ public class SuspensionPhysic : MonoBehaviour
 	{
 		this.carParameters = GetComponentInParent<CarParameters>();
 		this.carBody = this.carParameters.GetCarBody();
-		this.wheel = this.carParameters.transform.Find("Wheels").Find(this.name);
+		this.wheel = this.carParameters.transform.Find("Wheels")?.Find(this.name);
 	}
 	
 	void FixedUpdate()

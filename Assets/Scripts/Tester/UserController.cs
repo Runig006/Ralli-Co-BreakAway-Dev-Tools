@@ -31,7 +31,7 @@ public class UserController : MonoBehaviour
 	
 	private void CreateParticlesWheels(GameObject car)
 	{
-		GameObject particlesParent = car.transform.Find("Particles").gameObject;
+		GameObject particlesParent = car.transform.Find("Particles")?.gameObject;
 		GameObject particle;
 		if(particlesParent == null)
 		{

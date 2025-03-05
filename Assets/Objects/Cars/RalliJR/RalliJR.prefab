@@ -1079,7 +1079,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1457207229416570196}
   - {fileID: 2782712933964549361}
   - {fileID: 4302729724986207160}
   - {fileID: 3738095527717096485}
@@ -1904,11 +1903,11 @@ Transform:
   m_GameObject: {fileID: 3785932928272703235}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.23, z: 1.05}
+  m_LocalPosition: {x: 0, y: -0.23, z: 1.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6614310473887699838}
+  m_Father: {fileID: 5017151291724231190}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4065848181095954585
 GameObject:
@@ -3104,6 +3103,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7885338699989269784}
+  - {fileID: 1457207229416570196}
   - {fileID: 6614310473887699838}
   - {fileID: 2743123465077880437}
   - {fileID: 2885589312115426714}
@@ -3159,6 +3159,7 @@ MonoBehaviour:
   acceleration: 3
   topSpeed: 3
   handling: 3
+  centermass: {fileID: 1457207229416570196}
   maxSpeed: 70
   power: 4200
   engineCurve:
