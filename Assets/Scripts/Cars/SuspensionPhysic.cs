@@ -167,7 +167,7 @@ public class SuspensionPhysic : MonoBehaviour
 	}
 	
 	void FixedUpdate()
-	{		
+	{	
 		this.RotateWheelSpeed();
 		if(this.turnWheel)
 		{
@@ -297,6 +297,10 @@ public class SuspensionPhysic : MonoBehaviour
 	// Animations
 	void MoveVerticalWheel()
 	{
+		if(this.wheel == null)
+		{
+		    return;
+		}
 		Vector3 newPosition = this.wheel.localPosition;
 		newPosition.y = (this.hitFloor.distance - this.wheelRadius) * -1;
 		if(newPosition.y <= this.wheelMinY)
@@ -312,6 +316,10 @@ public class SuspensionPhysic : MonoBehaviour
 	
 	void RotateWheelSpeed()
 	{
+		if(this.wheel == null)
+		{
+		    return;
+		}
 		float wheelCircumference = 2 * Mathf.PI * this.wheelRadius;
 		float rotationIncrement = (this.carParameters.GetForwardVelocity() / wheelCircumference) * 360 * Time.deltaTime;
 		this.currentWheelRotation += rotationIncrement;

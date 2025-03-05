@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
+    Enabled: 1
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
@@ -3203,9 +3203,9 @@ MonoBehaviour:
   - 1.3
   - 1
   clutchDelay: 0.2
-  maxSpeedSlip: 76
+  maxSpeedSlip: 78
   slipMultiplayer: 1.3
-  slipStreamDistance: 40
+  slipStreamDistance: 50
   slipstreamDuration: 1.5
   downforceCurve:
     serializedVersion: 2
@@ -5050,7 +5050,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
+    Enabled: 1
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2

@@ -18,6 +18,10 @@ public class CarParameters : MonoBehaviour
 	[Range(0,5)][SerializeField] private int topSpeed;
 	[Range(0,5)][SerializeField] private int handling;
 	
+	
+	[Header("Physic")]
+	[SerializeField] Transform centermass;
+	
 	[Header("Power")]
 	[Tooltip("In M/S...because unity by default work that way")]
 	[SerializeField] private float maxSpeed = 70.0f;
@@ -65,8 +69,6 @@ public class CarParameters : MonoBehaviour
 	[SerializeField] private int minRPM;
 	[SerializeField] private int maxRPM;
 	[SerializeField] private float rpmDangerThresholdPercentage = 0.8f;
-	
-	private Transform centermass;
 	private LayerMask layerMaskDrivable;
 
 	//InputValues
@@ -111,7 +113,6 @@ public class CarParameters : MonoBehaviour
 		this.suspensions = GetComponentsInChildren<SuspensionPhysic>();
 		this.carBody = GetComponent<Rigidbody>();
 		
-		this.centermass =  transform.Find("Body").Find("CenterOfMass").transform;
 		this.carBody.centerOfMass = this.centermass.localPosition;
 		
 		this.RPMMultiplier = this.maxRPM - this.minRPM;
