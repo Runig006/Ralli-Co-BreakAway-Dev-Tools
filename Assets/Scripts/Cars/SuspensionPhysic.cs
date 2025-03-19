@@ -141,9 +141,23 @@ public class SuspensionPhysic : MonoBehaviour
 	{
 		if(this.currentTerrain)
 		{
+			if(this.currentTerrain.GetPowerMultipler() > 1.0f) //If is MORE than normal...all cars should be affected
+			{
+			    return this.currentTerrain.GetPowerMultipler();
+			}
 			return Mathf.Lerp(1, this.currentTerrain.GetPowerMultipler(), this.powerTerrainInfluence);
 		}else{
 			return 1;
+		}
+	}
+	
+	public float GetResitanceMultipler()
+	{
+		if(this.currentTerrain)
+		{
+			return Mathf.Lerp(0, this.currentTerrain.GetResistanceMultipler(), this.powerTerrainInfluence);
+		}else{
+			return 0.0f;
 		}
 	}
 	
@@ -151,6 +165,10 @@ public class SuspensionPhysic : MonoBehaviour
 	{
 		if(this.currentTerrain)
 		{
+			if(this.currentTerrain.GetGripMultipler() > 1.0f) //If is MORE than normal...all cars should be affected
+			{
+			    return this.currentTerrain.GetGripMultipler();
+			}
 			return Mathf.Lerp(1, this.currentTerrain.GetGripMultipler(), this.gripTerrainInfluence);
 		}else
 		{
@@ -198,8 +216,7 @@ public class SuspensionPhysic : MonoBehaviour
 			
 			this.suspensionForce = netForce;
 			this.suspensionForceNormalice = Mathf.Clamp(suspensionForce / this.springStiff * this.springMaxTravel, -1f, 1f);
-			
-			
+
 			this.carBody.AddForceAtPosition(netForce * this.transform.up, this.transform.position);
 		}
 		
@@ -263,6 +280,12 @@ public class SuspensionPhysic : MonoBehaviour
 			}
 			
 			this.carBody.AddForceAtPosition(this.grip * torque * this.transform.forward * this.GetPowerMultipler(), this.transform.position);
+		}
+		
+		if(this.GetResitanceMultipler() > 0.0f && this.carParameters.GetForwardVelocity() > 5.0f){
+			Vector3 wheelVelocity = this.carBody.GetPointVelocity(this.transform.position);
+			Vector3 resistanceForce = -wheelVelocity.normalized * this.GetResitanceMultipler() * wheelVelocity.magnitude;
+			this.carBody.AddForceAtPosition(resistanceForce, this.transform.position, ForceMode.Acceleration);
 		}
 	}
 	

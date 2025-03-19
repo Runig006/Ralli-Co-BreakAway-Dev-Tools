@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Splines;
+using System.Collections;
 
 public class Level : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class Level : MonoBehaviour
 		{
 			this.SkyBoxInfo = this.GetComponent<SkyBoxInfo>();
 		}
+		
+		this.StartCoroutine(ActivateHeavyLoadersInSteps());
 	}
 	
 	public string GetName()
@@ -103,5 +106,24 @@ public class Level : MonoBehaviour
 	public GameObject[] GetHeavyLoaders()
 	{
 		return this.heavyLoaders;
+	}
+	
+	IEnumerator ActivateHeavyLoadersInSteps()
+	{
+		yield return new WaitForSeconds(0.1f);
+		GameObject[] heavyLoaders = this.GetHeavyLoaders();
+		if (heavyLoaders == null || heavyLoaders.Length == 0) 
+		{ 
+			yield break;
+		}
+
+		foreach (GameObject obj in heavyLoaders)
+		{
+			if (obj != null)
+			{
+				obj.SetActive(true);
+				yield return null;
+			}
+		}
 	}
 }

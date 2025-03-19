@@ -1,11 +1,13 @@
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
+using Random = UnityEngine.Random;
 
 
 public class SplineDebugView : MonoBehaviour
 {
 	[SerializeField] private SplineContainer splineContainer;
+	[SerializeField] private int splineIndex = 0;
 	[SerializeField] private float speed = 5f;
 
 	[Header("Debug variables")]
@@ -26,6 +28,9 @@ public class SplineDebugView : MonoBehaviour
 	
 	private float rayCastAddedHeight = 5.0f;
 	private float maxRaycastDistance = 10f;
+	
+	private SplineContainer initialSplineContainer;
+    private int initialSplineIndex;
 
 	void Start()
 	{
@@ -54,6 +59,9 @@ public class SplineDebugView : MonoBehaviour
 		// Prepare
 		this.previousHeight = this.transform.position.y;
 		this.BuildPoints();
+		
+		this.initialSplineContainer = this.splineContainer;
+		this.initialSplineIndex = this.splineIndex;
 	}
 
 	void Update()
@@ -64,11 +72,36 @@ public class SplineDebugView : MonoBehaviour
 		
 		this.progress += (this.speed * Time.deltaTime) / this.splineContainer.Splines[0].GetLength();
 		if (this.progress > 1.0f) {
+			this.splineContainer = this.FindNearbySplineContainer();
+			this.splineIndex = Random.Range(0,this.splineContainer.Splines.Count);
 			this.progress = 0.0f;
 		}
 		
 		this.UpdatePosition();
 	}
+	
+	private SplineContainer FindNearbySplineContainer()
+    {
+        SplineContainer[] allSplines = FindObjectsByType<SplineContainer>(FindObjectsSortMode.None);
+        float closestDistance = 20.0f;
+        SplineContainer closestSpline = null;
+
+        foreach (SplineContainer spline in allSplines)
+        {
+            if (spline == this.splineContainer) continue;
+            
+            Vector3 startPoint = spline.transform.TransformPoint(spline.Splines[0][0].Position);
+            float distance = Vector3.Distance(this.transform.position, startPoint);
+            
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestSpline = spline;
+            }
+        }
+        
+        return closestSpline ?? this.initialSplineContainer;
+    }
 
 
 	private void BuildPoints()
@@ -99,7 +132,7 @@ public class SplineDebugView : MonoBehaviour
 		RaycastHit hit;
 		float3 position3, tangent3, up3;
 		
-		splineContainer.Evaluate(splineContainer.Splines[0], progress, out position3, out tangent3, out up3);
+		splineContainer.Evaluate(splineContainer.Splines[this.splineIndex], progress, out position3, out tangent3, out up3);
 		
 		position = new Vector3(position3.x, position3.y, position3.z);
 		tangent = new Vector3(tangent3.x, tangent3.y, tangent3.z);

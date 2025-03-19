@@ -4,6 +4,7 @@ public class TerrainInfo : MonoBehaviour
 {
 	[SerializeField] private float powerMultipler = 1.0f;
 	[SerializeField] private float gripMultiplier = 1.0f;
+	[SerializeField] private float resistanceMultipler = 0.0f;
 	[SerializeField] private bool enableDriftSound = true; 
 	[SerializeField] private GameObject driftGameObject; 	
 	[SerializeField] private GameObject dustGameObject; 	
@@ -16,6 +17,11 @@ public class TerrainInfo : MonoBehaviour
 	{
 		return this.powerMultipler;
 	}
+	
+	public float GetResistanceMultipler()
+	{
+		return this.resistanceMultipler;
+	} 
 	
 	public float GetGripMultipler()
 	{

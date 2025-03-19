@@ -8,9 +8,9 @@ public class SkyBoxInfo : MonoBehaviour
 	
 	[SerializeField][Range(0, 24.0f)] private float hour = 11.0f;
 	
-	[SerializeField] private Color TopColor = new Color(4,107,255);
-	[SerializeField] private Color MiddleColor = new Color(172,225,235);
-	[SerializeField] private Color BottomColor = new Color(3,72,102);
+	[SerializeField] private Color TopColor = new Color(0.02f, 0.42f, 1.00f);
+	[SerializeField] private Color MiddleColor = new Color(0.67f, 0.88f, 0.92f);
+	[SerializeField] private Color BottomColor = new Color(0.01f, 0.28f, 0.40f);
 	
 	[SerializeField] private float TopExponent = 1.0f;
 	[SerializeField] private float BottomExponent = 1.0f;
@@ -20,35 +20,45 @@ public class SkyBoxInfo : MonoBehaviour
 	[SerializeField] private bool starsEnabled = true;
 	[SerializeField] private bool cloudsEnabled = true;
 
-	[Header("Sun / Details")]
+	[Header("Sun")]
 	[SerializeField] private float sunSize = 1.0f;
 	[SerializeField] private float sunHalo = 1.0f;
-	[SerializeField] private Color sunTintColor = new Color(192,192,192);
-	[SerializeField] private Color sunLightColor = new Color(156,195,211);
+	[SerializeField] private Color sunTintColor = new Color(0.75f, 0.75f, 0.75f);
+	[SerializeField] private Color sunLightColor = new Color(0.61f, 0.76f, 0.83f);
 	[SerializeField] private float sunLightIntensity = 1.0f;
 	[SerializeField] private float sunAltitude = 45f;
 	[SerializeField] private float sunLongitude = 0f;
 	[SerializeField] private bool sunFlare = true;
 	[SerializeField] private float sunFlareIntensity = 1.0f;
 
-	[Header("Moon / Details")]
+	[Header("Moon")]
 	[SerializeField] private float moonSize = 1.0f;
 	[SerializeField] private float moonHalo = 1.0f;
-	[SerializeField] private Color moonTintColor = new Color(125,141,155);
-	[SerializeField] private Color moonLightColor = new Color(3,111,200);
+	[SerializeField] private Color moonTintColor = new Color(0.49f, 0.55f, 0.6f);
+	[SerializeField] private Color moonLightColor = new Color(0.01f, 0.43f, 0.78f);
 	[SerializeField] private float moonLightIntensity = 1.0f;
 	[SerializeField] private float moonAltitude = 45f;
 	[SerializeField] private float moonLongitude = 0f;
 	[SerializeField] private bool moonFlare = true;
 	[SerializeField] private float moonFlareIntensity = 1.0f;
-
-	[Header("Advanced")]
-	[SerializeField] private Cubemap CloudsCubemap = null;
-	[SerializeField] private Cubemap starsCubemap = null;
 	
-	public void Start()
-	{
-	}
+	[Header("Clouds")]
+	[SerializeField] private Color cloudTint = new Color(0.5f,0.5f,0.5f);
+	[SerializeField] [Range(-0.75f, 0.75f)] private float cloudHeight = 0;
+	[SerializeField] [Range(0, 360f)] private float cloudRotation = 0;
+	
+	
+	[Header("Stars")]
+	[SerializeField] private Color starsTint = new Color(0.5f,0.5f,0.5f);
+	[SerializeField] [Range(0f, 10f)] private float starsExtinction = 2f;
+	[SerializeField] [Range(0f, 25f)] private float starsTwinklingSpeed = 10f;
+	
+
+	[Header("Textures")]
+	[SerializeField] private Texture2D sunTextureOverride = null;
+	[SerializeField] private Texture2D moonTextureOverride = null;
+	[SerializeField] private Cubemap cloudsCubemap = null;
+	[SerializeField] private Cubemap starsCubemap = null;
 
 	// Getters
 	public float GetTransactionSeconds()
@@ -200,21 +210,54 @@ public class SkyBoxInfo : MonoBehaviour
 	{
 		return moonFlareIntensity;
 	}
-
-	public Cubemap GetCloudsCubemap()
+	
+	public Color GetCloudTint()
 	{
-		return CloudsCubemap;
+	    return cloudTint;
+	}
+	
+	public float GetCloudHeight()
+	{
+	    return cloudHeight;
+	}
+	
+	public float GetCloudRotation()
+	{
+	    return cloudRotation;
+	}
+	
+	public Color GetStarsTint()
+	{
+	    return starsTint;
+	}
+	
+	public float GetStarsExtinction()
+	{
+	    return starsExtinction;
+	}
+	
+	public float GetStarsTwinklingSpeed()
+	{
+	    return starsTwinklingSpeed;
+	}
+
+	public Texture2D GetSunTexture()
+	{
+		return this.sunTextureOverride;
+	}
+	
+	public Texture2D GetMoonTexture()
+	{
+		return this.moonTextureOverride;
 	}
 
 	public Cubemap GetStarsCubemap()
 	{
-		return starsCubemap;
+		return this.starsCubemap;
 	}
-	
-	
-	
-	void OnTriggerEnter(Collider collider)
+
+	public Cubemap GetCloudsCubemap()
 	{
-		
+		return this.cloudsCubemap;
 	}
 }
