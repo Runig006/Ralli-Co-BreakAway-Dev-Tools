@@ -13,10 +13,12 @@ public class CameraPosition : MonoBehaviour
 	[SerializeField] bool hideRemainerTimeUi;
 	
 	[Header("Options for Cinemachine Follow")]
+	[Header("This is ONLY for the rotation of the camera. Less speed, more rotation")]
 	[SerializeField] private Vector3 maxRotationDamping = new Vector3(1.0f,5.0f,0.0f);
 	[SerializeField] private Vector3 minRotationDamping = new Vector3(1.0f,1.0f,0.0f);
 	[SerializeField] private float maxSpeedForDamping = 70.0f;
 	
+	[Header("Used when the car is in a slope")]
 	[SerializeField] private float minHeightOffset = 1.7f;
 	[SerializeField] private float maxHeightOffset = 4.5f;
 	

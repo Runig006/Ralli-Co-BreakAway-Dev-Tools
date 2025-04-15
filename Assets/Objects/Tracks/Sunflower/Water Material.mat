@@ -123,7 +123,7 @@ Material:
     - _WaveStrength: 1
     - _Wave_Height: 5
     - _Wave_Speed: 0.1
-    - _Wave_Strenght: 10
+    - _Wave_Strenght: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:

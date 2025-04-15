@@ -10,6 +10,7 @@ public class SplineDebugView : MonoBehaviour
 	[SerializeField] private int splineIndex = 0;
 	[SerializeField] private float speed = 5f;
 	[SerializeField] private float currentLane = 0;
+	[SerializeField] private bool evenLaneNumber = false;
 
 	[Header("Debug variables")]
 	public float differenceBetweenFloor; // Debug variable
@@ -117,7 +118,7 @@ public class SplineDebugView : MonoBehaviour
 	// Move it
 	private void UpdatePosition()
 	{
-		float offsetByLane = this.currentLane * 4.3f;
+		float offsetByLane = this.GetTotalOffsetByLane();
 		(Vector3 position, Vector3 tangent, Vector3 groundNormal) = this.GetAllInfoFromPosition(this.splineContainer, this.progress);
 		position += Vector3.Cross(groundNormal, tangent).normalized * offsetByLane;		
 		
@@ -129,6 +130,16 @@ public class SplineDebugView : MonoBehaviour
 		this.transform.rotation = Quaternion.Euler(eulerRotation);
 
 		this.AdjustHeightToGround(position);
+	}
+	
+	private float GetTotalOffsetByLane()
+	{
+		float total = Mathf.Abs(this.currentLane) * 4.3f;
+		if(this.evenLaneNumber == true)
+		{
+		    total-=2.15f;
+		}
+		return total * Mathf.Sign(this.currentLane);
 	}
 
 	private (Vector3, Vector3, Vector3) GetAllInfoFromPosition(SplineContainer container, float progress)

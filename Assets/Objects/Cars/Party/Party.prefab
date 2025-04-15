@@ -319,8 +319,8 @@ MonoBehaviour:
   - {fileID: 4504442214174624778}
   frontLightRender: {fileID: 1878392392009314546}
   backLightRender: {fileID: 1878392392009314546}
-  frontLightMaterialIndex: 3
-  backLightMaterialIndex: 2
+  frontLightMaterialIndex: 2
+  backLightMaterialIndex: 1
 --- !u!1 &1047798702691868940
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,7 +945,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2273027394312666398}
-  m_Mesh: {fileID: 2631050608377908652, guid: d5915245dd5e3cc428f7ec3ce5cc7b57, type: 3}
+  m_Mesh: {fileID: 2631050608377908652, guid: fd5ab8b2fcc6aae449d479354b7a3838, type: 3}
 --- !u!23 &1878392392009314546
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -969,14 +969,12 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3584fa31e286f584ba4854b735c59e63, type: 2}
-  - {fileID: 2100000, guid: 30398fd9eb492cd47bbeae88060b5279, type: 2}
-  - {fileID: 2100000, guid: 9d8009739c05fd644b4e9cc799715945, type: 2}
-  - {fileID: 2100000, guid: a0a56233bbd683a4f99a187ffb447d3d, type: 2}
-  - {fileID: 2100000, guid: ecde51156d84b1040a4200e100972b6a, type: 2}
-  - {fileID: 2100000, guid: aa597e95a3bbc464485a5ab137bf1569, type: 2}
-  - {fileID: 2100000, guid: bce781b53e60be341867f7fa1cf67272, type: 2}
+  - {fileID: 2100000, guid: d7261cb16c2498142b93bee5d579e8c2, type: 2}
+  - {fileID: 2100000, guid: d2693e17e6edce946892ce8c3fab8138, type: 2}
+  - {fileID: 2100000, guid: d2693e17e6edce946892ce8c3fab8138, type: 2}
   - {fileID: 2100000, guid: 1f3fc86d22abaad46a1b845f2cf152b9, type: 2}
+  - {fileID: 2100000, guid: de7033bd709d5a84aa9c233a2fa11a62, type: 2}
+  - {fileID: 2100000, guid: aa597e95a3bbc464485a5ab137bf1569, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1550,7 +1548,7 @@ Camera:
   m_GameObject: {fileID: 3454590109030498706}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1573,11 +1571,11 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 250
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -100
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1589,7 +1587,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 0
+  m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!114 &7581518330140604905
@@ -4011,7 +4009,7 @@ Camera:
   m_GameObject: {fileID: 6566069219572375590}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -4034,11 +4032,11 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 250
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -100
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -4050,7 +4048,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 0
+  m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!114 &5151693457948264130
