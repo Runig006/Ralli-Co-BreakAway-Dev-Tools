@@ -54,7 +54,10 @@ public class CarParameters : MonoBehaviour
 	[SerializeField] private float brakePower = 750.0f;
 	
 	[Header("Drag")]
+	[Tooltip("Used as a 'Engine Brake' when the boost is burned, the player is off the throttle")]
 	[SerializeField] private float maxDrag = 0.2f;
+	[Tooltip("Since the cars I made has angular damping to 0.2, the crash are a little 'crazy'")]
+	[SerializeField] private float crashMaxAngularDrag = 5.0f;
 	
 	[Header("Brake (Visual)")]
 	[SerializeField] private float brakeStrongThreshold = 0.35f;
@@ -89,6 +92,7 @@ public class CarParameters : MonoBehaviour
 	
 	//BoostAvaiable
 	private float boostTemperature = 0.0f;
+	private bool forcedBoostBurned = false;
 	private bool boostBurned = false;
 	private float burnCheckTimer = 0.0f;
 	private int? previousGear = null;
@@ -97,15 +101,18 @@ public class CarParameters : MonoBehaviour
 	
 	//EasyCalculate RPM
 	private int RPMMultiplier;
-	private float lastRPM = 0.0f;
-	private float lastRPMBoost = 0.0f;
 	private float simulatedRPM = 0.0f;
+	private float clutchThreshold = 0.6f;
 	
 	//Spipstream
 	private float slipstreamFactor = 1.0f;
 	private int slipStreamMask;
 	private bool isSlipstreaming = false;
 	private float slipstreamTimer = 0.0f;
+	
+	//Drag
+	private float originalDrag;
+	private float originalAngularDrag;
 	
 	//PlayerControls
 	private int playerId = 0;
@@ -114,6 +121,9 @@ public class CarParameters : MonoBehaviour
 	{
 		this.suspensions = GetComponentsInChildren<SuspensionPhysic>();
 		this.carBody = GetComponent<Rigidbody>();
+		
+		this.originalDrag = this.carBody.linearDamping;
+		this.originalAngularDrag = this.carBody.angularDamping;
 		
 		this.carBody.centerOfMass = this.centermass.localPosition;
 		
@@ -128,11 +138,30 @@ public class CarParameters : MonoBehaviour
 		this.carBody.centerOfMass = this.centermass.localPosition; //This is only in the "Debug Project"
 		carBody.AddForce(-Vector3.up * this.downforceCurve.Evaluate(this.GetVelocityNormalice()), ForceMode.Acceleration);
 	
+		this.UpdateRPM();
+	
 		this.UpdateBrakeTime();
 	
 		this.UpdateBoost();
 		this.CheckForSlipstream();
 		this.UpdateDrag();
+	}
+	
+	private void UpdateRPM()
+	{
+		float maxSpeed = this.maxSpeed;
+		float rpmChangeRate = this.inputThrottleValue > 0 ? 0.3f : 0.05f;
+		float clutchLerpFactor = Mathf.Clamp01((this.inputClutchValue - this.clutchThreshold) / (1 - this.clutchThreshold));
+
+		if (this.inputClutchValue > this.clutchThreshold)
+		{
+			this.simulatedRPM = Mathf.Lerp(this.simulatedRPM, this.inputThrottleValue, Time.deltaTime * rpmChangeRate);
+		}
+		else
+		{
+			float targetRPM = Mathf.Abs(this.GetForwardVelocity()) * this.GetGearRatio() / maxSpeed;
+			this.simulatedRPM = Mathf.Lerp(this.simulatedRPM, targetRPM, Time.deltaTime * (7 - clutchLerpFactor));
+		}
 	}
 	
 	private void UpdateBoost()
@@ -271,7 +300,7 @@ public class CarParameters : MonoBehaviour
 	
 	private void UpdateDrag()
 	{
-		float drag = 0.0f;
+		float drag = this.originalDrag;
 		
 		if (this.inputThrottleValue <= 0.1f || this.GetRPMNormalice() > 1.1f)
 		{
@@ -283,6 +312,11 @@ public class CarParameters : MonoBehaviour
 			drag = this.maxDrag;
 		}
 		this.carBody.linearDamping = drag;
+		
+		//Angular
+		if(this.carBody.angularDamping != this.originalAngularDrag){
+			this.carBody.angularDamping = Mathf.MoveTowards(this.carBody.angularDamping, this.originalAngularDrag, Time.deltaTime * (this.crashMaxAngularDrag - this.originalAngularDrag));
+		}
 	}
 	
 	//Normaly, i put the gets at the start...but there are too fucking many of them...
@@ -557,23 +591,9 @@ public class CarParameters : MonoBehaviour
 		return this.minRPM + (this.GetRPMNormalice() * this.RPMMultiplier);
 	}
 
-	public float GetRPMNormalice()
+	public float GetRPMNormalice(bool direct = false)
 	{
-		float maxSpeed = this.maxSpeed;
-		float clutchThreshold = 0.8f;
-		float rpmChangeRate = this.inputThrottleValue > 0 ? 0.3f : 0.05f;
-		float clutchLerpFactor = Mathf.Clamp01((this.inputClutchValue - clutchThreshold) / (1 - clutchThreshold));
-
-		if (this.inputClutchValue > clutchThreshold || this.GetGrounded() == false)
-		{
-			this.simulatedRPM = Mathf.Lerp(this.simulatedRPM, this.inputThrottleValue, Time.deltaTime * rpmChangeRate);
-		}
-		else
-		{
-			float targetRPM = Mathf.Abs(this.GetForwardVelocity()) * this.GetGearRatio() / maxSpeed;
-			this.simulatedRPM = Mathf.Lerp(this.simulatedRPM, targetRPM, Time.deltaTime * (1 - clutchLerpFactor));
-		}
-		return this.simulatedRPM;
+		return direct ?  Mathf.Abs(this.GetForwardVelocity()) * this.GetGearRatio() / maxSpeed : this.simulatedRPM;
 	}
 		
 	public float GetRPMDangerThresholdPercentage()
@@ -659,5 +679,10 @@ public class CarParameters : MonoBehaviour
 	public float GetAggressiveSoundLevelBoost()
 	{
 		return this.aggressiveSoundLevelBoost;
+	}
+	
+	private void OnCollisionEnter(Collision collision)
+	{
+    	this.carBody.angularDamping = Mathf.Clamp(collision.relativeVelocity.magnitude * 0.1f, this.originalAngularDrag, this.crashMaxAngularDrag);
 	}
 }

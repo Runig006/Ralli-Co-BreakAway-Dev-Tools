@@ -272,14 +272,13 @@ public class SuspensionPhysic : MonoBehaviour
 						
 			if (this.oppositeWheel != null)
 			{
-				float oppositeGrip = this.oppositeWheel.grip;
 				float totalGrip = this.grip + this.oppositeWheel.GetGrip() + 0.001f;
 				float gripRatio = this.grip / totalGrip;
 				
 				torque *= Mathf.Lerp(this.maxTorqueByDifferential, this.minTorqueByDifferential, gripRatio);
 			}
 			
-			this.carBody.AddForceAtPosition(this.grip * torque * this.transform.forward * this.GetPowerMultipler(), this.transform.position);
+			this.carBody.AddForceAtPosition(torque * this.transform.forward * this.GetPowerMultipler(), this.transform.position);
 		}
 		
 		if(this.GetResitanceMultipler() > 0.0f && this.carParameters.GetForwardVelocity() > 5.0f){

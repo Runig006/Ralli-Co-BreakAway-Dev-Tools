@@ -998,7 +998,7 @@ GameObject:
   - component: {fileID: 6614310473887699838}
   - component: {fileID: 3649470906219415859}
   - component: {fileID: 1878392392009314546}
-  - component: {fileID: 4553057243073863574}
+  - component: {fileID: 7730398416010932532}
   m_Layer: 0
   m_Name: Body
   m_TagString: PlayerRealBody
@@ -1082,14 +1082,14 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4553057243073863574
+--- !u!64 &7730398416010932532
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2273027394312666398}
-  m_Material: {fileID: 13400000, guid: 0a3d90446865275448f43e5522956e0c, type: 2}
+  m_Material: {fileID: 13400000, guid: 4901632946adf0e45af58509db402c62, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1103,7 +1103,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 3663671539952255886, guid: 72be817d693ba7c499ceed64c755f97f, type: 3}
+  m_Mesh: {fileID: -3298800115395149385, guid: 4dba06ccc70ac9547b410fd8656349c6, type: 3}
 --- !u!1 &2276487411939317389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,7 +1405,7 @@ Transform:
   m_GameObject: {fileID: 2502907802443780747}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 1.2599792}
+  m_LocalPosition: {x: 0, y: 0.5, z: 1.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2212,7 +2212,7 @@ Transform:
   m_GameObject: {fileID: 3785932928272703235}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.299, z: 0.82}
+  m_LocalPosition: {x: 0, y: -0.299, z: 0.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3023,8 +3023,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5052556394427655406}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.034767896, y: 2.090371e-15, z: -1.3603012e-16, w: 0.99939543}
-  m_LocalPosition: {x: 0, y: 1.5, z: -6.299988}
+  m_LocalRotation: {x: 0.0043337047, y: 0.0000055633677, z: -0.00000002411003, w: 0.99999064}
+  m_LocalPosition: {x: 0, y: 1.1, z: -6.299988}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3091,7 +3091,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 2, z: 0}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 1.5, z: -6.3}
+  FollowOffset: {x: 0, y: 1.1, z: -6.3}
 --- !u!114 &3166550316849147663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3184,7 +3184,7 @@ MonoBehaviour:
   maxRotationDamping: {x: 1, y: 5, z: 0}
   minRotationDamping: {x: 1, y: 1, z: 0}
   maxSpeedForDamping: 70
-  minHeightOffset: 1.7
+  minHeightOffset: 1.4
   maxHeightOffset: 4.5
 --- !u!1 &5314548009564282767
 GameObject:
@@ -3232,8 +3232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerMultiplayer: 0
   powerTerrainInfluence: 1
-  maxTorqueByDifferential: 2
-  minTorqueByDifferential: 0
+  maxTorqueByDifferential: 1
+  minTorqueByDifferential: 1
   oppositeWheel: {fileID: 2413488266229526029}
   turnWheel: 0
   maxTurnAngle: 0
@@ -3284,7 +3284,7 @@ MonoBehaviour:
   springStiff: 6500
   damping: 2275
   wheelWeight: 11
-  springRestPosition: 0.51
+  springRestPosition: 0.52
   springMaxTravel: 0.15
   wheelRadius: 0.35
   wheelMinY: -0.65
@@ -3321,7 +3321,7 @@ Transform:
   m_GameObject: {fileID: 5363544775714610196}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.385, y: 0.4, z: 0.59000003}
+  m_LocalPosition: {x: -0.38510132, y: 0.44999993, z: 0.590006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3394,7 +3394,7 @@ MonoBehaviour:
       Size: {x: 0.8, y: 0.8}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
-  TargetOffset: {x: -0.385, y: 0.4, z: 0.6}
+  TargetOffset: {x: -0.385, y: 0.45, z: 0.6}
   Damping: {x: 0, y: 0, z: 0}
   Lookahead:
     Enabled: 0
@@ -3508,29 +3508,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.3
       value: 0.85
-      inSlope: -0.3
-      outSlope: -0.3
+      inSlope: -0.11976701
+      outSlope: -0.11976701
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.1
+      inWeight: 0.9293785
       outWeight: 0.2
     - serializedVersion: 3
-      time: 0.7
-      value: 0.7
-      inSlope: -0.38445804
-      outSlope: -0.38445804
+      time: 0.7042404
+      value: 0.69651014
+      inSlope: -0.7697865
+      outSlope: -0.7697865
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.2
-      outWeight: 0.53295094
+      inWeight: 0.1488534
+      outWeight: 0.788417
     - serializedVersion: 3
-      time: 1.0084839
-      value: 0.56484985
-      inSlope: -0.05
-      outSlope: -0.05
+      time: 1
+      value: 0.53
+      inSlope: -0.1942183
+      outSlope: -0.1942183
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.3
+      inWeight: 0.5233895
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -3538,7 +3538,7 @@ MonoBehaviour:
   springStiff: 11000
   damping: 3850
   wheelWeight: 11
-  springRestPosition: 0.5
+  springRestPosition: 0.52
   springMaxTravel: 0.15
   wheelRadius: 0.35
   wheelMinY: -0.586
@@ -3784,12 +3784,12 @@ MonoBehaviour:
   carName: Party
   brandName: Tork
   photo: {fileID: 21300000, guid: 03a19c00138001042b33d697ad18682d, type: 3}
-  difficulty: 4
+  difficulty: 2
   acceleration: 5
   topSpeed: 2
   handling: 1
   centermass: {fileID: 1457207229416570196}
-  maxSpeed: 75
+  maxSpeed: 72
   power: 4200
   engineCurve:
     serializedVersion: 2
@@ -3832,17 +3832,17 @@ MonoBehaviour:
   - 1.8
   - 1.2
   - 1
-  clutchDelay: 0.2
+  clutchDelay: 0.25
   maxSpeedSlip: 80
-  slipMultiplayer: 1.3
-  slipStreamDistance: 50
+  slipMultiplayer: 1.5
+  slipStreamDistance: 75
   slipstreamDuration: 1.5
   downforceCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 12
+      value: 15
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -3851,7 +3851,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 12
+      value: 15
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -3867,6 +3867,7 @@ MonoBehaviour:
   boostRecoverSpeed: 15
   brakePower: 4350
   maxDrag: 0.2
+  crashMaxAngularDrag: 5
   brakeStrongThreshold: 0.35
   engineSoundPrefab: 0
   pitchSoundLevel: 1
@@ -4433,8 +4434,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerMultiplayer: 0
   powerTerrainInfluence: 1
-  maxTorqueByDifferential: 2
-  minTorqueByDifferential: 0
+  maxTorqueByDifferential: 1
+  minTorqueByDifferential: 1
   oppositeWheel: {fileID: 741803569096599115}
   turnWheel: 0
   maxTurnAngle: 0
@@ -4485,7 +4486,7 @@ MonoBehaviour:
   springStiff: 6500
   damping: 2275
   wheelWeight: 11
-  springRestPosition: 0.51
+  springRestPosition: 0.52
   springMaxTravel: 0.15
   wheelRadius: 0.35
   wheelMinY: -0.65
@@ -5384,29 +5385,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.3
       value: 0.85
-      inSlope: -0.3
-      outSlope: -0.3
+      inSlope: -0.11976701
+      outSlope: -0.11976701
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.1
+      inWeight: 0.9293785
       outWeight: 0.2
     - serializedVersion: 3
-      time: 0.7
-      value: 0.7
-      inSlope: -0.38445804
-      outSlope: -0.38445804
+      time: 0.7042404
+      value: 0.69651014
+      inSlope: -0.7697865
+      outSlope: -0.7697865
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.2
-      outWeight: 0.53295094
+      inWeight: 0.1488534
+      outWeight: 0.788417
     - serializedVersion: 3
-      time: 1.0084839
-      value: 0.56484985
-      inSlope: -0.05
-      outSlope: -0.05
+      time: 1
+      value: 0.53
+      inSlope: -0.1942183
+      outSlope: -0.1942183
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.3
+      inWeight: 0.5233895
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -5414,7 +5415,7 @@ MonoBehaviour:
   springStiff: 11000
   damping: 3850
   wheelWeight: 11
-  springRestPosition: 0.5
+  springRestPosition: 0.52
   springMaxTravel: 0.15
   wheelRadius: 0.35
   wheelMinY: -0.586
@@ -5757,6 +5758,10 @@ PrefabInstance:
     - target: {fileID: 3125564190649117312, guid: 2c957165aa9a4814b9e0f085ef2f1133, type: 3}
       propertyPath: m_Name
       value: Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011822006052980195, guid: 2c957165aa9a4814b9e0f085ef2f1133, type: 3}
+      propertyPath: m_SortMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6011822006052980195, guid: 2c957165aa9a4814b9e0f085ef2f1133, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -6299,6 +6304,10 @@ PrefabInstance:
     - target: {fileID: 3125564190649117312, guid: 2c957165aa9a4814b9e0f085ef2f1133, type: 3}
       propertyPath: m_Name
       value: Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011822006052980195, guid: 2c957165aa9a4814b9e0f085ef2f1133, type: 3}
+      propertyPath: m_SortMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6011822006052980195, guid: 2c957165aa9a4814b9e0f085ef2f1133, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
