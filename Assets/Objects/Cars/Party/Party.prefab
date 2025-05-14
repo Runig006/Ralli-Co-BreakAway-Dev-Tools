@@ -3321,7 +3321,7 @@ Transform:
   m_GameObject: {fileID: 5363544775714610196}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.38510132, y: 0.44999993, z: 0.590006}
+  m_LocalPosition: {x: -0.385, y: 0.45, z: 0.59000003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3499,33 +3499,33 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.20216338
+      outSlope: -0.20216338
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.1
+      outWeight: 0.32878265
     - serializedVersion: 3
       time: 0.3
       value: 0.85
-      inSlope: -0.11976701
-      outSlope: -0.11976701
+      inSlope: -0.5637527
+      outSlope: -0.5637527
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.9293785
-      outWeight: 0.2
+      inWeight: 0.09823385
+      outWeight: 0.21287514
     - serializedVersion: 3
-      time: 0.7042404
-      value: 0.69651014
-      inSlope: -0.7697865
-      outSlope: -0.7697865
+      time: 0.56
+      value: 0.65
+      inSlope: -0.5362113
+      outSlope: -0.5362113
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.1488534
-      outWeight: 0.788417
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 0.53
+      value: 0.51
       inSlope: -0.1942183
       outSlope: -0.1942183
       tangentMode: 0
@@ -3785,12 +3785,12 @@ MonoBehaviour:
   brandName: Tork
   photo: {fileID: 21300000, guid: 03a19c00138001042b33d697ad18682d, type: 3}
   difficulty: 2
-  acceleration: 5
-  topSpeed: 2
-  handling: 1
+  acceleration: 3
+  topSpeed: 3
+  handling: 3
   centermass: {fileID: 1457207229416570196}
-  maxSpeed: 72
-  power: 4200
+  maxSpeed: 70
+  power: 5000
   engineCurve:
     serializedVersion: 2
     m_Curve:
@@ -3833,7 +3833,7 @@ MonoBehaviour:
   - 1.2
   - 1
   clutchDelay: 0.25
-  maxSpeedSlip: 80
+  maxSpeedSlip: 78
   slipMultiplayer: 1.5
   slipStreamDistance: 75
   slipstreamDuration: 1.5
@@ -3865,7 +3865,7 @@ MonoBehaviour:
   boostMultiplayer: 2.2
   boostAmmountSpeed: 20
   boostRecoverSpeed: 15
-  brakePower: 4350
+  brakePower: 5000
   maxDrag: 0.2
   crashMaxAngularDrag: 5
   brakeStrongThreshold: 0.35
@@ -5376,33 +5376,33 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.20216338
+      outSlope: -0.20216338
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.1
+      outWeight: 0.32878265
     - serializedVersion: 3
       time: 0.3
       value: 0.85
-      inSlope: -0.11976701
-      outSlope: -0.11976701
+      inSlope: -0.5637527
+      outSlope: -0.5637527
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.9293785
-      outWeight: 0.2
+      inWeight: 0.09823385
+      outWeight: 0.21287514
     - serializedVersion: 3
-      time: 0.7042404
-      value: 0.69651014
-      inSlope: -0.7697865
-      outSlope: -0.7697865
+      time: 0.56
+      value: 0.65
+      inSlope: -0.5362113
+      outSlope: -0.5362113
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.1488534
-      outWeight: 0.788417
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 0.53
+      value: 0.51
       inSlope: -0.1942183
       outSlope: -0.1942183
       tangentMode: 0
