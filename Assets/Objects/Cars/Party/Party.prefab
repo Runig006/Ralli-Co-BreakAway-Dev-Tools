@@ -3237,7 +3237,7 @@ MonoBehaviour:
   oppositeWheel: {fileID: 2413488266229526029}
   turnWheel: 0
   maxTurnAngle: 0
-  gripTerrainInfluence: 1
+  gripTerrainInfluence: 0.8
   maxLateralSpeed: 36
   gripCurve:
     serializedVersion: 2
@@ -3491,7 +3491,7 @@ MonoBehaviour:
   oppositeWheel: {fileID: 1790929007576604846}
   turnWheel: 1
   maxTurnAngle: 32
-  gripTerrainInfluence: 0.5
+  gripTerrainInfluence: 0.45
   maxLateralSpeed: 36
   gripCurve:
     serializedVersion: 2
@@ -3788,6 +3788,7 @@ MonoBehaviour:
   acceleration: 3
   topSpeed: 3
   handling: 3
+  offRoad: 2
   centermass: {fileID: 1457207229416570196}
   maxSpeed: 70
   power: 5000
@@ -3833,7 +3834,7 @@ MonoBehaviour:
   - 1.2
   - 1
   clutchDelay: 0.25
-  maxSpeedSlip: 78
+  maxSpeedSlip: 80
   slipMultiplayer: 1.5
   slipStreamDistance: 75
   slipstreamDuration: 1.5
@@ -4439,7 +4440,7 @@ MonoBehaviour:
   oppositeWheel: {fileID: 741803569096599115}
   turnWheel: 0
   maxTurnAngle: 0
-  gripTerrainInfluence: 1
+  gripTerrainInfluence: 0.8
   maxLateralSpeed: 36
   gripCurve:
     serializedVersion: 2
@@ -5368,7 +5369,7 @@ MonoBehaviour:
   oppositeWheel: {fileID: 6213503037659234561}
   turnWheel: 1
   maxTurnAngle: 32
-  gripTerrainInfluence: 0.5
+  gripTerrainInfluence: 0.45
   maxLateralSpeed: 36
   gripCurve:
     serializedVersion: 2

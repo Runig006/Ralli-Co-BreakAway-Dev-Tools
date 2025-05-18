@@ -14,10 +14,11 @@ public class CarParameters : MonoBehaviour
 	[SerializeField] private string carName;
 	[SerializeField] private string brandName;
 	[SerializeField] private Sprite photo;
-	[Range(0,5)][SerializeField] private int difficulty;
-	[Range(0,5)][SerializeField] private int acceleration;
-	[Range(0,5)][SerializeField] private int topSpeed;
-	[Range(0,5)][SerializeField] private int handling;
+	[Range(0, 5)][SerializeField] private int difficulty;
+	[Range(0, 5)][SerializeField] private int acceleration;
+	[Range(0, 5)][SerializeField] private int topSpeed;
+	[Range(0, 5)][SerializeField] private int handling;
+	[Range(0, 5)][SerializeField] private int offRoad;
 	
 	
 	[Header("Physic")]
@@ -366,6 +367,11 @@ public class CarParameters : MonoBehaviour
 	public int GetHandling()
 	{
 		return this.handling;
+	}
+	
+	public int GetOffRoad()
+	{
+		return this.offRoad;
 	}
 
 	// Globals
