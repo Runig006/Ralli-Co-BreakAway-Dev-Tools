@@ -1524,6 +1524,10 @@ MonoBehaviour:
   maxSpeedForDamping: 70
   minHeightOffset: 1.7
   maxHeightOffset: 4.5
+  fovMultiplier: 0.7
+  distorsionMultiplier: 1
+  chromaticMultiplier: 1
+  shakeMultiplier: 0.5
 --- !u!1 &2712326016072983602
 GameObject:
   m_ObjectHideFlags: 0
@@ -3186,6 +3190,10 @@ MonoBehaviour:
   maxSpeedForDamping: 70
   minHeightOffset: 1.4
   maxHeightOffset: 4.5
+  fovMultiplier: 1
+  distorsionMultiplier: 1
+  chromaticMultiplier: 1
+  shakeMultiplier: 1
 --- !u!1 &5314548009564282767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3440,6 +3448,10 @@ MonoBehaviour:
   maxSpeedForDamping: 70
   minHeightOffset: 1.7
   maxHeightOffset: 4.5
+  fovMultiplier: 0.7
+  distorsionMultiplier: 1
+  chromaticMultiplier: 1
+  shakeMultiplier: 0.5
 --- !u!1 &5501590383087973453
 GameObject:
   m_ObjectHideFlags: 0
@@ -3525,7 +3537,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 0.51
+      value: 0.512
       inSlope: -0.1942183
       outSlope: -0.1942183
       tangentMode: 0
@@ -5403,7 +5415,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 0.51
+      value: 0.512
       inSlope: -0.1942183
       outSlope: -0.1942183
       tangentMode: 0

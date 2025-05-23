@@ -22,6 +22,12 @@ public class CameraPosition : MonoBehaviour
 	[Header("Used when the car is in a slope")]
 	[SerializeField] private float minHeightOffset = 1.7f;
 	[SerializeField] private float maxHeightOffset = 4.5f;
+
+	[Header("Limit the camera effects")]
+	[Range(0, 1)][SerializeField] private float fovMultiplier = 1.0f;
+	[Range(0, 1)][SerializeField] private float distorsionMultiplier = 1.0f;
+	[Range(0, 1)][SerializeField] private float chromaticMultiplier = 1.0f;
+	[Range(0, 1)][SerializeField] private float shakeMultiplier = 1.0f;
 	
 	
 	public bool GetInterior()
@@ -98,5 +104,25 @@ public class CameraPosition : MonoBehaviour
 	public float GetMaxHeightOffset()
 	{
 		return this.maxHeightOffset;
+	}
+
+	public float GetFovMultiplier()
+	{
+		return this.fovMultiplier;
+	}
+	
+	public float GetDistorsionMultiplier()
+	{
+		return this.distorsionMultiplier;
+	}
+	
+	public float GetChromaticMultiplier()
+	{
+		return this.chromaticMultiplier;
+	}
+	
+	public float GetShakeMultiplier()
+	{
+		return this.shakeMultiplier;
 	}
 }
