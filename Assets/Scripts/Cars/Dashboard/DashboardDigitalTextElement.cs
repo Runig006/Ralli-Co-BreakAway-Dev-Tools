@@ -9,7 +9,7 @@ public class DashboardDigitalTextElement : MonoBehaviour
 	
 	[SerializeField] private DashboardPrintableValuesEnum printing;
 	[Tooltip("Only for RPM, Speed and Nitro")]
-	[SerializeField] private bool normalice;
+	[SerializeField] private bool normalize;
 	[Tooltip("If you are using a timer value, specify the format for TimeSpan (e.g., \"hh:\\mm:\\ss\"). You can use a special value called arcade, (e.g, \"arcade:{2, 0}\") that will print the time as 99 to 1, the first parameter ammount of numbers, second parameter if you want 0 at the lefts or not. For other values, use ToString format")]
 	[SerializeField] private string numberFormat;
 	[SerializeField] private string prefix;
@@ -28,6 +28,11 @@ public class DashboardDigitalTextElement : MonoBehaviour
 
 	void Update()
 	{
+		if(this.scoringDetector == null)
+		{
+			return;
+		}
+	
 		string value = "";
 		switch (this.printing)
 		{
@@ -35,10 +40,10 @@ public class DashboardDigitalTextElement : MonoBehaviour
 				value = this.carParameters.GetIsInReverse() ? "R" : (this.carParameters.GetCurrentGear() + 1).ToString();
 				break;
 			case DashboardPrintableValuesEnum.rpm:
-				value = this.normalice ? this.carParameters.GetRPMNormalice().ToString(this.numberFormat, CultureInfo.InvariantCulture) : this.carParameters.GetFakeRPM().ToString(this.numberFormat, CultureInfo.InvariantCulture);
+				value = this.normalize ? this.carParameters.GetRPMNormalize().ToString(this.numberFormat, CultureInfo.InvariantCulture) : this.carParameters.GetFakeRPM().ToString(this.numberFormat, CultureInfo.InvariantCulture);
 				break;
 			case DashboardPrintableValuesEnum.speed:
-				value = this.normalice ? this.carParameters.GetVelocityNormalice().ToString(this.numberFormat, CultureInfo.InvariantCulture) : MathF.Abs(this.carParameters.GetForwardVelocity() * 3.6f).ToString(this.numberFormat, CultureInfo.InvariantCulture);
+				value = this.normalize ? this.carParameters.GetVelocityNormalize().ToString(this.numberFormat, CultureInfo.InvariantCulture) : MathF.Abs(this.carParameters.GetForwardVelocity() * 3.6f).ToString(this.numberFormat, CultureInfo.InvariantCulture);
 				break;
 			case DashboardPrintableValuesEnum.nitro:
 				value = this.carParameters.GetBoostTemperature().ToString(this.numberFormat, CultureInfo.InvariantCulture);

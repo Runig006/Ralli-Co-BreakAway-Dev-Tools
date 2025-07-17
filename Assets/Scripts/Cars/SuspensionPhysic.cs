@@ -24,21 +24,12 @@ public class SuspensionPhysic : MonoBehaviour
 	[Header("Suspension Settings")]
 	[SerializeField] private float springStiff = 1250.0f;
 	[SerializeField] private float damping = 850.0f;	
-	[SerializeField] private float wheelWeight = 5.0f;
+	[SerializeField] private float lateralForceMultiplayer = 11.0f;
 	
 	[Header("Suspension Settings Height")]
 	[SerializeField] private float springRestPosition = 0.15f;
 	[SerializeField] private float springMaxTravel = 0.25f;
-	[SerializeField] private float wheelRadius = 0.4f;
-	
-	[Header("Suspension Settings (Only Visual)")]
-	[SerializeField] private float wheelMinY = 0.00f;
-	[SerializeField] private float wheelMaxY = 0.00f;
-	[SerializeField] private bool useThisForDriftAudio = false;
-	[SerializeField] private Transform wheel = null;
-	
-	[Header("Drift")]
-	[Range(0,1)][SerializeField] private float driftMinSideForce = 0.5f;
+	[SerializeField] private float floorOffset = 0.4f;
 	
 	//Others
 	private CarParameters carParameters;
@@ -46,18 +37,18 @@ public class SuspensionPhysic : MonoBehaviour
 	
 	private float grip;
 	
-
 	private float currentWheelRotation = 0;
 	
 	private bool isGrounded = true;
-	private bool terrainFound = false;
 	private RaycastHit hitFloor;
 	
 	private float sideForce;
+	private float sideForceNormalize;
 	private int sideForceDirection;
 	
-	private float suspensionForce;
-	private float suspensionForceNormalice;
+	private float currentSuspensionForce;
+	private float currentSpringLenght;
+	private float normalizedSpringLength;
 	
 	private TerrainInfo currentTerrain;
 	
@@ -74,14 +65,28 @@ public class SuspensionPhysic : MonoBehaviour
 	{
 		return this.turnWheel;
 	}
+	
+	public float GetCurrentTurnAngle()
+	{
+		if(this.carParameters == null)
+		{
+			return 0.0f; //...yeah...magic order of execution
+		}
+		return this.carParameters.GetTurn() * this.maxTurnAngle;
+	}
 
-	/* Is normaliced between 0 and 1 */
+	/* Is normalized between 0 and 1 */
 	public float GetSideForce()
 	{
 		return this.sideForce;
 	}
 	
-	public float GetGrip()
+	public float GetSideForceNormalize()
+	{
+		return this.sideForceNormalize;
+	}
+	
+	public float GetCurrentGrip()
 	{
 		return this.grip;
 	}
@@ -91,45 +96,19 @@ public class SuspensionPhysic : MonoBehaviour
 		return this.sideForceDirection;
 	}
 	
-	public float GetSuspensionForce()
+	public float GetCurrentSuspensionForce()
 	{
-		return this.suspensionForce; 
+		return this.currentSuspensionForce; 
 	}
 
-	public float GetSuspensionForceNormalice()
+	public float GetCurrentSpringLength()
 	{
-		return this.suspensionForceNormalice;
+		return this.currentSpringLenght;
 	}
 	
-	public bool GetUseThisForDriftAudio()
+	public float GetCurrentSpringLengthNormalize()
 	{
-		return this.useThisForDriftAudio;
-	}
-	
-		
-	public bool GetDriftEnable()
-	{
-		return this.driftEnable;
-	}
-	
-	public bool GetDustEnable()
-	{
-		return this.dustEnable;
-	}
-	
-	public float GetSpringRestPosition()
-	{
-		return this.springRestPosition;
-	}
-	
-	public float GetSpringMaxTravel()
-	{
-		return this.springMaxTravel;
-	}
-	
-	public float GetWheelRadius()
-	{
-		return this.wheelRadius;
+		return this.normalizedSpringLength;
 	}
 	
 	//Terrain
@@ -186,7 +165,6 @@ public class SuspensionPhysic : MonoBehaviour
 	
 	void FixedUpdate()
 	{	
-		this.RotateWheelSpeed();
 		if(this.turnWheel)
 		{
 			this.TurnWheel();
@@ -195,66 +173,62 @@ public class SuspensionPhysic : MonoBehaviour
 		this.CalculateSuspension();
 		if(this.isGrounded)
 		{
-			this.MoveVerticalWheel();
 			this.CalculateRotation();
 			this.CalculateSpeed();
 		}
-		this.CheckForDust();
-		this.CheckForDrift();
 	}
 	
 	void CalculateSuspension()
 	{
-		float maxLength = this.springRestPosition + this.springMaxTravel;
-		this.isGrounded = Physics.Raycast(this.transform.position, this.transform.up * -1, out this.hitFloor, maxLength + this.wheelRadius, this.carParameters.GetMaskDrivable());
+		float maxLength = this.springRestPosition + this.springMaxTravel + this.floorOffset;
+		this.isGrounded = Physics.Raycast(this.transform.position, this.transform.up * -1, out this.hitFloor, maxLength , this.carParameters.GetMaskDrivable());
+
+		float springLength = this.isGrounded ? this.hitFloor.distance - this.floorOffset : maxLength;
+		springLength = Mathf.Clamp(springLength, 0f , springRestPosition + springMaxTravel);
+		
+		float springCompression = (this.springRestPosition - springLength) / this.springMaxTravel;
+		
+		float springVelocity = Vector3.Dot(this.carBody.GetPointVelocity(this.transform.position), this.transform.up);
+		float netForce = (springCompression * this.springStiff) - (springVelocity * this.damping);
+		
+		this.currentSuspensionForce = netForce;
+		this.currentSpringLenght = springLength;
+		this.normalizedSpringLength = Mathf.InverseLerp(0.0f, this.springRestPosition + this.springMaxTravel, springLength);
+			
 		if(this.isGrounded)
 		{
-			float currentSpringLength = this.hitFloor.distance - this.wheelRadius;
-			float springCompression = (this.springRestPosition - currentSpringLength) / this.springMaxTravel;
-			float springVelocity = Vector3.Dot(this.carBody.GetPointVelocity(this.transform.position), this.transform.up);
-			float netForce = (springCompression * this.springStiff) - (springVelocity * this.damping);
-			
-			this.suspensionForce = netForce;
-			this.suspensionForceNormalice = Mathf.Clamp(suspensionForce / this.springStiff * this.springMaxTravel, -1f, 1f);
-
 			this.carBody.AddForceAtPosition(netForce * this.transform.up, this.transform.position);
-		}
-		
-		this.terrainFound = Physics.Raycast(this.transform.position, this.transform.up * -1, out this.hitFloor, 10.0f, this.carParameters.GetMaskDrivable());
-		if(this.terrainFound)
-		{
 			this.currentTerrain = this.hitFloor.collider.GetComponent<TerrainInfo>();
-		}else
+		}
+		else
 		{
-			this.currentTerrain = null;
+		    this.currentTerrain = null;
 		}
 	}
 	
 	void CalculateRotation()
 	{
-		if(this.isGrounded)
-		{
-			//Get the force of the wheels going sideway and normalice between 0-1
-			Vector3 steeringDir = this.transform.right;
-			Vector3 tireWorldVel = this.carBody.GetPointVelocity(this.transform.position);
-			float steeringVel = Vector3.Dot(steeringDir, tireWorldVel);
-			float normalized = Mathf.Clamp01(Mathf.Abs(steeringVel) / this.maxLateralSpeed);
-			
-			//Set the variables for external scripts
-			this.sideForce = normalized;
-			this.sideForceDirection = steeringVel >= 0 ? -1 : 1;
-			
-			//The real logic
-			float newGrip = this.gripCurve.Evaluate(normalized);
-			this.grip = Mathf.Lerp(this.grip, newGrip, 0.5f);
-			
-			float desiredVelChange = -steeringVel * this.grip;
-			float desirecAccel = desiredVelChange / Time.fixedDeltaTime;
-			this.carBody.AddForceAtPosition(steeringDir * this.wheelWeight * desirecAccel * this.GetGripMultiplier(), this.transform.position);
-		}
+		//Get the force of the wheels going sideway and normalize between 0-1
+		Vector3 steeringDir = this.transform.right;
+		Vector3 tireWorldVel = this.carBody.GetPointVelocity(this.transform.position);
+		float steeringVel = Vector3.Dot(steeringDir, tireWorldVel);
+		float normalized = Mathf.Clamp01(Mathf.Abs(steeringVel) / this.maxLateralSpeed);
+		
+		//Set the variables for external scripts
+		this.sideForce = Mathf.Abs(steeringVel);
+		this.sideForceNormalize = normalized;
+		this.sideForceDirection = steeringVel >= 0 ? -1 : 1;
+		
+		//The real logic
+		float newGrip = this.gripCurve.Evaluate(normalized);
+		this.grip = Mathf.Lerp(this.grip, newGrip, 0.5f);
+		
+		float desiredVelChange = -steeringVel * this.grip;
+		float desirecAccel = desiredVelChange / Time.fixedDeltaTime;
+		this.carBody.AddForceAtPosition(steeringDir * this.lateralForceMultiplayer * desirecAccel * this.GetGripMultiplier(), this.transform.position);
 	}
 	
-	private void CalculateSpeed()
+	void CalculateSpeed()
 	{
 		if (this.carParameters.GetBrake() > 0.0f && this.carParameters.GetForwardVelocity() != 0.0f)
 		{
@@ -272,7 +246,7 @@ public class SuspensionPhysic : MonoBehaviour
 						
 			if (this.oppositeWheel != null)
 			{
-				float totalGrip = this.grip + this.oppositeWheel.GetGrip() + 0.001f;
+				float totalGrip = this.grip + this.oppositeWheel.GetCurrentGrip() + 0.001f; //So its never 0...you know...divide by 0 its a problem
 				float gripRatio = this.grip / totalGrip;
 				
 				torque *= Mathf.Lerp(this.maxTorqueByDifferential, this.minTorqueByDifferential, gripRatio);
@@ -286,75 +260,6 @@ public class SuspensionPhysic : MonoBehaviour
 			Vector3 resistanceForce = -wheelVelocity.normalized * this.GetResitanceMultipler() * wheelVelocity.magnitude;
 			this.carBody.AddForceAtPosition(resistanceForce, this.transform.position, ForceMode.Acceleration);
 		}
-	}
-	
-	//Terrain
-	private void CheckForDust()
-	{
-		if(this.isGrounded && this.carParameters.GetForwardVelocity() > 8.0f)
-		{
-			this.dustEnable = true;
-		}
-		
-		else
-		{
-			this.dustEnable = false;
-		}
-	}
-	
-	private void CheckForDrift()
-	{
-		if(this.sideForce > this.driftMinSideForce && this.isGrounded)
-		{
-			this.driftEnable = true;
-		}
-		
-		else
-		{
-			this.driftEnable = false;
-		}
-	}
-	
-	
-	// Animations
-	void MoveVerticalWheel()
-	{
-		if(this.wheel == null)
-		{
-		    return;
-		}
-		Vector3 newPosition = this.wheel.localPosition;
-		newPosition.y = (this.hitFloor.distance - this.wheelRadius) * -1;
-		if(newPosition.y <= this.wheelMinY)
-		{
-			newPosition.y = this.wheelMinY;
-		}
-		if(newPosition.y >= this.wheelMaxY)
-		{
-			newPosition.y = this.wheelMaxY;
-		}
-		this.wheel.localPosition = newPosition;
-	}
-	
-	void RotateWheelSpeed()
-	{
-		if(this.wheel == null)
-		{
-		    return;
-		}
-		float wheelCircumference = 2 * Mathf.PI * this.wheelRadius;
-		float rotationIncrement = (this.carParameters.GetForwardVelocity() / wheelCircumference) * 360 * Time.deltaTime;
-		this.currentWheelRotation += rotationIncrement;
-		
-		if(this.currentWheelRotation >= 360)
-		{
-			this.currentWheelRotation -= 360;
-		}
-		if(this.currentWheelRotation <= -360)
-		{
-			this.currentWheelRotation = 360;
-		}
-		this.wheel.localRotation = Quaternion.Euler(this.currentWheelRotation, this.transform.localEulerAngles.y, 0);
 	}
 	
 	void TurnWheel()

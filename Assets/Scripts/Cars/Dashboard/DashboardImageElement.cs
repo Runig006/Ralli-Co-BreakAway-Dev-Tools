@@ -19,16 +19,22 @@ public class DashboardImageElement : MonoBehaviour
     void Update()
     {
         float value = 1;
+        
+        if(this.scoringDetector == null)
+		{
+			return;
+		}
+        
         switch (this.printing)
         {
             case DashboardPrintableValuesEnum.gear:
                 Debug.LogError("Gear is not valid for this input");
                 break;
             case DashboardPrintableValuesEnum.rpm:
-                value = this.carParameters.GetRPMNormalice();
+                value = this.carParameters.GetRPMNormalize();
                 break;
             case DashboardPrintableValuesEnum.speed:
-                value = this.carParameters.GetVelocityNormalice();
+                value = this.carParameters.GetVelocityNormalize();
                 break;
             case DashboardPrintableValuesEnum.nitro:
                 value = this.carParameters.GetBoostTemperature();

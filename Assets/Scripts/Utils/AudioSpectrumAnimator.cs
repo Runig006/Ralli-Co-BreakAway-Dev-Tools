@@ -17,7 +17,6 @@ public class AudioSpectrumAnimator : MonoBehaviour
 	
 	private float targetValue = 0f;
 	private float currentValue = 0f;
-	private float velocity = 0f;
 
 	void Start()
 	{

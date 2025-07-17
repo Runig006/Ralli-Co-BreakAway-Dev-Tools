@@ -13,6 +13,7 @@ public class UserController : MonoBehaviour
 	private InputAction boostInput;
 	
 	private float currentTurnValue = 0.0f;
+	private float turnVelocity = 0.0f;
 	private float automaticClutchTimer = 0.0f;
 
 	public void Awake()
@@ -24,30 +25,7 @@ public class UserController : MonoBehaviour
 		this.throttleInput = this.input.actions["throttle"];
 		this.brakeInput = this.input.actions["brake"];
 		this.turnInput = this.input.actions["turn"];
-		this.boostInput = this.input.actions["boost"];	
-		
-		this.CreateParticlesWheels(this.carParameters.gameObject);	
-	}
-	
-	private void CreateParticlesWheels(GameObject car)
-	{
-		GameObject particlesParent = car.transform.Find("Particles")?.gameObject;
-		GameObject particle;
-		if(particlesParent == null)
-		{
-			return;
-		}
-		foreach(SuspensionPhysic suspensionPhysic in car.GetComponentsInChildren<SuspensionPhysic>())
-		{
-			float groundOffset = suspensionPhysic.GetSpringRestPosition();
-		
-			
-			particle = new GameObject(suspensionPhysic.name);
-			particle.transform.SetParent(particlesParent.transform);
-			particle.transform.position = suspensionPhysic.gameObject.transform.position - suspensionPhysic.transform.up * groundOffset;
-			particle.transform.rotation = suspensionPhysic.gameObject.transform.rotation;
-			particle.AddComponent<WheelParticles>();
-		}
+		this.boostInput = this.input.actions["boost"];
 	}
 	
 	
@@ -94,10 +72,16 @@ public class UserController : MonoBehaviour
 	private void UpdateTurn()
 	{
 		float value = this.turnInput.ReadValue<float>();
-		float responseTime = Mathf.Lerp(0.1f, 0.6f, this.carParameters.GetVelocityNormalice());
-		this.currentTurnValue = Mathf.Lerp(this.currentTurnValue,  value, Time.deltaTime * 1.0f / responseTime);
+		float responseTime = Mathf.Lerp(0.08f, 0.5f, this.carParameters.GetVelocityNormalize());
+		this.currentTurnValue =  Mathf.SmoothDamp(
+			currentTurnValue,
+			value,
+			ref this.turnVelocity,
+			responseTime,
+			Mathf.Infinity,
+			Time.deltaTime
+		);
 		this.carParameters.SetTurn(this.currentTurnValue);
-		
 	}
 	
 	public void OnShiftUp(InputValue value)

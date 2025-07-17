@@ -60,9 +60,6 @@ public class CarParameters : MonoBehaviour
 	[Tooltip("Since the cars I made has angular damping to 0.2, the crash are a little 'crazy'")]
 	[SerializeField] private float crashMaxAngularDrag = 5.0f;
 	
-	[Header("Brake (Visual)")]
-	[SerializeField] private float brakeStrongThreshold = 0.35f;
-	
 	[Header("Sound")]
 	[SerializeField] private EngineSoundPrefabs engineSoundPrefab;
 	[SerializeField] private float pitchSoundLevel = 1.0f;
@@ -75,6 +72,9 @@ public class CarParameters : MonoBehaviour
 	[SerializeField] private int maxRPM;
 	[SerializeField] private float rpmDangerThresholdPercentage = 0.8f;
 	private LayerMask layerMaskDrivable;
+	
+	[Header("Debug")]
+	public bool lightEnables = true;
 
 	//InputValues
 	private int? currentGear = null;
@@ -137,7 +137,7 @@ public class CarParameters : MonoBehaviour
 	void FixedUpdate()
 	{
 		this.carBody.centerOfMass = this.centermass.localPosition; //This is only in the "Debug Project"
-		carBody.AddForce(-Vector3.up * this.downforceCurve.Evaluate(this.GetVelocityNormalice()), ForceMode.Acceleration);
+		carBody.AddForce(-Vector3.up * this.downforceCurve.Evaluate(this.GetVelocityNormalize()), ForceMode.Acceleration);
 	
 		this.UpdateRPM();
 	
@@ -199,7 +199,7 @@ public class CarParameters : MonoBehaviour
 			}
 		}
 		
-		else if(this.GetRPMNormalice() <= 1.10f)
+		else if(this.GetRPMNormalize() <= 1.10f)
 		{
 			float reduce = this.boostRecoverSpeed * coolingFactor * Time.deltaTime;
 			if(this.boostBurned)
@@ -220,11 +220,11 @@ public class CarParameters : MonoBehaviour
 			{
 				this.isDownshifting = true;
 			}
-			if (this.GetRPMNormalice() >= 1.00f)
+			if (this.GetRPMNormalize() >= 1.00f)
 			{
 				if (this.isDownshifting && this.boostTemperature <= 250.0f)
 				{
-					this.boostTemperature += (this.GetRPMNormalice() - 1.0f) * 60 * Time.deltaTime;
+					this.boostTemperature += (this.GetRPMNormalize() - 1.0f) * 60 * Time.deltaTime;
 				}
 			}
 			else
@@ -236,7 +236,8 @@ public class CarParameters : MonoBehaviour
 	
 	private void UpdateBrakeTime()
 	{
-		if (this.inputBrakeValue > this.brakeStrongThreshold && this.GetVelocityNormalice() > 0.1f)
+		//Check if is braking "hard"
+		if (this.inputBrakeValue > 0.35f && this.GetVelocityNormalize() > 0.1f)
 		{
 			this.brakingStrongTime += Time.deltaTime;
 		}else
@@ -303,9 +304,9 @@ public class CarParameters : MonoBehaviour
 	{
 		float drag = this.originalDrag;
 		
-		if (this.inputThrottleValue <= 0.1f || this.GetRPMNormalice() > 1.1f)
+		if (this.inputThrottleValue <= 0.1f || this.GetRPMNormalize() > 1.1f)
 		{
-			drag = this.maxDrag * Mathf.Clamp01(this.GetRPMNormalice() - 0.1f);
+			drag = this.maxDrag * Mathf.Clamp01(this.GetRPMNormalize() - 0.1f);
 		}
 		
 		if(this.boostBurned)
@@ -594,10 +595,10 @@ public class CarParameters : MonoBehaviour
 
 	public float GetFakeRPM()
 	{
-		return this.minRPM + (this.GetRPMNormalice() * this.RPMMultiplier);
+		return this.minRPM + (this.GetRPMNormalize() * this.RPMMultiplier);
 	}
 
-	public float GetRPMNormalice(bool direct = false)
+	public float GetRPMNormalize(bool direct = false)
 	{
 		return direct ?  Mathf.Abs(this.GetForwardVelocity()) * this.GetGearRatio() / maxSpeed : this.simulatedRPM;
 	}
@@ -610,17 +611,26 @@ public class CarParameters : MonoBehaviour
 	// Calculated
 	public float GetForwardVelocity()
 	{
+		if(this.carBody == null)
+		{
+			return 0.0f; //Because Unity call before the OnEnable...yeah
+		}
 		return Vector3.Dot(this.carBody.linearVelocity, this.carBody.transform.forward);
 	}
+	
+	public float GetVelocityTraslated()
+	{
+		return this.GetForwardVelocity() * 3.6f; //In the good game will be traslated to KM/H or MP/H
+	}
 
-	public float GetVelocityNormalice()
+	public float GetVelocityNormalize()
 	{
 		return Mathf.Clamp(this.GetForwardVelocity() / this.GetMaxSpeed(), 0,1);
 	}
 
 	public float GetTorque()
 	{
-		float rpmNormalize = this.GetRPMNormalice();
+		float rpmNormalize = this.GetRPMNormalize();
 		float torque = this.GetEngineCurve().Evaluate(rpmNormalize);
 		
 		if (

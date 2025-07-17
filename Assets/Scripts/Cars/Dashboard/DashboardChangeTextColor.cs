@@ -7,7 +7,7 @@ using UnityEngine;
 public class DashboardDigitalTextColorElement : MonoBehaviour
 {
 	[SerializeField] private DashboardPrintableValuesEnum printing;
-	[SerializeField] private bool normalice;
+	[SerializeField] private bool normalize;
 	[SerializeField] private string numberFormat;
 	[SerializeField] private bool invert;
 	[SerializeField] private Color defaultColor = Color.white;
@@ -30,6 +30,12 @@ public class DashboardDigitalTextColorElement : MonoBehaviour
 	private void Update()
 	{
 		float value = 0;
+		
+		if(this.scoringDetector == null)
+		{
+			return;
+		}
+		
 		switch (this.printing)
 		{
 			case DashboardPrintableValuesEnum.gear:
@@ -46,10 +52,10 @@ public class DashboardDigitalTextColorElement : MonoBehaviour
 				value = this.carParameters.GetCurrentGear() ?? 0 + 1;
 				break;
 			case DashboardPrintableValuesEnum.rpm:
-				value =  this.normalice ? this.carParameters.GetRPMNormalice() : this.carParameters.GetFakeRPM();
+				value =  this.normalize ? this.carParameters.GetRPMNormalize() : this.carParameters.GetFakeRPM();
 				break;
 			case DashboardPrintableValuesEnum.speed:
-				value =  this.normalice ? this.carParameters.GetVelocityNormalice() : MathF.Abs(this.carParameters.GetForwardVelocity() * 3.6f);
+				value =  this.normalize ? this.carParameters.GetVelocityNormalize() : MathF.Abs(this.carParameters.GetForwardVelocity() * 3.6f);
 				break;
 			case DashboardPrintableValuesEnum.nitro:
 				value = this.carParameters.GetBoostTemperature();

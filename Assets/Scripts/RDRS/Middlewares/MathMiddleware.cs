@@ -1,121 +1,213 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Text.RegularExpressions;
 
-public enum MathOp
+public class MathMiddleware : RDRSReaderBase
 {
-    Add,
-    Subtract,
-    Multiply,
-    Divide
-}
-
-[System.Serializable]
-public class OperationStep
-{
-    public MathOp operation;
-    public string valueId;
-
-    public float GetEvaluatedValue(List<float> inputs)
-    {
-        if (valueId.StartsWith("$"))
-        {
-            return inputs[int.Parse(valueId.Substring(1)) - 1];
-        }
-        return float.Parse(valueId);
-    }
-}
-
-
-public class MathMiddleware : RDRSReaderBase<float>
-{
-    [SerializeField] private List<RDRSReaderBase<float>> sources = new();
+    [SerializeField] private RDRSReaderBase[] sources;
     [SerializeField] private string expression = "$1 * 0.5 + $2";
 
-    private List<OperationStep> steps;
+
+    private List<string> steps;
 
     private void Awake()
     {
-        steps = this.CompileOperation(expression);
+        this.steps = this.ToShunting(this.expression);
     }
 
-    public override float GetValue()
+    public override object GetValue()
     {
+#if UNITY_EDITOR
+        this.steps = this.ToShunting(this.expression);
+#endif
+        if (this.steps == null || this.steps.Count == 0)
+        {
+            return 0.0f;
+        }
         List<float> inputs = new();
-        foreach (var reader in sources)
+        foreach (RDRSReaderBase reader in sources)
         {
-            inputs.Add(reader?.GetValue() ?? 0f);
-        }
-
-        float total = 0f;
-        foreach (OperationStep step in steps)
-        {
-            float value = step.GetEvaluatedValue(inputs);
-
-            switch (step.operation)
+            object raw = reader?.GetValue();
+            if (raw is bool b)
             {
-                case MathOp.Add:
-                    total += value;
-                    break;
-                case MathOp.Subtract:
-                    total -= value;
-                    break;
-                case MathOp.Multiply:
-                    total *= value;
-                    break;
-                case MathOp.Divide:
-                    total /= value;
-                    break;
-            }
-        }
-        return total;
-    }
-
-    private List<OperationStep> CompileOperation(string expression)
-    {
-        List<OperationStep> steps = new List<OperationStep>();
-        String[] tokens = expression.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
-        if (tokens.Length == 0)
-        {
-            throw new ArgumentException("Operation not valid");
-        }
-        MathOp currentOp = MathOp.Add;
-        MathOp? tempOp;
-        foreach (String token in tokens)
-        {
-            tempOp = this.TranslateToOperation(token);
-            //Is the operation
-            if (tempOp != null)
-            {
-                currentOp = tempOp ?? MathOp.Add;
+                inputs.Add(b ? 1.0f : 0.0f);
             }
             else
             {
-                steps.Add(new OperationStep
+                try
                 {
-                    operation = currentOp,
-                    valueId = token
-                });
+                    float f = System.Convert.ToSingle(raw);
+                    inputs.Add(f);
+                }
+                catch
+                {
+                    Debug.LogWarning($"[MathMiddleware] waiting for only floats but got: {raw?.GetType().Name ?? "null"}");
+                    return 0f;
+                }
             }
         }
-        return steps;
+        return this.EvaluateShuntingRPN(this.steps, inputs);
     }
 
-    private MathOp? TranslateToOperation(string s)
+    private float EvaluateShuntingRPN(List<string> rpnTokens, List<float> inputs)
     {
-        switch (s)
+        Stack<float> stack = new();
+
+        foreach (string token in rpnTokens)
+        {
+            if (float.TryParse(token, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float number))
+            {
+                stack.Push(number);
+            }
+            else if (token.StartsWith("$") && int.TryParse(token.Substring(1), out int index))
+            {
+                float value = (index >= 1 && index <= inputs.Count) ? inputs[index - 1] : 0f;
+                stack.Push(value);
+            }
+            else if (IsOperator(token))
+            {
+                float b = stack.Pop();
+                float a = stack.Pop();
+                float result;
+                switch (token)
+                {
+                    case "+":
+                        result = a + b;
+                        break;
+                    case "-":
+                        result = a - b;
+                        break;
+                    case "*":
+                        result = a * b;
+                        break;
+                    case "/":
+                        result = a / b;
+                        break;
+                    case ">":
+                        result = a > b ? 1f : 0f;
+                        break;
+                    case "<":
+                        result = a < b ? 1f : 0f;
+                        break;
+                    case "==":
+                        result = Mathf.Approximately(a, b) ? 1f : 0f;
+                        break;
+                    case "!=":
+                        result = !Mathf.Approximately(a, b) ? 1f : 0f;
+                        break;
+                    default:
+                        throw new InvalidOperationException($"Unsupported operator: {token}");
+                }
+                stack.Push(result);
+            }
+            else
+            {
+                throw new InvalidOperationException($"Unexpected token in RPN expression: {token}");
+            }
+        }
+
+        return stack.Count == 1 ? stack.Pop() : throw new InvalidOperationException("Invalid RPN expression evaluation.");
+    }
+
+
+    /* Prepare */
+    /** I will not lie...i more or less undestand what this code do */
+    private List<string> ToShunting(string expression)
+    {
+        List<string> output = new List<string>();
+        Stack<string> simbolsCollection = new Stack<string>();
+        string[] tokens = expression.Split(' ');
+
+        foreach (string token in tokens)
+        {
+            if (float.TryParse(token, out _) || token.StartsWith("$"))
+            {
+                output.Add(token);
+            }
+            else if (IsOperator(token))
+            {
+                while (simbolsCollection.Count > 0 && IsOperator(simbolsCollection.Peek()) && GetPrecedence(token) <= GetPrecedence(simbolsCollection.Peek()))
+                {
+                    output.Add(simbolsCollection.Pop());
+                }
+                simbolsCollection.Push(token);
+            }
+            else if (token == "(")
+            {
+                simbolsCollection.Push(token);
+            }
+            else if (token == ")")
+            {
+                while (simbolsCollection.Count > 0 && simbolsCollection.Peek() != "(")
+                {
+                    output.Add(simbolsCollection.Pop());
+                }
+                if (simbolsCollection.Count == 0 || simbolsCollection.Pop() != "(")
+                {
+                    throw new ArgumentException("Mismatched parentheses in expression");
+                }
+            }
+        }
+
+        while (simbolsCollection.Count > 0)
+        {
+            string t = simbolsCollection.Pop();
+            if (t == "(" || t == ")")
+            {
+                throw new ArgumentException("Mismatched parentheses in expression");
+            }
+            output.Add(t);
+        }
+        return output;
+    }
+
+    private int GetPrecedence(string op)
+    {
+        switch (op)
         {
             case "+":
-                return MathOp.Add;
             case "-":
-                return MathOp.Subtract;
+                return 1;
             case "*":
-                return MathOp.Multiply;
             case "/":
-                return MathOp.Divide;
+                return 2;
+            case ">":
+            case "<":
+            case "==":
+            case "!=":
+                return 0;
             default:
-                return null;
+                return -1;
         }
-        ;
+    }
+
+    private bool IsOperator(string token)
+    {
+        switch (token)
+        {
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+            case ">":
+            case "<":
+            case "==":
+            case "!=":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private List<string> Tokenize(string expr)
+    {
+        MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(expr, @"\$\[\d+]|-?\d+(?:\.\d+)?|!=|==|[<>()+\-*/]");
+        List<string> tokens = new List<string>();
+        foreach (System.Text.RegularExpressions.Match match in matches)
+        {
+            tokens.Add(match.Value);
+        }
+        return tokens;
     }
 }
