@@ -23,8 +23,10 @@ public class LightEditor : RDRSExecutorWithFrequency
         return this.valueReader?.GetValue();
     }
 
-    public override void Execute(object? value)
+    public override void Execute()
     {
+        object value = this.GetExecuteValue();
+        
         Light[] targets = GetTargetLights();
         if (targets == null || targets.Length == 0)
         {
@@ -41,17 +43,11 @@ public class LightEditor : RDRSExecutorWithFrequency
             switch (this.propertyToEdit)
             {
                 case LightProperty.Intensity:
-                    if (value is float intensity)
-                    {
-                        light.intensity = intensity;
-                    }
+                    light.intensity = System.Convert.ToSingle(value);
                     break;
 
                 case LightProperty.Range:
-                    if (value is float range)
-                    {
-                        light.range = range;
-                    }
+                    light.range =  System.Convert.ToSingle(value);
                     break;
 
                 case LightProperty.Color:
@@ -71,23 +67,24 @@ public class LightEditor : RDRSExecutorWithFrequency
 
                 case LightProperty.Enabled:
                     bool enabled = false;
-                    switch (value)
+                    if (value is bool b)
                     {
-                        case bool b:
-                            enabled = b;
-                            break;
-                        case float f:
-                            enabled = Mathf.Abs(f) > 0.0001f;
-                            break;
-                        case int i:
-                            enabled = i != 0;
-                            break;
+                        enabled = b;
+                    }
+                    else
+                    {
+                        float f = System.Convert.ToSingle(value);
+                        enabled = f > 0.0001f;
                     }
                     light.enabled = enabled;
                     break;
             }
         }
     }
+    
+    ///////////////////
+    // Get components with Cache
+    ///////////////////
 
     public Light[] GetTargetLights()
     {

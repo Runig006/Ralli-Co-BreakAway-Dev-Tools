@@ -32,8 +32,9 @@ public class TransformEditor : RDRSExecutorWithFrequency
         return this.valueReader?.GetValue();
     }
 
-    public override void Execute(object valueRaw)
+    public override void Execute()
     {
+        object valueRaw = this.GetExecuteValue();
         Transform[] targets = this.GetTargets();
         if (targets == null || targets.Length == 0)
         {
@@ -75,11 +76,11 @@ public class TransformEditor : RDRSExecutorWithFrequency
                 case TargetProperty.Position:
                     if (space == SpaceMode.Local)
                     {
-                        t.localPosition = ApplyVector3(t.localPosition, value, axisMask, additive);
+                        t.localPosition = this.ApplyVector3(t.localPosition, value, axisMask, additive);
                     }
                     else
                     {
-                        t.position = ApplyVector3(t.position, value, axisMask, additive);
+                        t.position = this.ApplyVector3(t.position, value, axisMask, additive);
                     }
                     break;
 
@@ -94,17 +95,17 @@ public class TransformEditor : RDRSExecutorWithFrequency
     {
         Vector3 valueVector3 = Vector3.zero;
         Quaternion valueQuaternion;
-
+        Vector3 currentRotationEuler = (this.space == SpaceMode.Local) ? this.transform.localRotation.eulerAngles : this.transform.rotation.eulerAngles;
         if (valueRaw is Quaternion q)
         {
             valueQuaternion = q;
             valueVector3 = valueQuaternion.eulerAngles;
-            valueVector3 = this.ApplyVector3(new Vector3(), valueVector3, this.axisMask, this.additive);
+            valueVector3 = this.ApplyVector3(currentRotationEuler, valueVector3, this.axisMask, this.additive);
         }
         else
         {
             valueVector3 = this.ValueToVector3(valueRaw);
-            valueVector3 = this.ApplyVector3(new Vector3(), valueVector3, this.axisMask, this.additive);
+            valueVector3 = this.ApplyVector3(currentRotationEuler, valueVector3, this.axisMask, this.additive);
             valueQuaternion = Quaternion.Euler(valueVector3);
         }
 
@@ -132,7 +133,7 @@ public class TransformEditor : RDRSExecutorWithFrequency
                     rotation *= Quaternion.AngleAxis(valueVector3.z, Vector3.forward);
                 }
 
-                if (space == SpaceMode.Local)
+                if (this.space == SpaceMode.Local)
                 {
                     t.localRotation = rotation;
                 }
@@ -143,7 +144,7 @@ public class TransformEditor : RDRSExecutorWithFrequency
             }
             else if (valueQuaternion != null)
             {
-                if (space == SpaceMode.Local)
+                if (this.space == SpaceMode.Local)
                 {
                     t.localRotation = valueQuaternion;
                 }

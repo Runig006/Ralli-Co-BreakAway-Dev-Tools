@@ -12,7 +12,7 @@ public class RandomFloatExecutor : RDRSReaderWithFrequency
     {
         if(this.currentValue == null || this.restartWithEnable)
         {
-            this.Execute(this.GetExecuteValue());
+            this.Execute();
         }
         base.OnEnable();
     }
@@ -27,8 +27,8 @@ public class RandomFloatExecutor : RDRSReaderWithFrequency
         return Random.Range(this.range.x, this.range.y);
     }
 
-    public override void Execute(object value)
+    public override void Execute()
     {
-        this.currentValue = (float)value;
+        this.currentValue = (float)this.GetExecuteValue();
     }
 }

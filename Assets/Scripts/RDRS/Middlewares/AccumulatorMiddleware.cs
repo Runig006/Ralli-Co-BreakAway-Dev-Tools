@@ -36,10 +36,15 @@ public class AccumulatorMiddleware : RDRSReaderWithFrequency
         return this.valueReader?.GetValue();
     }
 
-    public override void Execute(object valueRaw)
+    public override void Execute()
     {
-
-        float delta = System.Convert.ToSingle(valueRaw);
+        object valueRaw = this.GetExecuteValue();
+        float delta;
+        if(valueRaw is bool value)
+        {
+            delta = value ? 1f : -1f;
+        }
+        delta = System.Convert.ToSingle(valueRaw);
 
         if (this.useDeltaTime)
         {

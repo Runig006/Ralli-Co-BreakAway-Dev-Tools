@@ -27,8 +27,10 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
         return this.valueReader?.GetValue();
     }
 
-    public override void Execute(object? value)
+    public override void Execute()
     {
+        object value = this.GetExecuteValue();
+        
         ParticleSystem[] particleSystemsToEdit = this.GetTargetSystems();
         if (particleSystemsToEdit == null || particleSystemsToEdit.Length == 0)
         {
@@ -123,12 +125,16 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
                     }
                     else
                     {
-                        Debug.LogWarning("[ParticleSystemEditor] Valor no válido para StartColor. Se esperaba Color o string.");
+                        Debug.LogWarning("[ParticleSystemEditor] Value not valid for startColor");
                     }
                     break;
             }
         }
     }
+
+    ///////////////////
+    // Get components with Cache
+    ///////////////////
 
     public ParticleSystem[] GetTargetSystems()
     {

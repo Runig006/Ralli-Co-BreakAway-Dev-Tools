@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 public class MathMiddleware : RDRSReaderBase
 {
     [SerializeField] private RDRSReaderBase[] sources;
-    [SerializeField] private string expression = "$1 * 0.5 + $2";
+    [SerializeField] private string expression = "{0} * 0.5 + {1}";
 
 
     private List<string> steps;
@@ -18,9 +18,9 @@ public class MathMiddleware : RDRSReaderBase
 
     public override object GetValue()
     {
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         this.steps = this.ToShunting(this.expression);
-#endif
+    #endif
         if (this.steps == null || this.steps.Count == 0)
         {
             return 0.0f;
@@ -31,7 +31,7 @@ public class MathMiddleware : RDRSReaderBase
             object raw = reader?.GetValue();
             if (raw is bool b)
             {
-                inputs.Add(b ? 1.0f : 0.0f);
+                inputs.Add(b ? 1.0f : -0.0f);
             }
             else
             {
@@ -60,9 +60,17 @@ public class MathMiddleware : RDRSReaderBase
             {
                 stack.Push(number);
             }
-            else if (token.StartsWith("$") && int.TryParse(token.Substring(1), out int index))
+            else if (this.IsVariableToken(token))
             {
-                float value = (index >= 1 && index <= inputs.Count) ? inputs[index - 1] : 0f;
+                string cleanToken = token.Trim('|');
+                int index = this.ParseVariableIndex(cleanToken);
+                float value = (index >= 0 && index < inputs.Count) ? inputs[index] : 0f;
+                
+                if(cleanToken.Length != token.Length)
+                {
+                    value = MathF.Abs(value);
+                }
+                
                 stack.Push(value);
             }
             else if (IsOperator(token))
@@ -121,7 +129,7 @@ public class MathMiddleware : RDRSReaderBase
 
         foreach (string token in tokens)
         {
-            if (float.TryParse(token, out _) || token.StartsWith("$"))
+            if (float.TryParse(token, out _) || this.IsVariableToken(token))
             {
                 output.Add(token);
             }
@@ -200,14 +208,14 @@ public class MathMiddleware : RDRSReaderBase
         }
     }
 
-    private List<string> Tokenize(string expr)
+    
+    private bool IsVariableToken(string token)
     {
-        MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(expr, @"\$\[\d+]|-?\d+(?:\.\d+)?|!=|==|[<>()+\-*/]");
-        List<string> tokens = new List<string>();
-        foreach (System.Text.RegularExpressions.Match match in matches)
-        {
-            tokens.Add(match.Value);
-        }
-        return tokens;
+        return Regex.IsMatch(token, @"^(\|\{\d+\}\||\{\d+\})$");
+    }
+    
+    private int ParseVariableIndex(string token)
+    {
+        return int.Parse(token.Substring(1, token.Length - 2));
     }
 }

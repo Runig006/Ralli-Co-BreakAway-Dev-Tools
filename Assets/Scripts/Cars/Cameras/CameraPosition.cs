@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class CameraPosition : MonoBehaviour
 {
-	[SerializeField] private bool interior = true;
-	[SerializeField] private float engineVolume = 1.0f;
+	[SerializeField] [Tooltip("Used for the engine sounds")] private bool interior = true;
+	[SerializeField] private float carEffectsVolume = 1.0f;
 	[SerializeField] private int baseFov = 45;
 	
 	[SerializeField] bool hideTopLeftUi;
@@ -35,9 +35,9 @@ public class CameraPosition : MonoBehaviour
 		return this.interior;
 	}
 	
-	public float GetEngineVolume()
+	public float GetCarEffectsVolume()
 	{
-		return this.engineVolume;
+		return this.carEffectsVolume;
 	}
 	
 	public int GetBaseFov()

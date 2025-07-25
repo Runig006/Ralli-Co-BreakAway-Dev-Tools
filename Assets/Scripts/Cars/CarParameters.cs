@@ -84,9 +84,6 @@ public class CarParameters : MonoBehaviour
 	private float inputTurnValue = 0.0f;
 	private bool inputBoosting = false;	
 	
-	//Brake
-	private float brakingStrongTime = 0.0f;
-	
 	//Suspension
 	private Rigidbody carBody;
 	private SuspensionPhysic[] suspensions;
@@ -140,8 +137,6 @@ public class CarParameters : MonoBehaviour
 		carBody.AddForce(-Vector3.up * this.downforceCurve.Evaluate(this.GetVelocityNormalize()), ForceMode.Acceleration);
 	
 		this.UpdateRPM();
-	
-		this.UpdateBrakeTime();
 	
 		this.UpdateBoost();
 		this.CheckForSlipstream();
@@ -231,18 +226,6 @@ public class CarParameters : MonoBehaviour
 			{
 				this.previousGear = this.currentGear ?? 0;
 			}
-		}
-	}
-	
-	private void UpdateBrakeTime()
-	{
-		//Check if is braking "hard"
-		if (this.inputBrakeValue > 0.35f && this.GetVelocityNormalize() > 0.1f)
-		{
-			this.brakingStrongTime += Time.deltaTime;
-		}else
-		{
-			this.brakingStrongTime = 0.0f;
 		}
 	}
 	
@@ -467,6 +450,17 @@ public class CarParameters : MonoBehaviour
 	{
 		this.currentTemperatureZone = zone;
 	}
+	
+	// SlipStream
+	public bool GetIsSlipstreaming()
+	{
+		return this.isSlipstreaming;
+	}
+	
+	public float GetSlipstreamTime()
+	{
+	    return this.slipstreamTimer;
+	}
 
 	// Gears
 	public int? GetCurrentGear()
@@ -530,12 +524,6 @@ public class CarParameters : MonoBehaviour
 		}
 		this.currentGear = gear;
 		return true;
-	}
-	
-	//Brake
-	public float GetBrakeStrongTimer()
-	{
-		return this.brakingStrongTime;
 	}
 
 	// Road
@@ -616,11 +604,6 @@ public class CarParameters : MonoBehaviour
 			return 0.0f; //Because Unity call before the OnEnable...yeah
 		}
 		return Vector3.Dot(this.carBody.linearVelocity, this.carBody.transform.forward);
-	}
-	
-	public float GetVelocityTraslated()
-	{
-		return this.GetForwardVelocity() * 3.6f; //In the good game will be traslated to KM/H or MP/H
 	}
 
 	public float GetVelocityNormalize()

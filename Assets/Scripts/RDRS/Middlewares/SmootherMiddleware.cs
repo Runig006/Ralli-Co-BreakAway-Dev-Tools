@@ -33,8 +33,9 @@ public class SmootherMiddleware : RDRSReaderWithFrequency
     }
     
 
-    public override void Execute(object valueRaw)
+    public override void Execute()
     {
+        object valueRaw = this.GetExecuteValue();
         if (valueRaw is not float target)
         {
             Debug.LogWarning($"[SmootherReader] Expected float from source, got: {valueRaw?.GetType().Name ?? "null"}");

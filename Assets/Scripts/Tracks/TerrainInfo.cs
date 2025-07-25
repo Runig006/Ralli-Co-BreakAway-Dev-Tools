@@ -5,11 +5,10 @@ public class TerrainInfo : MonoBehaviour
 	[SerializeField] private float powerMultipler = 1.0f;
 	[SerializeField] private float gripMultiplier = 1.0f;
 	[SerializeField] private float resistanceMultipler = 0.0f;
-	[SerializeField] private bool enableDriftSound = true; 
-	[SerializeField] private GameObject driftGameObject; 	
-	[SerializeField] private GameObject dustGameObject; 	
-	[SerializeField] private AudioClip dustSound; 
-	[SerializeField] private AudioClip driftSound; 
+	[SerializeField] private GameObject driftParticlesGameObject; 	
+	[SerializeField] private GameObject dustParticlesGameObject; 
+	[SerializeField] private GameObject driftSoundGameObject; 	
+	[SerializeField] private GameObject dustSoundGameObject; 
 	
 	[SerializeField] [Range(0.0f, 1.0f)] private float roughness = 0.0f;
 
@@ -29,30 +28,26 @@ public class TerrainInfo : MonoBehaviour
 		return this.gripMultiplier;
 	}
 	
-	public bool GetEnableDriftSound()
-	{
-		return this.enableDriftSound;
-	}
-	
 	public GameObject GetDriftGameObject()
 	{
-		return this.driftGameObject;
+		return this.driftParticlesGameObject;
 	}
 	
 	public GameObject GetDustGameObject()
 	{
-		return this.dustGameObject;
+		return this.dustParticlesGameObject;
 	}
-	
-	public AudioClip GetDustSound()
+
+	public GameObject GetDriftSound()
 	{
-		return this.dustSound;
+		return this.driftSoundGameObject;
 	}
-	
-	public AudioClip GetDriftSound()
+			
+	public GameObject GetDustSound()
 	{
-		return this.dustSound;
+		return this.dustSoundGameObject;
 	}
+
 	
 	//For FFB
 	public float GetRoughness()

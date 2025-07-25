@@ -5,13 +5,14 @@ public class FixedValueReader : RDRSReaderBase
 {
     public enum FixedReaderValueType
     {
-        Float,
-        String,
-        Vector2,
-        Vector3,
-        Object,
-        ObjectArray
+        Float = 0,
+        String = 1,
+        Vector2 = 2,
+        Vector3 = 3,
+        Object = 4,
+        ObjectArray = 5
     }
+
 
 
     [SerializeField] private FixedReaderValueType valueType = FixedReaderValueType.Float;

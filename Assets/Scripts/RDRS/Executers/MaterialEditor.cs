@@ -25,8 +25,10 @@ public class MaterialEditor : RDRSExecutorWithFrequency
         return this.valueReader?.GetValue();
     }
 
-    public override void Execute(object? value)
+    public override void Execute()
     {
+        object value = this.GetExecuteValue();
+    
         Material[] materials = this.GetTargetMaterials();
         if (materials == null || materials.Length == 0)
         {
@@ -105,6 +107,10 @@ public class MaterialEditor : RDRSExecutorWithFrequency
             }
         }
     }
+
+    ///////////////////
+    // Get components with Cache
+    ///////////////////
 
     public Material[] GetTargetMaterials()
     {

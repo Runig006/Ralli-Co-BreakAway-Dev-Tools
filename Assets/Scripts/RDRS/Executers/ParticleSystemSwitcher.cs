@@ -2,10 +2,10 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ParticleSystemSwitcher : RDRSReaderWithFrequency, IRDRSExecutor, IRDRSReader
+public class ParticleSystemSwitcher : RDRSReaderWithFrequency
 {
     [SerializeField] private Transform parent;
-    [SerializeField] private bool destroyOldImmediately = true;
+    [SerializeField] private bool destroyOldImmediately = false;
     [SerializeField] private bool whenNullCleanAll = true;
     [SerializeField] private bool forceParentScale = true;
 
@@ -20,7 +20,7 @@ public class ParticleSystemSwitcher : RDRSReaderWithFrequency, IRDRSExecutor, IR
         return this.currentSystems;
     }
 
-    /** ACTION LOGIC **/
+
     public override object GetExecuteValue()
     {
         object source = null;
@@ -40,8 +40,9 @@ public class ParticleSystemSwitcher : RDRSReaderWithFrequency, IRDRSExecutor, IR
         return source;
     }
 
-    public override void Execute(object valueRaw)
+    public override void Execute()
     {
+        object valueRaw = this.GetExecuteValue();
         if (valueRaw == null)
         {
             if (this.whenNullCleanAll)
@@ -51,7 +52,21 @@ public class ParticleSystemSwitcher : RDRSReaderWithFrequency, IRDRSExecutor, IR
             return;
         }
 
-        GameObject value = (GameObject)valueRaw;
+        GameObject value = null;    
+        switch (valueRaw)
+        {
+            case GameObject go:
+                value = go;
+                break;
+            case ParticleSystem ps:
+                value = ps.gameObject;
+                break;
+            default:
+                Debug.LogWarning($"[ParticleSystemSwitcher] Unsupported value type: {valueRaw.GetType().Name}");
+                return;
+        }
+
+
         if (value == null)
         {
             Debug.LogWarning($"[ParticleSystemSwitcher] Value not valid: {valueRaw.GetType().Name}");

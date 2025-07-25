@@ -23,8 +23,10 @@ public class TrailRendererEditor : RDRSExecutorWithFrequency
         return this.valueReader?.GetValue();
     }
 
-    public override void Execute(object? value)
+    public override void Execute()
     {
+        object value = this.GetExecuteValue();
+    
         TrailRenderer[] targets = GetTargetRenderers();
         if (targets == null || targets.Length == 0)
         {
@@ -58,12 +60,16 @@ public class TrailRendererEditor : RDRSExecutorWithFrequency
                     else
                     {
                         float f = System.Convert.ToSingle(value);
-                        trail.emitting = Mathf.Abs(f) > 0.0001f;
+                        trail.emitting = f > 0.0001f;
                     }
                     break;
             }
         }
     }
+
+    ///////////////////
+    // Get components with Cache
+    ///////////////////
 
     public TrailRenderer[] GetTargetRenderers()
     {

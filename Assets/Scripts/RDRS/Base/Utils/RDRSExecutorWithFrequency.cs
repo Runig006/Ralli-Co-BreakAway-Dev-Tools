@@ -29,7 +29,7 @@ public abstract class RDRSExecutorWithFrequency : RDRSExecutorBase, IRDRSExecuto
         {
             while (true)
             {
-                this.Execute(this.GetExecuteValue());
+                this.Execute();
                 yield return null;
             }
         }
@@ -38,7 +38,7 @@ public abstract class RDRSExecutorWithFrequency : RDRSExecutorBase, IRDRSExecuto
             WaitForSeconds wait = new WaitForSeconds(this.frequency);
             while (true)
             {
-                this.Execute(this.GetExecuteValue());
+                this.Execute();
                 yield return wait;
             }
         }

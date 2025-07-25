@@ -30,7 +30,7 @@ public abstract class RDRSReaderWithFrequency : RDRSReaderBase, IRDRSExecutor
         {
             while (true)
             {
-                this.Execute(this.GetExecuteValue());
+                this.Execute();
                 yield return null;
             }
         }
@@ -39,12 +39,12 @@ public abstract class RDRSReaderWithFrequency : RDRSReaderBase, IRDRSExecutor
             WaitForSeconds wait = new WaitForSeconds(this.frequency);
             while (true)
             {
-                this.Execute(this.GetExecuteValue());
+                this.Execute();
                 yield return wait;
             }
         }
     }
 
     public abstract object GetExecuteValue();
-    public abstract void Execute(object value);
+    public abstract void Execute();
 }
