@@ -10,6 +10,7 @@ public class AudioSourceEditor : RDRSExecutorWithFrequency
         Volume = 0,
         Pitch = 1,
         PlayState = 2,
+        PlayOnce = 3,
     }
 
     public enum PlayStrategy
@@ -82,6 +83,7 @@ public class AudioSourceEditor : RDRSExecutorWithFrequency
 
 
                 case AudioProperty.PlayState:
+
                     bool enabled = false;
                     switch (value)
                     {
@@ -122,6 +124,10 @@ public class AudioSourceEditor : RDRSExecutorWithFrequency
                         if (this.playVolumeStrategy == PlayVolumeStrategy.FadeIn)
                         {
                             this.HandleFadeIn(source);
+                        }
+                        else
+                        {
+                            this.RestoreOriginalVolume(source);
                         }
                     }
                     else if (enabled == false && source.isPlaying)

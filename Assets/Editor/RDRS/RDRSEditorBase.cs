@@ -6,7 +6,7 @@ using System.Reflection;
 [CustomEditor(typeof(RDRSReaderBase), true)]
 public class RDRSEditorBase : Editor
 {
-    private bool showProperties = false;
+    protected bool showProperties = false;
 
     private string copyMessage = null;
     private float copyMessageTime;
@@ -97,7 +97,7 @@ public class RDRSEditorBase : Editor
                 }
                 else if (field.FieldType.IsArray && typeof(RDRSReaderBase).IsAssignableFrom(field.FieldType.GetElementType()))
                 {
-                    DrawArrayWithPaste(prop, field);
+                    this.DrawArrayWithPaste(prop, field);
                 }
                 else
                 {

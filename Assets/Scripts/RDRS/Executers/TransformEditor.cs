@@ -17,8 +17,8 @@ public class TransformEditor : RDRSExecutorWithFrequency
         Global
     }
 
-    [SerializeField] private RDRSReaderBase[] transformsReaders;
     [SerializeField] private RDRSReaderBase valueReader;
+    [SerializeField] private RDRSReaderBase[] transformsReaders;
 
     [SerializeField] private TargetProperty property = TargetProperty.Position;
     [SerializeField] private SpaceMode space = SpaceMode.Local;

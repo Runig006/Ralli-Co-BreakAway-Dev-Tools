@@ -11,8 +11,14 @@ public class AudioSourceEditorEditor : RDRSEditorBase
         serializedObject.Update();
         this.DrawTagHeader();
 
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("audioReaders"), true);
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("valueReader"));
+        SerializedProperty audioReadersProp = serializedObject.FindProperty("audioReaders");
+        FieldInfo audioReadersField = target.GetType().GetField("audioReaders", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+        this.DrawArrayWithPaste(audioReadersProp, audioReadersField);
+        
+        SerializedProperty valueReaderProp = serializedObject.FindProperty("valueReader");
+        FieldInfo valueReaderField = target.GetType().GetField("valueReader", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+        this.DrawFieldWithOptionalTag(valueReaderProp, valueReaderField);
+        
         EditorGUILayout.PropertyField(serializedObject.FindProperty("propertyToEdit"));
 
         SerializedProperty propertyToEditProp = serializedObject.FindProperty("propertyToEdit");

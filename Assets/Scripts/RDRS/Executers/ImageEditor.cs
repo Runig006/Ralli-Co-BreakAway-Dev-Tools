@@ -11,8 +11,6 @@ public class ImageEditor : RDRSExecutorWithFrequency
         Color
     }
 
-
-
     [SerializeField] private RDRSReaderBase valueReader;
     [SerializeField] private RDRSReaderBase[] imageTargetReaders;
 

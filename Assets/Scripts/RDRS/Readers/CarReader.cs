@@ -31,7 +31,6 @@ public class CarParametersReader : RDRSReaderBase
     [SerializeField] private int playerID = -1;
     [SerializeField] private float maxDistance = 20000.0f;
 
-    /*TODO SlipStream*/
     public override object GetValue()
     {
         if (this.findByDistance)
@@ -107,7 +106,7 @@ public class CarParametersReader : RDRSReaderBase
             if (this.carParameters != null) return;
         }
 
-        if (this.playerID >= -1)//Diferent in the final Game
+        if (this.playerID >= -1) //Diferent in the final Game
         {
             this.carParameters = FindFirstObjectByType<CarParameters>()?.GetComponent<CarParameters>();
         }

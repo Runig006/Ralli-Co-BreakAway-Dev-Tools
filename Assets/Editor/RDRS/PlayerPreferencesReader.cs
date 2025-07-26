@@ -10,12 +10,13 @@ public class PlayerPreferencesReaderEditor : RDRSEditorBase
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI(); 
-
-        GUILayout.Space(10);
-        EditorGUILayout.LabelField("Debug preferences", EditorStyles.boldLabel);
-
-        PlayerPreferencesReader.preferredSpeedUnit = (PlayerPreferencesReader.SpeedUnit) EditorGUILayout.EnumPopup("Speed Unit", PlayerPreferencesReader.preferredSpeedUnit);
-        PlayerPreferencesReader.preferredTemperatureUnit = (PlayerPreferencesReader.TemperatureUnit) EditorGUILayout.EnumPopup("Temperature Unit", PlayerPreferencesReader.preferredTemperatureUnit);
-        PlayerPreferencesReader.preferredCarColor = EditorGUILayout.ColorField("Car Color", PlayerPreferencesReader.preferredCarColor);
+        if (this.showProperties)
+        {
+            GUILayout.Space(10);
+            EditorGUILayout.LabelField("Debug preferences", EditorStyles.boldLabel);
+            PlayerPreferencesReader.preferredSpeedUnit = (PlayerPreferencesReader.SpeedUnit)EditorGUILayout.EnumPopup("Speed Unit", PlayerPreferencesReader.preferredSpeedUnit);
+            PlayerPreferencesReader.preferredTemperatureUnit = (PlayerPreferencesReader.TemperatureUnit)EditorGUILayout.EnumPopup("Temperature Unit", PlayerPreferencesReader.preferredTemperatureUnit);
+            PlayerPreferencesReader.preferredCarColor = EditorGUILayout.ColorField("Car Color", PlayerPreferencesReader.preferredCarColor);
+        }
     }
 }

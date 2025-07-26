@@ -18,21 +18,29 @@ public class ScoringReader : RDRSReaderBase
         LastTime = 11
     }
 
-    [SerializeField] private ScoringDetector scoringDetector;
-    [SerializeField] private bool autoFromCar = true;
-    [SerializeField] private bool findByDistance = false;
-    [SerializeField] private float maxDistance = 20000.0f;
     [SerializeField] private ScoringParameterType parameter;
+    [SerializeField] private bool autoFromParent = true;
+    [SerializeField] private bool findByDistance = false;
+    [SerializeField] private int playerID = -1;
+    [SerializeField] private float maxDistance = 20000.0f;
+    
+    private ScoringDetector scoringDetector;
 
     public override object GetValue()
     {
-        if (this.findByDistance || (this.autoFromCar && this.scoringDetector == null))
+        if (this.findByDistance)
         {
-            FindScoringDetector();
+            this.FindClosestByDistance();
+        }
+        else if (this.scoringDetector == null)
+        {
+            this.FindScoringDetector();
         }
 
         if (this.scoringDetector == null)
+        {
             return null;
+        }
 
         switch (this.parameter)
         {
@@ -67,8 +75,29 @@ public class ScoringReader : RDRSReaderBase
 
     private void FindScoringDetector()
     {
+        if (this.autoFromParent)
+        {
+            this.scoringDetector = GetComponentInParent<ScoringDetector>();
+            if (this.scoringDetector != null)
+            {
+                return;
+            }
+        }
+
+        if (this.playerID >= -1)  //Diferent in the final Game
+        {
+            this.scoringDetector = FindFirstObjectByType<ScoringDetector>();
+        }
+    }
+
+
+    private void FindClosestByDistance()
+    {
         CarParameters[] allCars = FindObjectsByType<CarParameters>(FindObjectsSortMode.None);
-        if (allCars.Length == 0) return;
+        if (allCars.Length == 0)
+        {
+            return;
+        }
 
         Transform myTransform = this.transform;
         CarParameters closestCar = null;

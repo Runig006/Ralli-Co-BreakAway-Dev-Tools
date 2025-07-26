@@ -16,13 +16,9 @@ public class RangeMiddleware : RDRSReaderBase
         }
 
         object raw = this.inputSource.GetValue();
-        if (raw is not float input)
-        {
-            Debug.LogWarning($"[RangeRemapper] Expected float, got {raw?.GetType().Name ?? "null"}");
-            return 0f;
-        }
+        float value = System.Convert.ToSingle(raw);
 
-        float t = Mathf.InverseLerp(this.inputRange.x, this.inputRange.y, input);
+        float t = Mathf.InverseLerp(this.inputRange.x, this.inputRange.y, value);
         return Mathf.Lerp(this.outputRange.x, this.outputRange.y, t);
     }
 }

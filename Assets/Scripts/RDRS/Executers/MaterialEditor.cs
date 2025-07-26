@@ -12,8 +12,8 @@ public class MaterialEditor : RDRSExecutorWithFrequency
         Keyword
     }
 
-    [SerializeField] private RDRSReaderBase[] materialReaders;
     [SerializeField] private RDRSReaderBase valueReader;
+    [SerializeField] private RDRSReaderBase[] materialReaders;
     [SerializeField] private string propertyName = "_Color";
     [SerializeField] private MaterialPropertyType propertyType = MaterialPropertyType.Color;
 

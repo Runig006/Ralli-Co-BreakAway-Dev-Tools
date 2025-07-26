@@ -16,12 +16,7 @@ public class ClampMiddleware : RDRSReaderBase
         }
 
         object raw = source.GetValue();
-        if (raw is not float value)
-        {
-            Debug.LogWarning($"[ClampMiddleware] Expected float, got {raw?.GetType().Name ?? "null"}");
-            return 0f;
-        }
-
+        float value = System.Convert.ToSingle(raw);
         return Mathf.Clamp(value, min, max);
     }
 }

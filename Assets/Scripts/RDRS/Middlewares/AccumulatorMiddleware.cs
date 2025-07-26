@@ -15,7 +15,7 @@ public class AccumulatorMiddleware : RDRSReaderWithFrequency
 
     [SerializeField] private bool useDeltaTime = true;
 
-    private float accumulated;
+    public float accumulated;
     
     public override object GetValue()
     {

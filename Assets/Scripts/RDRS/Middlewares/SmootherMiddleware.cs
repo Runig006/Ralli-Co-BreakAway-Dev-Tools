@@ -36,11 +36,7 @@ public class SmootherMiddleware : RDRSReaderWithFrequency
     public override void Execute()
     {
         object valueRaw = this.GetExecuteValue();
-        if (valueRaw is not float target)
-        {
-            Debug.LogWarning($"[SmootherReader] Expected float from source, got: {valueRaw?.GetType().Name ?? "null"}");
-            return;
-        }
+        float value = System.Convert.ToSingle(valueRaw);
         if (this.useDeltaTime)
         {
             #if UNITY_EDITOR
@@ -49,11 +45,11 @@ public class SmootherMiddleware : RDRSReaderWithFrequency
                 Debug.LogWarning("[SmootherReader] You are using deltaTime but frequency is not 0. The result may be incorrect.");
             }
             #endif
-           this.currentValue = Mathf.SmoothDamp(this.currentValue, target, ref this.velocity, this.smoothTime, Mathf.Infinity, Time.deltaTime);
+           this.currentValue = Mathf.SmoothDamp(this.currentValue, value, ref this.velocity, this.smoothTime, Mathf.Infinity, Time.deltaTime);
         }
         else
         {
-            this.currentValue = Mathf.Lerp(this.currentValue, target, this.smoothTime);
+            this.currentValue = Mathf.Lerp(this.currentValue, value, this.smoothTime);
         }
     }
 }

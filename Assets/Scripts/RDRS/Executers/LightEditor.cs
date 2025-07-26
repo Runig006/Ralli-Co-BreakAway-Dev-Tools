@@ -11,8 +11,8 @@ public class LightEditor : RDRSExecutorWithFrequency
         Enabled
     }
 
-    [SerializeField] private RDRSReaderBase[] lightReaders;
     [SerializeField] private RDRSReaderBase valueReader;
+    [SerializeField] private RDRSReaderBase[] lightReaders;
     [SerializeField] private LightProperty propertyToEdit;
 
     private object[] lastInputs;

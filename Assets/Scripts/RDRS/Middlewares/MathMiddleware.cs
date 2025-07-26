@@ -8,19 +8,21 @@ public class MathMiddleware : RDRSReaderBase
     [SerializeField] private RDRSReaderBase[] sources;
     [SerializeField] private string expression = "{0} * 0.5 + {1}";
 
-
     private List<string> steps;
+    public float result;
 
     private void Awake()
     {
         this.steps = this.ToShunting(this.expression);
     }
 
+    private void OnValidate()
+    {
+        this.steps = this.ToShunting(this.expression);
+    }
+
     public override object GetValue()
     {
-    #if UNITY_EDITOR
-        this.steps = this.ToShunting(this.expression);
-    #endif
         if (this.steps == null || this.steps.Count == 0)
         {
             return 0.0f;
@@ -47,7 +49,7 @@ public class MathMiddleware : RDRSReaderBase
                 }
             }
         }
-        return this.EvaluateShuntingRPN(this.steps, inputs);
+        return result =this.EvaluateShuntingRPN(this.steps, inputs);
     }
 
     private float EvaluateShuntingRPN(List<string> rpnTokens, List<float> inputs)
@@ -97,6 +99,12 @@ public class MathMiddleware : RDRSReaderBase
                         break;
                     case "<":
                         result = a < b ? 1f : 0f;
+                        break;
+                    case ">=":
+                        result = a >= b ? 1f : 0f;
+                        break;
+                    case "<=":
+                        result = a <= b ? 1f : 0f;
                         break;
                     case "==":
                         result = Mathf.Approximately(a, b) ? 1f : 0f;
@@ -199,7 +207,9 @@ public class MathMiddleware : RDRSReaderBase
             case "*":
             case "/":
             case ">":
+            case ">=":
             case "<":
+            case "<=":
             case "==":
             case "!=":
                 return true;

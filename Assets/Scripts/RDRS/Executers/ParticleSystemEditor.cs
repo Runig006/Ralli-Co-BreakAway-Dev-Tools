@@ -14,9 +14,8 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
         StartColor
     }
 
-
-    [SerializeField] private RDRSReaderBase[] particleSystemReaders;
     [SerializeField] private RDRSReaderBase valueReader;
+    [SerializeField] private RDRSReaderBase[] particleSystemReaders;
     [SerializeField] private ParticleProperty propertyToEdit;
 
     private object[] lastInputs;

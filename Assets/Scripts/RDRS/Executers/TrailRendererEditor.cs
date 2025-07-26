@@ -11,8 +11,8 @@ public class TrailRendererEditor : RDRSExecutorWithFrequency
         Emitting
     }
 
-    [SerializeField] private RDRSReaderBase[] trailRendererReaders;
     [SerializeField] private RDRSReaderBase valueReader;
+    [SerializeField] private RDRSReaderBase[] trailRendererReaders;
     [SerializeField] private TrailProperty propertyToEdit;
 
     private object[] lastInputs;
