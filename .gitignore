@@ -72,3 +72,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 /Library/Artifacts/*
+Assets/musictester.mp3
+Assets/musictester.mp3.meta

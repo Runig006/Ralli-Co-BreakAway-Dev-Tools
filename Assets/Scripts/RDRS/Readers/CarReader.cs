@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CarParametersReader : RDRSReaderBase
@@ -83,7 +84,7 @@ public class CarParametersReader : RDRSReaderBase
             case CarReaderParameterType.SteerInput:
                 return this.carParameters.GetTurn();
             case CarReaderParameterType.LightsStatus:
-                return this.carParameters.lightEnables;
+                return this.carParameters.GetLightsStatus();
             case CarReaderParameterType.IsSlipStream:
                 return this.carParameters.GetIsSlipstreaming();
             case CarReaderParameterType.SlipstreamTimer:
@@ -103,12 +104,26 @@ public class CarParametersReader : RDRSReaderBase
         if (this.autoFromParent)
         {
             this.carParameters = GetComponentInParent<CarParameters>();
-            if (this.carParameters != null) return;
+            if (this.carParameters != null)
+            {
+                return;
+            }
         }
-
-        if (this.playerID >= -1) //Diferent in the final Game
+        
+       
+        if (this.playerID >= 0)
         {
-            this.carParameters = FindFirstObjectByType<CarParameters>()?.GetComponent<CarParameters>();
+            #if FULL_GAME
+                CarManager carManager = FindFirstObjectByType<CarManager>();
+                if (carManager != null)
+                {
+                    GameObject carGO = carManager.GetCarByPlayer(playerID);
+                    this.carParameters = carGO.GetComponent<CarParameters>();
+                
+                }
+            #else
+                this.carParameters = FindFirstObjectByType<CarParameters>()?.GetComponent<CarParameters>();
+            #endif
         }
     }
 

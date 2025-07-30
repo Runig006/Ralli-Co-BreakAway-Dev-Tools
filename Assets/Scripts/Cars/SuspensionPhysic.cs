@@ -37,8 +37,6 @@ public class SuspensionPhysic : MonoBehaviour
 	
 	private float grip;
 	
-	private float currentWheelRotation = 0;
-	
 	private bool isGrounded = true;
 	private RaycastHit hitFloor;
 	
@@ -51,9 +49,6 @@ public class SuspensionPhysic : MonoBehaviour
 	private float normalizedSpringLength;
 	
 	private TerrainInfo currentTerrain;
-	
-	private bool driftEnable;
-	private bool dustEnable;
 		
 	//GETTERS/SETTER
 	public bool GetGrounded()

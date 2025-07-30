@@ -23,7 +23,7 @@ public class TranslatorMiddleware : RDRSReaderBase
         public GameObject gameObjectValue;
         public AudioClip audioClipValue;
 
-        public object? GetValue(SupportedType type)
+        public object GetValue(SupportedType type)
         {
             switch (type)
             {
@@ -75,14 +75,14 @@ public class TranslatorMiddleware : RDRSReaderBase
         }
     }
 
-    public override object? GetValue()
+    public override object GetValue()
     {
         if (input == null)
         {
             return null;
         }
 
-        object? raw = input.GetValue();
+        object raw = input.GetValue();
         if (raw == null)
         {
             Mapping nullFallback = mappings.FirstOrDefault(m => m.useWhenNull);
@@ -95,7 +95,7 @@ public class TranslatorMiddleware : RDRSReaderBase
         
         foreach (Mapping map in mappings)
         {
-            object? mapInput = map.input.GetValue(inputType);
+            object mapInput = map.input.GetValue(inputType);
 
             if (mapInput == null)
             {
@@ -147,7 +147,7 @@ public class TranslatorMiddleware : RDRSReaderBase
         return null;
     }
     
-    private object? TryInterpolateBetween(Mapping a, Mapping b, float raw)
+    private object TryInterpolateBetween(Mapping a, Mapping b, float raw)
     {
         float aInputValue = (float) a.input.GetValue(inputType);
         float bInputValue = (float) b.input.GetValue(inputType);

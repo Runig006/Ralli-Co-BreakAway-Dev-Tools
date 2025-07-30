@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaterialFromRendererReader : RDRSReaderBase
+public class MaterialExtractor : RDRSReaderBase
 {
     [SerializeField] private RDRSReaderBase[] sourceReaders;
     [SerializeField] private int[] materialIndices = new int[] { 0 };
@@ -9,7 +9,7 @@ public class MaterialFromRendererReader : RDRSReaderBase
     private object[] lastInputs;
     private Material[] cachedMaterials;
 
-    public override object? GetValue()
+    public override object GetValue()
     {
         if (this.sourceReaders == null || this.sourceReaders.Length == 0)
         {

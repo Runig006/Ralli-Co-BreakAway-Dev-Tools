@@ -57,17 +57,17 @@ public class ScoringReader : RDRSReaderBase
             case ScoringParameterType.RemainTimeForViewers:
                 return this.scoringDetector.GetRemainTimeForViewers();
             case ScoringParameterType.BestViewers:
-                return this.scoringDetector.GetBestViewers() ?? 0;
+                return 0f;
             case ScoringParameterType.BestTime:
-                return this.scoringDetector.GetBestTime() ?? 0f;
+                return 0f;
             case ScoringParameterType.DeltaViewers:
-                return this.scoringDetector.GetDeltaViewers() ?? 0;
+                return 0f;
             case ScoringParameterType.DeltaTime:
-                return this.scoringDetector.GetDeltaTime() ?? 0f;
+                return 0f;
             case ScoringParameterType.LastViewers:
-                return this.scoringDetector.GetLastViewers() ?? 0;
+                return 0f;
             case ScoringParameterType.LastTime:
-                return this.scoringDetector.GetLastTime() ?? 0f;
+                return 0f;
             default:
                 return 0f;
         }
@@ -77,16 +77,26 @@ public class ScoringReader : RDRSReaderBase
     {
         if (this.autoFromParent)
         {
-            this.scoringDetector = GetComponentInParent<ScoringDetector>();
+            this.scoringDetector = GetComponentInParent<CarParameters>().gameObject.GetComponentInChildren<ScoringDetector>();
             if (this.scoringDetector != null)
             {
                 return;
             }
         }
 
-        if (this.playerID >= -1)  //Diferent in the final Game
+        if (this.playerID >= 0)
         {
-            this.scoringDetector = FindFirstObjectByType<ScoringDetector>();
+            #if FULL_GAME
+                CarManager carManager = FindFirstObjectByType<CarManager>();
+                if (carManager != null)
+                {
+                    GameObject carGO = carManager.GetCarByPlayer(playerID);
+                    this.scoringDetector = carGO.GetComponentInChildren<ScoringDetector>();
+                
+                }
+            #else
+                this.scoringDetector = FindFirstObjectByType<ScoringDetector>();
+            #endif
         }
     }
 

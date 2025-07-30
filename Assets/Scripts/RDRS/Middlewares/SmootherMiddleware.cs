@@ -49,7 +49,15 @@ public class SmootherMiddleware : RDRSReaderWithFrequency
         }
         else
         {
-            this.currentValue = Mathf.Lerp(this.currentValue, value, this.smoothTime);
+            #if UNITY_EDITOR
+            if(this.frequency == 0f)
+            {
+                Debug.LogWarning("[SmootherReader] You are NOT using deltaTime but frequency is 0. The result WILL be incorrect.");
+            }
+            #endif
+            float lerpFactor = this.frequency / (this.smoothTime + Mathf.Epsilon);
+            lerpFactor = Mathf.Clamp01(lerpFactor);
+            this.currentValue = Mathf.Lerp(this.currentValue, value, lerpFactor);
         }
     }
 }

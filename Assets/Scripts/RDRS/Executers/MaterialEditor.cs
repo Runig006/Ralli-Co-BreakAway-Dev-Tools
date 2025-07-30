@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MaterialEditor : RDRSExecutorWithFrequency
 {
     public enum MaterialPropertyType
@@ -20,11 +21,12 @@ public class MaterialEditor : RDRSExecutorWithFrequency
     private object[] lastInputs;
     private Material[] cachedMaterials;
 
-    public override object? GetExecuteValue()
+    public override object GetExecuteValue()
     {
         return this.valueReader?.GetValue();
     }
 
+    
     public override void Execute()
     {
         object value = this.GetExecuteValue();
@@ -64,14 +66,7 @@ public class MaterialEditor : RDRSExecutorWithFrequency
                     break;
 
                 case MaterialPropertyType.Int:
-                    if (value is int iValue)
-                    {
-                        mat.SetInt(this.propertyName, iValue);
-                    }
-                    else if (value is float fInt)
-                    {
-                        mat.SetInt(this.propertyName, Mathf.RoundToInt(fInt));
-                    }
+                    mat.SetInt(this.propertyName, System.Convert.ToInt32(value));
                     break;
 
                 case MaterialPropertyType.Vector:
@@ -82,19 +77,7 @@ public class MaterialEditor : RDRSExecutorWithFrequency
                     break;
 
                 case MaterialPropertyType.Keyword:
-                    if (value is bool b)
-                    {
-                        enabled = b;
-                    }
-                    else if (value is float fl)
-                    {
-                        enabled = fl > 0.0001f;
-                    }
-                    else if (value is int inte)
-                    {
-                        enabled = inte != 0;
-                    }
-
+                    bool enabled = RDRSUtils.toBoolean(value);
                     if (enabled)
                     {
                         mat.EnableKeyword(this.propertyName);

@@ -53,15 +53,7 @@ public class TrailRendererEditor : RDRSExecutorWithFrequency
                     trail.endWidth = System.Convert.ToSingle(value);
                     break;
                 case TrailProperty.Emitting:
-                    if (value is bool b)
-                    {
-                        trail.emitting = b;
-                    }
-                    else
-                    {
-                        float f = System.Convert.ToSingle(value);
-                        trail.emitting = f > 0.0001f;
-                    }
+                    trail.emitting = RDRSUtils.toBoolean(value);
                     break;
             }
         }

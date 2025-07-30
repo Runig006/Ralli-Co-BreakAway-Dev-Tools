@@ -66,16 +66,7 @@ public class LightEditor : RDRSExecutorWithFrequency
                     break;
 
                 case LightProperty.Enabled:
-                    bool enabled = false;
-                    if (value is bool b)
-                    {
-                        enabled = b;
-                    }
-                    else
-                    {
-                        float f = System.Convert.ToSingle(value);
-                        enabled = f > 0.0001f;
-                    }
+                    bool enabled = RDRSUtils.toBoolean(value);
                     light.enabled = enabled;
                     break;
             }

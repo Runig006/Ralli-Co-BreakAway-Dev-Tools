@@ -87,28 +87,35 @@ public class RDRSEditorBase : Editor
                     continue;
                 }
 
-                SerializedProperty prop = serializedObject.FindProperty(field.Name);
-                if (prop == null)
-                    continue;
-
-                if (typeof(RDRSReaderBase).IsAssignableFrom(field.FieldType))
-                {
-                    this.DrawFieldWithOptionalTag(prop, field);
-                }
-                else if (field.FieldType.IsArray && typeof(RDRSReaderBase).IsAssignableFrom(field.FieldType.GetElementType()))
-                {
-                    this.DrawArrayWithPaste(prop, field);
-                }
-                else
-                {
-                    EditorGUILayout.PropertyField(prop, true);
-                }
+                this.DrawCustomField(field);
             }
             
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
         }
 
+    }
+
+    protected void DrawCustomField(FieldInfo field)
+    {
+        SerializedProperty prop = serializedObject.FindProperty(field.Name);
+        if (prop == null)
+        {
+            return;
+        }
+
+        if (typeof(RDRSReaderBase).IsAssignableFrom(field.FieldType))
+        {
+            this.DrawFieldWithOptionalTag(prop, field);
+        }
+        else if (field.FieldType.IsArray && typeof(RDRSReaderBase).IsAssignableFrom(field.FieldType.GetElementType()))
+        {
+            this.DrawArrayWithPaste(prop, field);
+        }
+        else
+        {
+            EditorGUILayout.PropertyField(prop, true);
+        }
     }
 
     //Print any "normal" field

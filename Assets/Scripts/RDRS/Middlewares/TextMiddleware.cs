@@ -49,7 +49,7 @@ public class StringFormatMiddleware : RDRSReaderBase
                 switch (kv.Value)
                 {
                     case FormatMode.DateTime:
-                        valueTransformed = Convert.ToDouble(val, CultureInfo.InvariantCulture);
+                        valueTransformed = Convert.ToSingle(val, CultureInfo.InvariantCulture);
                         values[idx] = DateTime.UnixEpoch.AddSeconds(valueTransformed);
                         break;
                 }

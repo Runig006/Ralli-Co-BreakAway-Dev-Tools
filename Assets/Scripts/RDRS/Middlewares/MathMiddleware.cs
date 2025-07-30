@@ -9,7 +9,7 @@ public class MathMiddleware : RDRSReaderBase
     [SerializeField] private string expression = "{0} * 0.5 + {1}";
 
     private List<string> steps;
-    public float result;
+    private float result;
 
     private void Awake()
     {
@@ -49,7 +49,7 @@ public class MathMiddleware : RDRSReaderBase
                 }
             }
         }
-        return result =this.EvaluateShuntingRPN(this.steps, inputs);
+        return result = this.EvaluateShuntingRPN(this.steps, inputs);
     }
 
     private float EvaluateShuntingRPN(List<string> rpnTokens, List<float> inputs)
@@ -65,17 +65,17 @@ public class MathMiddleware : RDRSReaderBase
             else if (this.IsVariableToken(token))
             {
                 string cleanToken = token.Trim('|');
-                int index = this.ParseVariableIndex(cleanToken);
+                int index = int.Parse(this.RemoveTokensFromIndex(token));
                 float value = (index >= 0 && index < inputs.Count) ? inputs[index] : 0f;
-                
-                if(cleanToken.Length != token.Length)
+
+                if (cleanToken.Length != token.Length)
                 {
                     value = MathF.Abs(value);
                 }
-                
+
                 stack.Push(value);
             }
-            else if (IsOperator(token))
+            else if (this.IsOperator(token))
             {
                 float b = stack.Pop();
                 float a = stack.Pop();
@@ -113,7 +113,39 @@ public class MathMiddleware : RDRSReaderBase
                         result = !Mathf.Approximately(a, b) ? 1f : 0f;
                         break;
                     default:
-                        throw new InvalidOperationException($"Unsupported operator: {token}");
+                        throw new InvalidOperationException($"Unsupported binary operator: {token}");
+                }
+                stack.Push(result);
+            }
+            else if (this.IsFunction(token))
+            {
+                float a = stack.Pop();
+                float result;
+                switch (token)
+                {
+                    case "sin":
+                        result = Mathf.Sin(a);
+                        break;
+                    case "cos":
+                        result = Mathf.Cos(a);
+                        break;
+                    case "tan":
+                        result = Mathf.Tan(a);
+                        break;
+                    case "sqrt":
+                        result = Mathf.Sqrt(a);
+                        break;
+                    case "floor":
+                        result = Mathf.Floor(a);
+                        break;
+                    case "ceil":
+                        result = Mathf.Ceil(a);
+                        break;
+                    case "round":
+                        result = Mathf.Round(a);
+                        break;
+                    default:
+                        throw new InvalidOperationException($"Unsupported function: {token}");
                 }
                 stack.Push(result);
             }
@@ -141,9 +173,13 @@ public class MathMiddleware : RDRSReaderBase
             {
                 output.Add(token);
             }
-            else if (IsOperator(token))
+            else if (this.IsFunction(token) || this.IsOperator(token))
             {
-                while (simbolsCollection.Count > 0 && IsOperator(simbolsCollection.Peek()) && GetPrecedence(token) <= GetPrecedence(simbolsCollection.Peek()))
+                while (
+                    simbolsCollection.Count > 0 &&
+                    (this.IsOperator(simbolsCollection.Peek()) || this.IsFunction(simbolsCollection.Peek())) &&
+                    this.GetPrecedence(token) <= this.GetPrecedence(simbolsCollection.Peek())
+                )
                 {
                     output.Add(simbolsCollection.Pop());
                 }
@@ -188,6 +224,14 @@ public class MathMiddleware : RDRSReaderBase
             case "*":
             case "/":
                 return 2;
+            case "sin":
+            case "cos":
+            case "tan":
+            case "sqrt":
+            case "floor":
+            case "ceil":
+            case "round":
+                return 3;
             case ">":
             case "<":
             case "==":
@@ -218,14 +262,49 @@ public class MathMiddleware : RDRSReaderBase
         }
     }
 
-    
+    private bool IsFunction(string token)
+    {
+        switch (token)
+        {
+            case "sin":
+            case "cos":
+            case "tan":
+            case "sqrt":
+            case "floor":
+            case "ceil":
+            case "round":
+                return true;
+            default:
+                return false;
+        }
+    }
+
     private bool IsVariableToken(string token)
     {
-        return Regex.IsMatch(token, @"^(\|\{\d+\}\||\{\d+\})$");
+        //Regex is slow
+        if (string.IsNullOrEmpty(token))
+        {
+            return false;
+        }
+        string inner = this.RemoveTokensFromIndex(token);
+        if (inner.Length == token.Length)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < inner.Length; i++)
+        {
+            if (char.IsDigit(inner[i]) == false)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
-    
-    private int ParseVariableIndex(string token)
+
+    private string RemoveTokensFromIndex(string token)
     {
-        return int.Parse(token.Substring(1, token.Length - 2));
+        return token.Replace("|", "").Replace("{", "").Replace("}", "");
     }
 }

@@ -6,17 +6,21 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
 {
     public enum ParticleProperty
     {
-        EmissionRateOverTime,
-        EmissionRateOverDistance,
-        StartSize,
-        StartSpeed,
-        Enable,
-        StartColor
+        EmissionRateOverTime = 0,
+        EmissionRateOverDistance = 1,
+        StartSize = 2,
+        StartSpeed = 3,
+        Enable = 4,
+        StartColor = 5,
+        BurstCount = 6,
+        BurstCountRange = 7,
+        BurstProbability = 8,
     }
 
     [SerializeField] private RDRSReaderBase valueReader;
     [SerializeField] private RDRSReaderBase[] particleSystemReaders;
     [SerializeField] private ParticleProperty propertyToEdit;
+    [SerializeField] private Vector2Int burstRange = new Vector2Int(0, 0);
 
     private object[] lastInputs;
     private ParticleSystem[] cachedSystems;
@@ -29,7 +33,7 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
     public override void Execute()
     {
         object value = this.GetExecuteValue();
-        
+
         ParticleSystem[] particleSystemsToEdit = this.GetTargetSystems();
         if (particleSystemsToEdit == null || particleSystemsToEdit.Length == 0)
         {
@@ -43,13 +47,14 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
                 continue;
             }
 
+            //This switch need the {} for the var emission
             switch (this.propertyToEdit)
             {
                 case ParticleProperty.EmissionRateOverTime:
                     {
                         float convert = System.Convert.ToSingle(value);
-                        var emission = ps.emission;
-                        var rate = emission.rateOverTime;
+                        ParticleSystem.EmissionModule emission = ps.emission;
+                        ParticleSystem.MinMaxCurve rate = emission.rateOverTime;
                         rate.constant = convert;
                         emission.rateOverTime = rate;
                         break;
@@ -58,8 +63,8 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
                 case ParticleProperty.EmissionRateOverDistance:
                     {
                         float convert = System.Convert.ToSingle(value);
-                        var emission = ps.emission;
-                        var overDistance = emission.rateOverDistance;
+                        ParticleSystem.EmissionModule emission = ps.emission;
+                        ParticleSystem.MinMaxCurve overDistance = emission.rateOverDistance;
                         overDistance.constant = convert;
                         emission.rateOverDistance = overDistance;
                         break;
@@ -68,8 +73,8 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
                 case ParticleProperty.StartSize:
                     {
                         float convert = System.Convert.ToSingle(value);
-                        var main = ps.main;
-                        var curve = main.startSize;
+                        ParticleSystem.MainModule main = ps.main;
+                        ParticleSystem.MinMaxCurve curve = main.startSize;
                         curve.constant = convert;
                         main.startSize = curve;
                         break;
@@ -78,55 +83,88 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
                 case ParticleProperty.StartSpeed:
                     {
                         float convert = System.Convert.ToSingle(value);
-                        var main = ps.main;
-                        var curve = main.startSpeed;
+                        ParticleSystem.MainModule main = ps.main;
+                        ParticleSystem.MinMaxCurve curve = main.startSpeed;
                         curve.constant = convert;
                         main.startSpeed = curve;
                         break;
                     }
 
                 case ParticleProperty.Enable:
-                    bool enabled = false;
-                    switch (value)
                     {
-                        case bool b:
-                            enabled = b;
-                            break;
-
-                        case float f:
-                            enabled = Mathf.Abs(f) > 0.0001f;
-                            break;
-
-                        case int i:
-                            enabled = i != 0;
-                            break;
+                        bool enabled = RDRSUtils.toBoolean(value);
+                        if (enabled && !ps.isPlaying)
+                        {
+                            ps.Play();
+                        }
+                        else if (!enabled && ps.isPlaying)
+                        {
+                            ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                        }
+                        break;
                     }
-                    if (enabled && !ps.isPlaying)
-                    {
-                        ps.Play();
-                    }
-                    else if (!enabled && ps.isPlaying)
-                    {
-                        ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-                    }
-                    break;
 
                 case ParticleProperty.StartColor:
-                    if (value is Color color)
                     {
-                        var main = ps.main;
-                        main.startColor = color;
+                        if (value is Color color)
+                        {
+                            ParticleSystem.MainModule main = ps.main;
+                            main.startColor = color;
+                        }
+                        else if (value is string colorString && ColorUtility.TryParseHtmlString(colorString, out var parsedColor))
+                        {
+                            ParticleSystem.MainModule main = ps.main;
+                            main.startColor = parsedColor;
+                        }
+                        else
+                        {
+                            Debug.LogWarning("[ParticleSystemEditor] Value not valid for startColor");
+                        }
+                        break;
                     }
-                    else if (value is string colorString && ColorUtility.TryParseHtmlString(colorString, out var parsedColor))
+                case ParticleProperty.BurstCount:
                     {
-                        var main = ps.main;
-                        main.startColor = parsedColor;
+                        int countValue = System.Convert.ToInt32(value);
+                        ParticleSystem.EmissionModule emission = ps.emission;
+                        int burstCount = emission.burstCount;
+                        ParticleSystem.Burst[] bursts = new ParticleSystem.Burst[burstCount];
+                        emission.GetBursts(bursts);
+
+                        for (int i = 0; i < bursts.Length; i++)
+                        {
+                            if (i >= burstRange.x && i <= burstRange.y)
+                            {
+                                ParticleSystem.Burst burst = bursts[i];
+                                burst.count = new ParticleSystem.MinMaxCurve(countValue);
+                                bursts[i] = burst;
+                            }
+                        }
+
+                        emission.SetBursts(bursts);
+                        break;
                     }
-                    else
+
+                case ParticleProperty.BurstProbability:
                     {
-                        Debug.LogWarning("[ParticleSystemEditor] Value not valid for startColor");
+                        float prob = Mathf.Clamp01(System.Convert.ToSingle(value));
+                        ParticleSystem.EmissionModule emission = ps.emission;
+                        int burstCount = emission.burstCount;
+                        ParticleSystem.Burst[] bursts = new ParticleSystem.Burst[burstCount];
+                        emission.GetBursts(bursts);
+
+                        for (int i = 0; i < bursts.Length; i++)
+                        {
+                            if (i >= burstRange.x && i <= burstRange.y)
+                            {
+                                ParticleSystem.Burst burst = bursts[i];
+                                burst.probability = prob;
+                                bursts[i] = burst;
+                            }
+                        }
+
+                        emission.SetBursts(bursts);
+                        break;
                     }
-                    break;
             }
         }
     }

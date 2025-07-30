@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class TrackExporter : MonoBehaviour
 {
 	private const string LastFolderKey = "TrackExporter_LastFolderPath";
-	private const string TempPrefab = "Assets/__TempExportedTrack.prefab";
 
 	[MenuItem("Assets/Export Track")]
 	static void ExportSelectedPrefab()
@@ -30,12 +29,11 @@ public class TrackExporter : MonoBehaviour
 		{
 			Debug.LogError("Could not determine the path of the selected asset.");
 			return;
-		}	
+		}
 		
-		// Get the last folder used
+		// Obtener la última carpeta utilizada
 		string lastUsedFolder = EditorPrefs.GetString(LastFolderKey, "");
-		string folderPath = EditorUtility.SaveFolderPanel(
-			"Select a folder to save the track (Remember that it has to be GameLocation/Tracks/CollectionFolder, so it can be read for the game)", 
+		string folderPath = EditorUtility.SaveFolderPanel("Select a folder to save the track (Remember that it has to be GameLocation/Tracks/CollectionFolder, so it can be read for the game)", 
 			lastUsedFolder, 
 			""
 		);
@@ -46,38 +44,14 @@ public class TrackExporter : MonoBehaviour
 		}
 
 		EditorPrefs.SetString(LastFolderKey, folderPath);
-		
-		//Create the temp prefab, and add the snapshotHolder
-		GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-        GameObject tempInstance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-        
-        if (tempInstance.GetComponent<Level>() == null)
-		{
-			Debug.LogError("The prefab must contain a Level component.");
-			GameObject.DestroyImmediate(tempInstance);
-			return;
-		}
 
-        SnapshotHolder snapshot = tempInstance.GetComponent<SnapshotHolder>();
-		if (snapshot == null)
-		{
-			snapshot = tempInstance.AddComponent<SnapshotHolder>();
-		}
-        snapshot.CaptureSnapshot();
-		PrefabUtility.SaveAsPrefabAsset(tempInstance, TempPrefab);
-		
-		//Use the tempPrefab to save
-		HashSet<string> dependencies = new HashSet<string>(FilterAssets(TempPrefab));
-		dependencies.Add(TempPrefab); 
+		HashSet<string> dependencies = new HashSet<string>(FilterAssets(prefabPath));
+		dependencies.Add(prefabPath); 
 		
 		List<string> uniqueAssets = new List<string>(dependencies);
 		
 		string bundleName = selectedObject.name.ToLower() + ".track";
 		BuildCircuitAssetBundle(uniqueAssets, bundleName, folderPath);
-		
-		//Clean
-		AssetDatabase.DeleteAsset(TempPrefab);
-        GameObject.DestroyImmediate(tempInstance);
 	}
 	
 	static HashSet<string> FilterAssets(string prefabPath)

@@ -72,9 +72,6 @@ public class CarParameters : MonoBehaviour
 	[SerializeField] private int maxRPM;
 	[SerializeField] private float rpmDangerThresholdPercentage = 0.8f;
 	private LayerMask layerMaskDrivable;
-	
-	[Header("Debug")]
-	public bool lightEnables = true;
 
 	//InputValues
 	private int? currentGear = null;
@@ -90,7 +87,7 @@ public class CarParameters : MonoBehaviour
 	
 	//BoostAvaiable
 	private float boostTemperature = 0.0f;
-	private bool forcedBoostBurned = false;
+	//private bool forcedBoostBurned = false;
 	private bool boostBurned = false;
 	private float burnCheckTimer = 0.0f;
 	private int? previousGear = null;
@@ -114,6 +111,8 @@ public class CarParameters : MonoBehaviour
 	
 	//PlayerControls
 	private int playerId = 0;
+	
+	public bool lightEnables = true;
 	
 	void Awake()
 	{
@@ -441,7 +440,7 @@ public class CarParameters : MonoBehaviour
 		return this.boostBurned;
 	}
 	
-	public TemperatureZone? GetTemperatureZone()
+	public TemperatureZone GetTemperatureZone()
 	{
 		return this.currentTemperatureZone;
 	}
@@ -449,6 +448,11 @@ public class CarParameters : MonoBehaviour
 	public void SetTemperatureZone(TemperatureZone zone)
 	{
 		this.currentTemperatureZone = zone;
+	}
+	
+	public bool GetIsDownShifting()
+	{
+	    return this.isDownshifting;
 	}
 	
 	// SlipStream
@@ -548,6 +552,16 @@ public class CarParameters : MonoBehaviour
 	public float GetMaxSpeed()
 	{
 		return this.maxSpeed;
+	}
+		
+	public float GetMaxSpeedBoost()
+	{
+		return this.maxSpeedBoost;
+	}
+	
+	public float GetMaxSpeedSlip()
+	{
+		return this.maxSpeedSlip;
 	}
 
 	public float GetPower()
@@ -652,6 +666,17 @@ public class CarParameters : MonoBehaviour
 			}
 		}
 		return this.GetForwardVelocity() >= maxAllowedSpeed;
+	}
+	
+	//SkyBoxes
+	public void SetLights(bool enable)
+	{
+	    this.lightEnables = enable;
+	}
+	
+	public bool GetLightsStatus()
+	{
+	    return this.lightEnables;
 	}
 	
 	//Audio	

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioSourceEditor : RDRSExecutorWithFrequency
@@ -83,22 +82,7 @@ public class AudioSourceEditor : RDRSExecutorWithFrequency
 
 
                 case AudioProperty.PlayState:
-
-                    bool enabled = false;
-                    switch (value)
-                    {
-                        case bool b:
-                            enabled = b;
-                            break;
-
-                        case float f:
-                            enabled = Mathf.Abs(f) > 0.0001f;
-                            break;
-
-                        case int i:
-                            enabled = i != 0;
-                            break;
-                    }
+                    bool enabled = RDRSUtils.toBoolean(value);
                     if (enabled && source.isPlaying == false)
                     {
                         switch (this.playStrategy)

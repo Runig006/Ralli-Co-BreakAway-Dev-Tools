@@ -3,10 +3,9 @@ using UnityEngine;
 public class RandomFloatExecutor : RDRSReaderWithFrequency
 {
     [SerializeField] private Vector2 range;
-    [SerializeField] private bool restartWithTrack = true;
     [SerializeField] private bool restartWithEnable = true;
 
-    private float? currentValue;
+    public float currentValue;
 
     protected override void OnEnable()
     {

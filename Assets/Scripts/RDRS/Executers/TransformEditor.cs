@@ -95,19 +95,8 @@ public class TransformEditor : RDRSExecutorWithFrequency
     {
         Vector3 valueVector3 = Vector3.zero;
         Quaternion valueQuaternion;
-        Vector3 currentRotationEuler = (this.space == SpaceMode.Local) ? this.transform.localRotation.eulerAngles : this.transform.rotation.eulerAngles;
-        if (valueRaw is Quaternion q)
-        {
-            valueQuaternion = q;
-            valueVector3 = valueQuaternion.eulerAngles;
-            valueVector3 = this.ApplyVector3(currentRotationEuler, valueVector3, this.axisMask, this.additive);
-        }
-        else
-        {
-            valueVector3 = this.ValueToVector3(valueRaw);
-            valueVector3 = this.ApplyVector3(currentRotationEuler, valueVector3, this.axisMask, this.additive);
-            valueQuaternion = Quaternion.Euler(valueVector3);
-        }
+        Vector3 currentRotationEuler = Vector3.zero;
+        Quaternion currentRotation;
 
         foreach (Transform t in targets)
         {
@@ -115,10 +104,29 @@ public class TransformEditor : RDRSExecutorWithFrequency
             {
                 continue;
             }
+            currentRotationEuler = (this.space == SpaceMode.Local) ? t.transform.localRotation.eulerAngles : t.transform.rotation.eulerAngles;
+            currentRotation = (this.space == SpaceMode.Local) ? t.transform.localRotation : t.transform.rotation;
 
-            if (additive)
+            if (valueRaw is Quaternion q)
             {
-                Quaternion rotation = t.localRotation;
+                valueQuaternion = q;
+                valueVector3 = q.eulerAngles;
+            }
+            else
+            {
+                valueVector3 = this.ValueToVector3(valueRaw);
+                valueVector3 = this.ApplyVector3(this.baseValue, valueVector3, this.axisMask, this.additive);
+                valueQuaternion = Quaternion.Euler(valueVector3);
+            }
+
+            if (this.additive)
+            {
+                if (this.useTimeDeltaTime)
+                {
+                    valueVector3 *= Time.deltaTime;
+                }
+
+                Quaternion rotation = (this.space == SpaceMode.Local) ? t.localRotation : t.rotation;
 
                 if (axisMask.x != 0)
                 {
@@ -142,7 +150,7 @@ public class TransformEditor : RDRSExecutorWithFrequency
                     t.rotation = rotation;
                 }
             }
-            else if (valueQuaternion != null)
+            else
             {
                 if (this.space == SpaceMode.Local)
                 {
@@ -197,7 +205,6 @@ public class TransformEditor : RDRSExecutorWithFrequency
     private Vector3 ValueToVector3(object valueRaw)
     {
         Vector3 inputValue = Vector3.zero;
-
         if (valueRaw != null)
         {
             if (valueRaw is float f)
@@ -217,29 +224,23 @@ public class TransformEditor : RDRSExecutorWithFrequency
                 Debug.LogWarning($"[TransformEditor] type not valid: {valueRaw.GetType().Name}");
             }
         }
-        if (this.additive && this.useTimeDeltaTime)
-        {
-            inputValue *= Time.deltaTime;
-        }
-
-
         return inputValue;
     }
 
     private Vector3 ApplyVector3(Vector3 original, Vector3 added, Vector3 mask, bool additive)
     {
         Vector3 result = original;
-        if (additive)
+        if (this.additive)
         {
-            result.x += mask.x != 0 ? added.x : 0f;
-            result.y += mask.y != 0 ? added.y : 0f;
-            result.z += mask.z != 0 ? added.z : 0f;
+            result.x += mask.x != 0 ? added.x * mask.x : 0f;
+            result.y += mask.y != 0 ? added.y * mask.y : 0f;
+            result.z += mask.z != 0 ? added.z * mask.z : 0f;
         }
         else
         {
-            result.x = mask.x != 0 ? added.x : original.x;
-            result.y = mask.y != 0 ? added.y : original.y;
-            result.z = mask.z != 0 ? added.z : original.z;
+            result.x = mask.x != 0 ? added.x * mask.x : original.x;
+            result.y = mask.y != 0 ? added.y * mask.y : original.y;
+            result.z = mask.z != 0 ? added.z * mask.z : original.z;
         }
         return result;
     }

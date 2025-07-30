@@ -21,12 +21,14 @@ public class AudioVisualizer : MonoBehaviour
 	public float GetPrecomputedRange(FrequencyRange range)
 	{
 		if (range == FrequencyRange.Custom)
+		{
 			return 0f;
+		}
 		
 		return precomputedRanges[(int)range];
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		this.audioSource.GetSpectrumData(this.spectrumData, 0, FFTWindow.BlackmanHarris);
 		this.PrecomputeRanges();
