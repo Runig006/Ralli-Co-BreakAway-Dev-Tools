@@ -1,17 +1,15 @@
 using UnityEngine;
 
-public class TerrainInfoReader : RDRSReaderBase
+public class TerrainInfoReader : RDRSNode
 {
     public enum TerrainReaderParameterType
     {
-        PowerMultiplier,
-        GripMultiplier,
-        ResistanceMultiplier,
-        DriftParticlesGameObject,
-        DustParticlesGameObject,
-        DriftSoundGameObject,
-        DustSoundGameObject,
-        Roughness
+        PowerMultiplier = 0,
+        GripMultiplier = 1,
+        ResistanceMultiplier = 2,
+        DriftGameObject = 3,
+        DustGameObject = 4,
+        Roughness = 7
     }
 
     [SerializeField] private TerrainReaderParameterType parameter;
@@ -72,17 +70,11 @@ public class TerrainInfoReader : RDRSReaderBase
             case TerrainReaderParameterType.ResistanceMultiplier:
                 value = terrain.GetResistanceMultipler();
                 break;
-            case TerrainReaderParameterType.DriftParticlesGameObject:
+            case TerrainReaderParameterType.DriftGameObject:
                 value = terrain.GetDriftGameObject();
                 break;
-            case TerrainReaderParameterType.DustParticlesGameObject:
+            case TerrainReaderParameterType.DustGameObject:
                 value = terrain.GetDustGameObject();
-                break;
-            case TerrainReaderParameterType.DriftSoundGameObject:
-                value = terrain.GetDriftSound();
-                break;
-            case TerrainReaderParameterType.DustSoundGameObject:
-                value = terrain.GetDustSound();
                 break;
             case TerrainReaderParameterType.Roughness:
                 value = terrain.GetRoughness();
@@ -107,10 +99,8 @@ public class TerrainInfoReader : RDRSReaderBase
             case TerrainReaderParameterType.Roughness:
                 return 0.0f;
 
-            case TerrainReaderParameterType.DriftParticlesGameObject:
-            case TerrainReaderParameterType.DustParticlesGameObject:
-            case TerrainReaderParameterType.DriftSoundGameObject:
-            case TerrainReaderParameterType.DustSoundGameObject:
+            case TerrainReaderParameterType.DriftGameObject:
+            case TerrainReaderParameterType.DustGameObject:
                 return null;
 
             default:

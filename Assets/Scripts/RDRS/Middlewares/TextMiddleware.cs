@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
 
-public class StringFormatMiddleware : RDRSReaderBase
+public class StringFormatMiddleware : RDRSNode
 {
     private enum FormatMode
     {
@@ -14,7 +14,7 @@ public class StringFormatMiddleware : RDRSReaderBase
         DateTime = 1
     }
 
-    [SerializeField] private RDRSReaderBase[] sources;
+    [SerializeField] private RDRSNode[] sources;
     [SerializeField] private string format = "{0}";
 
     private Dictionary<int, FormatMode> indexFormats;
@@ -72,7 +72,7 @@ public class StringFormatMiddleware : RDRSReaderBase
         object[] values = new object[sources.Length];
         for (int i = 0; i < sources.Length; i++)
         {
-            RDRSReaderBase reader = sources[i];
+            RDRSNode reader = sources[i];
             if (reader == null)
             {
                 values[i] = "null";

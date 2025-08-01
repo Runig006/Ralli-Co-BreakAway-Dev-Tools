@@ -1,13 +1,13 @@
 using UnityEngine;
 
 
-public class Vector3Composer : RDRSReaderBase
+public class Vector3Composer : RDRSNode
 {
     public enum Vector3Axis { X, Y, Z }
 
-    [SerializeField] private RDRSReaderBase x;
-    [SerializeField] private RDRSReaderBase y;
-    [SerializeField] private RDRSReaderBase z;
+    [SerializeField] private RDRSNode x;
+    [SerializeField] private RDRSNode y;
+    [SerializeField] private RDRSNode z;
 
     public override object GetValue()
     {

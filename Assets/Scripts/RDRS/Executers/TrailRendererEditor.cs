@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrailRendererEditor : RDRSExecutorWithFrequency
+public class TrailRendererEditor : RDRSNodeWithFrequency
 {
     public enum TrailProperty
     {
@@ -11,21 +11,16 @@ public class TrailRendererEditor : RDRSExecutorWithFrequency
         Emitting
     }
 
-    [SerializeField] private RDRSReaderBase valueReader;
-    [SerializeField] private RDRSReaderBase[] trailRendererReaders;
+    [SerializeField] private RDRSNode valueReader;
+    [SerializeField] private RDRSNode[] trailRendererReaders;
     [SerializeField] private TrailProperty propertyToEdit;
 
     private object[] lastInputs;
     private TrailRenderer[] cachedRenderers;
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
-
     public override void Execute()
     {
-        object value = this.GetExecuteValue();
+        object value = this.valueReader?.GetValue();
     
         TrailRenderer[] targets = GetTargetRenderers();
         if (targets == null || targets.Length == 0)
@@ -75,7 +70,7 @@ public class TrailRendererEditor : RDRSExecutorWithFrequency
 
         for (int i = 0; i < this.trailRendererReaders.Length; i++)
         {
-            RDRSReaderBase reader = this.trailRendererReaders[i];
+            RDRSNode reader = this.trailRendererReaders[i];
             currentInputs[i] = reader != null ? reader.GetValue() : null;
 
             if (!needsRefresh && (this.lastInputs == null || this.lastInputs.Length != currentInputs.Length || !ReferenceEquals(currentInputs[i], this.lastInputs[i])))

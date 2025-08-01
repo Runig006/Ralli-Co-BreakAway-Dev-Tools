@@ -1,18 +1,14 @@
 using UnityEngine;
 
-public class DebugExecutor : RDRSExecutorWithFrequency
+public class DebugExecutor : RDRSNodeWithFrequency
 {
-    [SerializeField] private RDRSReaderBase valueReader;
+    [SerializeField] private RDRSNode valueReader;
     [SerializeField] private string debugOutput;
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
 
     public override void Execute()
     {
-        object value = this.GetExecuteValue();
+        object value = this.valueReader?.GetValue();
         string message;
 
         if (value == null)

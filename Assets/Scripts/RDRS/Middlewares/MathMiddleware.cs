@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System;
 using System.Text.RegularExpressions;
 
-public class MathMiddleware : RDRSReaderBase
+public class MathMiddleware : RDRSNode
 {
-    [SerializeField] private RDRSReaderBase[] sources;
+    [SerializeField] private RDRSNode[] sources;
     [SerializeField] private string expression = "{0} * 0.5 + {1}";
 
     private List<string> steps;
@@ -28,7 +28,7 @@ public class MathMiddleware : RDRSReaderBase
             return 0.0f;
         }
         List<float> inputs = new();
-        foreach (RDRSReaderBase reader in sources)
+        foreach (RDRSNode reader in sources)
         {
             object raw = reader?.GetValue();
             if (raw is bool b)

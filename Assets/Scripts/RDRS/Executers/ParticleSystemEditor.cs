@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleSystemEditor : RDRSExecutorWithFrequency
+public class ParticleSystemEditor : RDRSNodeWithFrequency
 {
     public enum ParticleProperty
     {
@@ -17,22 +17,17 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
         BurstProbability = 8,
     }
 
-    [SerializeField] private RDRSReaderBase valueReader;
-    [SerializeField] private RDRSReaderBase[] particleSystemReaders;
+    [SerializeField] private RDRSNode valueReader;
+    [SerializeField] private RDRSNode[] particleSystemReaders;
     [SerializeField] private ParticleProperty propertyToEdit;
     [SerializeField] private Vector2Int burstRange = new Vector2Int(0, 0);
 
     private object[] lastInputs;
     private ParticleSystem[] cachedSystems;
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
-
     public override void Execute()
     {
-        object value = this.GetExecuteValue();
+        object value = this.valueReader?.GetValue();
 
         ParticleSystem[] particleSystemsToEdit = this.GetTargetSystems();
         if (particleSystemsToEdit == null || particleSystemsToEdit.Length == 0)
@@ -185,7 +180,7 @@ public class ParticleSystemEditor : RDRSExecutorWithFrequency
 
         for (int i = 0; i < particleSystemReaders.Length; i++)
         {
-            RDRSReaderBase reader = particleSystemReaders[i];
+            RDRSNode reader = particleSystemReaders[i];
             currentInputs[i] = reader != null ? reader.GetValue() : null;
 
             if (!needsRefresh && (this.lastInputs == null || this.lastInputs.Length != currentInputs.Length || !ReferenceEquals(currentInputs[i], this.lastInputs[i])))

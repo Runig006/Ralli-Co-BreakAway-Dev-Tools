@@ -5,5 +5,5 @@ using System.Reflection;
 
 public static class RDRSCopyPasteBuffer
 {
-    public static RDRSReaderBase CopiedReference;
+    public static RDRSNode CopiedReference;
 }

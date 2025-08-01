@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CarParametersReader : RDRSReaderBase
+public class CarParametersReader : RDRSNode
 {
     public enum CarReaderParameterType
     {

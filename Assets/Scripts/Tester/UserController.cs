@@ -72,7 +72,7 @@ public class UserController : MonoBehaviour
 	private void UpdateTurn()
 	{
 		float value = this.turnInput.ReadValue<float>();
-		float responseTime = Mathf.Lerp(0.08f, 0.5f, this.carParameters.GetVelocityNormalize());
+		float responseTime = Mathf.Lerp(0.15f, 0.5f, this.carParameters.GetVelocityNormalize());
 		this.currentTurnValue =  Mathf.SmoothDamp(
 			currentTurnValue,
 			value,

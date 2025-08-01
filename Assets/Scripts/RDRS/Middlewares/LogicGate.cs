@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LogicGate : RDRSReaderBase
+public class LogicGate : RDRSNode
 {
     public enum LogicMode
     {
@@ -14,9 +14,9 @@ public class LogicGate : RDRSReaderBase
         Xor
     }
 
-    [SerializeField] private RDRSReaderBase[] conditions;
-    [SerializeField] private RDRSReaderBase outputTrue;
-    [SerializeField] private RDRSReaderBase outputFalse;
+    [SerializeField] private RDRSNode[] conditions;
+    [SerializeField] private RDRSNode outputTrue;
+    [SerializeField] private RDRSNode outputFalse;
     [SerializeField] private LogicMode mode = LogicMode.AllTrue;
 
     public override object GetValue()
@@ -24,7 +24,7 @@ public class LogicGate : RDRSReaderBase
         int total = 0;
         int passed = 0;
 
-        foreach (RDRSReaderBase cond in conditions)
+        foreach (RDRSNode cond in conditions)
         {
             if (cond == null)
             {
@@ -73,7 +73,7 @@ public class LogicGate : RDRSReaderBase
         }
     }
 
-    private bool EvaluateCondition(RDRSReaderBase reader)
+    private bool EvaluateCondition(RDRSNode reader)
     {
         if (reader == null)
         {

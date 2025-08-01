@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class RangeMiddleware : RDRSReaderBase
+public class RangeMiddleware : RDRSNode
 {
-    [SerializeField] private RDRSReaderBase inputSource;
+    [SerializeField] private RDRSNode inputSource;
 
     [SerializeField] private Vector2 inputRange;
     [SerializeField] private Vector2 outputRange;

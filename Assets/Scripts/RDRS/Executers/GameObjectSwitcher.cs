@@ -1,12 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class GameObjectSwitcher : RDRSReaderWithFrequency
+public class GameObjectSwitcher : RDRSNodeWithFrequency
 {
     [SerializeField] private Transform parent;
     [SerializeField] private bool whenNullCleanAll = true;
 
-    [SerializeField] private RDRSReaderBase[] gameObjectReaders;
+    [SerializeField] private RDRSNode[] gameObjectReaders;
 
     private GameObject currentInstance;
     private GameObject currentSource;
@@ -16,18 +16,22 @@ public class GameObjectSwitcher : RDRSReaderWithFrequency
         return this.currentInstance;
     }
 
-    public override object GetExecuteValue()
+    public object GetRawValue()
     {
         object source = null;
 
-        foreach (RDRSReaderBase reader in this.gameObjectReaders)
+        foreach (RDRSNode reader in this.gameObjectReaders)
         {
             if (reader == null)
+            {
                 continue;
+            }
 
             source = reader.GetValue();
             if (source != null)
+            {
                 break;
+            }
         }
 
         return source;
@@ -35,7 +39,7 @@ public class GameObjectSwitcher : RDRSReaderWithFrequency
 
     public override void Execute()
     {
-        object valueRaw = this.GetExecuteValue();
+        object valueRaw = this.GetRawValue();
         if (valueRaw == null)
         {
             if (this.whenNullCleanAll)

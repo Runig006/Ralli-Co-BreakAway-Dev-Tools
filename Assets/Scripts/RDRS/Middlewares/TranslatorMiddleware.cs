@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TranslatorMiddleware : RDRSReaderBase
+public class TranslatorMiddleware : RDRSNode
 {    
     public enum SupportedType
     {
@@ -53,7 +53,7 @@ public class TranslatorMiddleware : RDRSReaderBase
     }
 
 
-    [SerializeField] private RDRSReaderBase input;
+    [SerializeField] private RDRSNode input;
 
     [SerializeField] private SupportedType inputType;
     [SerializeField] private SupportedType outputType;

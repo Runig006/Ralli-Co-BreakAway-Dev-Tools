@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AudioSpectrumReader : RDRSReaderBase
+public class AudioSpectrumReader : RDRSNode
 {
     [SerializeField] private FrequencyRange frequencyRange = FrequencyRange.Mid;
 

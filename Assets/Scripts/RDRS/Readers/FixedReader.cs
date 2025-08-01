@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class FixedValueReader : RDRSReaderBase
+public class FixedValueReader : RDRSNode
 {
     public enum FixedReaderValueType
     {

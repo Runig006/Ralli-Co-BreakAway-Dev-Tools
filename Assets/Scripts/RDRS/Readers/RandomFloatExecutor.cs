@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class RandomFloatExecutor : RDRSReaderWithFrequency
+public class RandomFloatExecutor : RDRSNodeWithFrequency
 {
     [SerializeField] private Vector2 range;
-    [SerializeField] private bool restartWithEnable = true;
+    [SerializeField] private bool resetOnEnable = true;
 
     public float currentValue;
 
     protected override void OnEnable()
     {
-        if(this.currentValue == null || this.restartWithEnable)
+        if(this.currentValue == null || this.resetOnEnable)
         {
             this.Execute();
         }
@@ -21,13 +21,8 @@ public class RandomFloatExecutor : RDRSReaderWithFrequency
         return this.currentValue;
     }
 
-    public override object GetExecuteValue()
-    {
-        return Random.Range(this.range.x, this.range.y);
-    }
-
     public override void Execute()
     {
-        this.currentValue = (float)this.GetExecuteValue();
+        this.currentValue = (float)Random.Range(this.range.x, this.range.y);
     }
 }

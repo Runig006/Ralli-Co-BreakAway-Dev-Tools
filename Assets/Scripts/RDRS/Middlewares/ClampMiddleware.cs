@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class ClampMiddleware : RDRSReaderBase
+public class ClampMiddleware : RDRSNode
 {
-    [SerializeField] private RDRSReaderBase source;
+    [SerializeField] private RDRSNode source;
 
     [SerializeField] private float min = 0f;
     [SerializeField] private float max = 1f;

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class SmootherMiddleware : RDRSReaderWithFrequency
+public class SmootherMiddleware : RDRSNodeWithFrequency
 {
-    [SerializeField] private RDRSReaderBase valueReader;
+    [SerializeField] private RDRSNode valueReader;
 
     [SerializeField] private float startingValue = 0f;
     [SerializeField] private bool resetOnEnable = false;
@@ -18,11 +18,6 @@ public class SmootherMiddleware : RDRSReaderWithFrequency
         return this.currentValue;
     }
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
-
     protected override void OnEnable()
     {
         if (resetOnEnable)
@@ -35,7 +30,7 @@ public class SmootherMiddleware : RDRSReaderWithFrequency
 
     public override void Execute()
     {
-        object valueRaw = this.GetExecuteValue();
+        object valueRaw = this.valueReader?.GetValue();
         float value = System.Convert.ToSingle(valueRaw);
         if (this.useDeltaTime)
         {

@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-public class AutomaticReaderFinder : RDRSReaderBase
+public class AutomaticReaderFinder : RDRSNode
 {
     [SerializeField] private string tagFilter;
-    [SerializeField] private RDRSReaderBase typeReference;
+    [SerializeField] private RDRSNode typeReference;
 
-    private IRDRSReader resolvedReader;
+    private RDRSNode resolvedReader;
 
     private void OnEnable()
     {
@@ -25,9 +25,9 @@ public class AutomaticReaderFinder : RDRSReaderBase
 
             foreach (Component candidate in candidates)
             {
-                if (candidate is IRDRSReader rdrs)
+                if (candidate is RDRSNode rdrs)
                 {
-                    if (string.IsNullOrEmpty(tagFilter) || (candidate is RDRSReaderBase baseReader && baseReader.Tag == tagFilter))
+                    if (string.IsNullOrEmpty(tagFilter) || (candidate is RDRSNode baseReader && baseReader.Tag == tagFilter))
                     {
                         resolvedReader = rdrs;
                         return;

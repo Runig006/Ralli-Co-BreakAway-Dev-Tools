@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ScoringReader : RDRSReaderBase
+public class ScoringReader : RDRSNode
 {
     public enum ScoringParameterType
     {

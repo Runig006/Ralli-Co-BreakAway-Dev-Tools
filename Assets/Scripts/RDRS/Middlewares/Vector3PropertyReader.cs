@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Vector3PropertyReader : RDRSReaderBase
+public class Vector3PropertyReader : RDRSNode
 {
     public enum Vector3PropertyType
     {
@@ -14,7 +14,7 @@ public class Vector3PropertyReader : RDRSReaderBase
         Sum
     }
 
-    [SerializeField] private RDRSReaderBase input;
+    [SerializeField] private RDRSNode input;
     [SerializeField] private Vector3PropertyType property;
 
     public override object GetValue()

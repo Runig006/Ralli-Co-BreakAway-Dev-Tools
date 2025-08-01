@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioSourceEditor : RDRSExecutorWithFrequency
+public class AudioSourceEditor : RDRSNodeWithFrequency
 {
     public enum AudioProperty
     {
@@ -31,8 +31,8 @@ public class AudioSourceEditor : RDRSExecutorWithFrequency
         FadeOut = 1
     }
 
-    [SerializeField] private RDRSReaderBase[] audioReaders;
-    [SerializeField] private RDRSReaderBase valueReader;
+    [SerializeField] private RDRSNode[] audioReaders;
+    [SerializeField] private RDRSNode valueReader;
     [SerializeField] private AudioProperty propertyToEdit;
     [SerializeField] private PlayStrategy playStrategy = PlayStrategy.PlayFromStart;
     [SerializeField] private PlayVolumeStrategy playVolumeStrategy = PlayVolumeStrategy.LeaveVolume;
@@ -48,14 +48,10 @@ public class AudioSourceEditor : RDRSExecutorWithFrequency
     private object[] lastInputs;
     private AudioSource[] cachedSources;
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
 
     public override void Execute()
     {
-        object value = this.GetExecuteValue();
+        object value = this.valueReader?.GetValue();
 
         AudioSource[] targets = GetTargetSources();
         if (targets == null || targets.Length == 0)
@@ -243,7 +239,7 @@ public class AudioSourceEditor : RDRSExecutorWithFrequency
 
         for (int i = 0; i < this.audioReaders.Length; i++)
         {
-            RDRSReaderBase reader = this.audioReaders[i];
+            RDRSNode reader = this.audioReaders[i];
             currentInputs[i] = reader != null ? reader.GetValue() : null;
 
             if (!needsRefresh && (this.lastInputs == null || this.lastInputs.Length != currentInputs.Length || !ReferenceEquals(currentInputs[i], this.lastInputs[i])))

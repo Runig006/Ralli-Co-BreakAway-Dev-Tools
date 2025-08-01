@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SuspensionPhysicReader : RDRSReaderBase
+public class SuspensionPhysicReader : RDRSNode
 {
     public enum SuspensionReaderParameterType
     {

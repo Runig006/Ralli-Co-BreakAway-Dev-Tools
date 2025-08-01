@@ -1,3 +1,12 @@
 Universal Render Pipeline/Simple Lit
 Universal Render Pipeline/Particles/Simple Lit
 Universal Render Pipeline/Particles/Unlit
+
+Shader Graphs/ColorEmissiveParticle
+Custom/Mirror
+ShaderGraph/NormalVat
+ShaderGraph/Water
+
+For some reason that i still doesnt understand the particles system REALLY hate to be transparent. 
+It will work in the editor 100%...then you put it in the game, and the start to "blink", because 'potato'
+So, you can use the ColorEmissiveParticle, put the blink "on" and blink durantion to 0

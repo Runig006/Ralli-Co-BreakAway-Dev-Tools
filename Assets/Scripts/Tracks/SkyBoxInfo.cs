@@ -53,6 +53,16 @@ public class SkyBoxInfo : MonoBehaviour
 	[SerializeField] [Range(0f, 10f)] private float starsExtinction = 2f;
 	[SerializeField] [Range(0f, 25f)] private float starsTwinklingSpeed = 10f;
 	
+	[Header("Ambient Light")]
+	[SerializeField] private bool overrideAmbientLight = false;
+	[SerializeField] private Color ambientColor = new Color(0.255f, 0.255f, 0.255f, 1f);
+
+	[Header("Fog")]
+	[SerializeField] private bool overrideFog = false;
+	[SerializeField] private FogMode fogMode = FogMode.Linear;
+	[SerializeField] private Color fogColor = new Color(0.255f, 0.255f, 0.255f, 1f);
+	[SerializeField] private float fogStartDistanceOrDensity = 0f;
+	[SerializeField] private float fogEndDistance = 300f;
 
 	[Header("Textures")]
 	[SerializeField] private Texture2D sunTextureOverride = null;
@@ -260,4 +270,40 @@ public class SkyBoxInfo : MonoBehaviour
 	{
 		return this.cloudsCubemap;
 	}
+	
+	public bool GetOverrideAmbientLight()
+	{
+		return this.overrideAmbientLight;
+	}
+
+	public Color GetAmbientColor()
+	{
+		return this.ambientColor;
+	}
+
+	public bool GetOverrideFog()
+	{
+		return this.overrideFog;
+	}
+
+	public FogMode GetFogMode()
+	{
+		return this.fogMode;
+	}
+
+	public Color GetFogColor()
+	{
+		return this.fogColor;
+	}
+
+	public float GetFogStartDistanceOrDensity()
+	{
+		return this.fogStartDistanceOrDensity;
+	}
+
+	public float GetFogEndDistance()
+	{
+		return this.fogEndDistance;
+	}
+
 }

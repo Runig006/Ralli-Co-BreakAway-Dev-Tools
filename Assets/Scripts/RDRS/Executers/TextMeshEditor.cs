@@ -2,22 +2,17 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class TextMeshEditor : RDRSExecutorWithFrequency
+public class TextMeshEditor : RDRSNodeWithFrequency
 {
-    [SerializeField] private RDRSReaderBase valueReader;
-    [SerializeField] private RDRSReaderBase[] textTargetReaders;
+    [SerializeField] private RDRSNode valueReader;
+    [SerializeField] private RDRSNode[] textTargetReaders;
 
     private object[] lastInputs;
     private TMP_Text[] cachedTargets;
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
-
     public override void Execute()
     {
-        object value = this.GetExecuteValue();
+        object value = this.valueReader?.GetValue();
     
         TMP_Text[] textTargets = this.GetTargetTexts();
         if (textTargets == null || textTargets.Length == 0)
@@ -53,7 +48,7 @@ public class TextMeshEditor : RDRSExecutorWithFrequency
 
         for (int i = 0; i < this.textTargetReaders.Length; i++)
         {
-            RDRSReaderBase reader = this.textTargetReaders[i];
+            RDRSNode reader = this.textTargetReaders[i];
             currentInputs[i] = reader != null ? reader.GetValue() : null;
 
             if (!needsRefresh && (this.lastInputs == null || this.lastInputs.Length != currentInputs.Length || !ReferenceEquals(currentInputs[i], this.lastInputs[i])))

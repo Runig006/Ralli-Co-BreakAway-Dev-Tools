@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImageEditor : RDRSExecutorWithFrequency
+public class ImageEditor : RDRSNodeWithFrequency
 {
     public enum ImageEditMode
     {
@@ -11,22 +11,17 @@ public class ImageEditor : RDRSExecutorWithFrequency
         Color
     }
 
-    [SerializeField] private RDRSReaderBase valueReader;
-    [SerializeField] private RDRSReaderBase[] imageTargetReaders;
+    [SerializeField] private RDRSNode valueReader;
+    [SerializeField] private RDRSNode[] imageTargetReaders;
 
     [SerializeField] private ImageEditMode propertyToEdit;
 
     private object[] lastInputs;
     private Image[] cachedTargets;
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
-
     public override void Execute()
     {
-        object value = this.GetExecuteValue();
+        object value = this.valueReader?.GetValue();
         Image[] imageTargets = this.GetTargetImages();
         if (imageTargets == null || imageTargets.Length == 0)
         {
@@ -79,7 +74,7 @@ public class ImageEditor : RDRSExecutorWithFrequency
 
         for (int i = 0; i < this.imageTargetReaders.Length; i++)
         {
-            RDRSReaderBase reader = this.imageTargetReaders[i];
+            RDRSNode reader = this.imageTargetReaders[i];
             currentInputs[i] = reader != null ? reader.GetValue() : null;
 
             if (!needsRefresh && (this.lastInputs == null || this.lastInputs.Length != currentInputs.Length || !ReferenceEquals(currentInputs[i], this.lastInputs[i])))

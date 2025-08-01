@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class AccumulatorMiddleware : RDRSReaderWithFrequency
+public class AccumulatorMiddleware : RDRSNodeWithFrequency
 {
-    [SerializeField] private RDRSReaderBase valueReader;
+    [SerializeField] private RDRSNode valueReader;
 
     [SerializeField] private float startingValue = 0f;
     [SerializeField] private bool resetOnEnable = false;
@@ -31,14 +31,9 @@ public class AccumulatorMiddleware : RDRSReaderWithFrequency
         base.OnEnable();
     }
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
-
     public override void Execute()
     {
-        object valueRaw = this.GetExecuteValue();
+        object valueRaw = this.valueReader?.GetValue();
         float delta;
         if(valueRaw is bool value)
         {

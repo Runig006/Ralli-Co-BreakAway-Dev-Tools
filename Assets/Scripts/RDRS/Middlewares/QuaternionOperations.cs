@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class QuaternionOperations : RDRSReaderBase
+public class QuaternionOperations : RDRSNode
 {
     public enum QuaternionOperation
     {
@@ -15,8 +15,8 @@ public class QuaternionOperations : RDRSReaderBase
 
     [SerializeField] private QuaternionOperation operation;
 
-    [SerializeField] private RDRSReaderBase inputA;
-    [SerializeField] private RDRSReaderBase inputB;
+    [SerializeField] private RDRSNode inputA;
+    [SerializeField] private RDRSNode inputB;
 
     public override object GetValue()
     {

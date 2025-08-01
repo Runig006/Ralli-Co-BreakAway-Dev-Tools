@@ -2,19 +2,14 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class ActivationEditor : RDRSExecutorWithFrequency
+public class ActivationEditor : RDRSNodeWithFrequency
 {
-    [SerializeField] private RDRSReaderBase valueReader;
-    [SerializeField] private RDRSReaderBase[] targetsReaders;
-
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
+    [SerializeField] private RDRSNode valueReader;
+    [SerializeField] private RDRSNode[] targetsReaders;
 
     public override void Execute()
     {
-        bool enable = RDRSUtils.toBoolean(this.GetExecuteValue());
+        bool enable = RDRSUtils.toBoolean(this.valueReader?.GetValue());
         foreach (object target in this.GetTargets())
         {
             if (target == null)
@@ -47,7 +42,7 @@ public class ActivationEditor : RDRSExecutorWithFrequency
     {
         List<Object> collected = new List<Object>();
 
-        foreach (RDRSReaderBase reader in this.targetsReaders)
+        foreach (RDRSNode reader in this.targetsReaders)
         {
             if (reader == null)
             {

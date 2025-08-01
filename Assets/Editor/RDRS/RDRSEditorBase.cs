@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 using System.Reflection;
 
-[CustomEditor(typeof(RDRSReaderBase), true)]
+[CustomEditor(typeof(RDRSNode), true)]
 public class RDRSEditorBase : Editor
 {
     protected bool showProperties = false;
@@ -32,7 +32,7 @@ public class RDRSEditorBase : Editor
             EditorGUILayout.PropertyField(tagProp);
             if (GUILayout.Button("Copy", GUILayout.Width(40)))
             {
-                if (target is RDRSReaderBase rdrs)
+                if (target is RDRSNode rdrs)
                 {
                     RDRSCopyPasteBuffer.CopiedReference = rdrs;
                     string messageName = !string.IsNullOrEmpty(rdrs.Tag) ? rdrs.Tag : $"({rdrs.GetType().Name})";
@@ -104,11 +104,11 @@ public class RDRSEditorBase : Editor
             return;
         }
 
-        if (typeof(RDRSReaderBase).IsAssignableFrom(field.FieldType))
+        if (typeof(RDRSNode).IsAssignableFrom(field.FieldType))
         {
             this.DrawFieldWithOptionalTag(prop, field);
         }
-        else if (field.FieldType.IsArray && typeof(RDRSReaderBase).IsAssignableFrom(field.FieldType.GetElementType()))
+        else if (field.FieldType.IsArray && typeof(RDRSNode).IsAssignableFrom(field.FieldType.GetElementType()))
         {
             this.DrawArrayWithPaste(prop, field);
         }
@@ -126,7 +126,7 @@ public class RDRSEditorBase : Editor
 
         string label = ObjectNames.NicifyVariableName(field.Name);
 
-        if (obj is RDRSReaderBase rdrs && !string.IsNullOrEmpty(rdrs.Tag))
+        if (obj is RDRSNode rdrs && !string.IsNullOrEmpty(rdrs.Tag))
         {
             label += $" → {rdrs.Tag}";
         }
@@ -138,7 +138,7 @@ public class RDRSEditorBase : Editor
         /** PASTE BUTTON **/
         if (GUILayout.Button("Paste", GUILayout.Width(50)))
         {
-            RDRSReaderBase pasted = RDRSCopyPasteBuffer.CopiedReference;
+            RDRSNode pasted = RDRSCopyPasteBuffer.CopiedReference;
             if (pasted != null && fieldType.IsAssignableFrom(pasted.GetType()))
             {
                 prop.objectReferenceValue = pasted;
@@ -164,7 +164,7 @@ public class RDRSEditorBase : Editor
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Paste", GUILayout.Width(60)))
         {
-            RDRSReaderBase pasted = RDRSCopyPasteBuffer.CopiedReference;
+            RDRSNode pasted = RDRSCopyPasteBuffer.CopiedReference;
             Type elementType = fieldType.GetElementType();
             if (pasted != null && elementType.IsAssignableFrom(pasted.GetType()))
             {
@@ -182,17 +182,15 @@ public class RDRSEditorBase : Editor
     }
 }
 
-[CustomEditor(typeof(RDRSExecutorBase), true)]
-public class RDRSExecutorBaseEditor : RDRSEditorBase { }
 
-[CustomPropertyDrawer(typeof(RDRSReaderBase), true)]
+[CustomPropertyDrawer(typeof(RDRSNode), true)]
 public class RDRSReaderBaseDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         SerializedProperty objRef = property.FindPropertyRelative("m_Script") != null ? property.FindPropertyRelative("m_Script") : property.Copy();
         UnityEngine.Object obj = property.objectReferenceValue;
-        if (obj is RDRSReaderBase rdrs && !string.IsNullOrEmpty(rdrs.Tag))
+        if (obj is RDRSNode rdrs && !string.IsNullOrEmpty(rdrs.Tag))
         {
             label.text = rdrs.Tag;
         }

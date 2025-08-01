@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerPreferencesReader : RDRSReaderBase
+public class PlayerPreferencesReader : RDRSNode
 {
     public enum PlayerPreferenceType
     {

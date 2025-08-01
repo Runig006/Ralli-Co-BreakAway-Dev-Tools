@@ -5344,9 +5344,9 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: fe6489e9a30d03c4eb0b92a2d852eb05, type: 3}
   m_Resource: {fileID: 8300000, guid: fe6489e9a30d03c4eb0b92a2d852eb05, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -10268,7 +10268,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0e6ceab26f32ff94684e5727dd9be19e, type: 2}
+  - {fileID: 2100000, guid: 6e1f7a87d63fc1c4c927248e7f62ec69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10291,7 +10291,7 @@ ParticleSystemRenderer:
   m_SortingOrder: 0
   m_RenderMode: 4
   m_MeshDistribution: 0
-  m_SortMode: 2
+  m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
@@ -10369,7 +10369,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 741810b9e5488cf499a70d3fcce769c8, type: 3}
   m_Resource: {fileID: 8300000, guid: 741810b9e5488cf499a70d3fcce769c8, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -10966,8 +10966,8 @@ Transform:
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2290293803127887164}
-  - {fileID: 5859966054044972293}
+  - {fileID: 7968981839843278551}
+  - {fileID: 2485658223124945615}
   - {fileID: 5178220192990003598}
   - {fileID: 13592099525219808}
   m_Father: {fileID: 521242011095403265}
@@ -11001,7 +11001,7 @@ Transform:
   m_GameObject: {fileID: 688692192500004320}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00012195112, y: 0.5, z: 1.2600005}
+  m_LocalPosition: {x: -0.00012195112, y: 0.49999994, z: 1.2600005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11473,8 +11473,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2297297654803453448}
+  - component: {fileID: 5952578824764514501}
   - component: {fileID: 8014627285861084927}
-  - component: {fileID: 1023443651007533772}
+  - component: {fileID: 1116846470166793640}
+  - component: {fileID: 1013529712895164712}
   m_Layer: 0
   m_Name: DustParticles
   m_TagString: Untagged
@@ -11497,6 +11499,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2553303426834447824}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &5952578824764514501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934599471259456438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76de94b865bcc7c4aab18388ca7ff671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Enable
+  valueType: 0
+  floatValue: 1
+  stringValue: 
+  vector2Value: {x: 0, y: 0}
+  vector3Value: {x: 0, y: 0, z: 0}
+  objectValue: {fileID: 0}
+  objectsValue: []
 --- !u!114 &8014627285861084927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11514,7 +11536,7 @@ MonoBehaviour:
   suspensionOverride: {fileID: 6997733442064008804}
   returnDefaultIfNotFound: 1
   maxDistance: 3
---- !u!114 &1023443651007533772
+--- !u!114 &1116846470166793640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11523,17 +11545,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 934599471259456438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f79cd111f5cbcf43ab074bce1b969e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f184fbf7a094a64e9a1ea7e88684c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tag: Dust Particle Switcher
-  frequency: 0.02
+  Tag: 
+  frequency: 0
   parent: {fileID: 0}
-  destroyOldImmediately: 0
   whenNullCleanAll: 1
-  forceParentScale: 1
   gameObjectReaders:
   - {fileID: 8014627285861084927}
+--- !u!114 &1013529712895164712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934599471259456438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9fa89b80e355244a40bf052edd3e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Enable Particles
+  frequency: 0
+  valueReader: {fileID: 5952578824764514501}
+  particleSystemReaders:
+  - {fileID: 1116846470166793640}
+  propertyToEdit: 4
+  burstRange: {x: 0, y: 0}
 --- !u!1 &1011895451820925499
 GameObject:
   m_ObjectHideFlags: 0
@@ -12021,7 +12060,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.10971785
     - serializedVersion: 3
-      time: 0.55
+      time: 0.5
       value: 0.65
       inSlope: -0.5362113
       outSlope: -0.5362113
@@ -12574,6 +12613,144 @@ MonoBehaviour:
   axisMask: {x: 0, y: 1, z: 0}
   additive: 0
   useTimeDeltaTime: 0
+--- !u!1 &1737556859482641018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5271724879947995449}
+  - component: {fileID: 493370823684165317}
+  - component: {fileID: 9112166570027949969}
+  - component: {fileID: 6079255724414938167}
+  - component: {fileID: 1835034619822413547}
+  - component: {fileID: 1422761688884956899}
+  - component: {fileID: 7602974069229280055}
+  m_Layer: 0
+  m_Name: Drift Particles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5271724879947995449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737556859482641018}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4433428606644328769}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &493370823684165317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737556859482641018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Drift Particles Reader
+  parameter: 3
+  suspensionOverride: {fileID: 3353839685754232240}
+  returnDefaultIfNotFound: 1
+  maxDistance: 3
+--- !u!114 &9112166570027949969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737556859482641018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f184fbf7a094a64e9a1ea7e88684c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Clone the terrain Object
+  frequency: 0
+  parent: {fileID: 0}
+  whenNullCleanAll: 1
+  gameObjectReaders:
+  - {fileID: 493370823684165317}
+--- !u!114 &6079255724414938167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737556859482641018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80f3f88e57fb3d449f63945372f605b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Extract Particle System
+  gameObjectReaders:
+  - {fileID: 9112166570027949969}
+  componentType: 1
+--- !u!114 &1835034619822413547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737556859482641018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69081e5f903b3374e9b56532433b5484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: SideForce Reader
+  parameter: 2
+  suspension: {fileID: 6997733442064008804}
+--- !u!114 &1422761688884956899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737556859482641018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee01add29b9bd7e48ae82bdcbd3d2374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Check if force is enough
+  sources:
+  - {fileID: 1835034619822413547}
+  expression: '{0} > 0.6'
+--- !u!114 &7602974069229280055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737556859482641018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9fa89b80e355244a40bf052edd3e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Drift Particle Enable
+  frequency: 0.02
+  valueReader: {fileID: 1422761688884956899}
+  particleSystemReaders:
+  - {fileID: 6079255724414938167}
+  propertyToEdit: 4
+  burstRange: {x: 0, y: 0}
 --- !u!1 &1771846115802282420
 GameObject:
   m_ObjectHideFlags: 0
@@ -12745,7 +12922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: Volumen Range
   inputSource: {fileID: 8810365598473453171}
-  inputRange: {x: 0.2, y: 1}
+  inputRange: {x: 0, y: 1}
   outputRange: {x: 0, y: 1}
 --- !u!114 &4150320363622271900
 MonoBehaviour:
@@ -12781,7 +12958,7 @@ MonoBehaviour:
   Tag: Audio Editor
   frequency: 0
   audioReaders:
-  - {fileID: 1082615864257517146}
+  - {fileID: 4056907219958340534}
   valueReader: {fileID: 4150320363622271900}
   propertyToEdit: 0
   playStrategy: 1
@@ -12789,7 +12966,7 @@ MonoBehaviour:
   fadeInDuration: 0.25
   stopStrategy: 0
   fadeOutDuration: 1
---- !u!1 &1898411589293591213
+--- !u!1 &2002441374578969230
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12797,12 +12974,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8112943432354193564}
-  - component: {fileID: 1608884711570131291}
-  - component: {fileID: 3663826196239506372}
-  - component: {fileID: 592857728200387515}
-  - component: {fileID: 369532464355201738}
-  - component: {fileID: 6645640795799654488}
+  - component: {fileID: 1690214887325726843}
+  - component: {fileID: 7669613693909303741}
+  - component: {fileID: 6692659407020380674}
+  - component: {fileID: 7769390040720993725}
+  - component: {fileID: 3370649234587653126}
+  - component: {fileID: 3060327509687122768}
+  - component: {fileID: 5080897270235955159}
   m_Layer: 0
   m_Name: Drift Particles
   m_TagString: Untagged
@@ -12810,28 +12988,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8112943432354193564
+--- !u!4 &1690214887325726843
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898411589293591213}
+  m_GameObject: {fileID: 2002441374578969230}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4269771234002227319}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1608884711570131291
+--- !u!114 &7669613693909303741
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898411589293591213}
+  m_GameObject: {fileID: 2002441374578969230}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
@@ -12842,13 +13020,47 @@ MonoBehaviour:
   suspensionOverride: {fileID: 2041813282546328049}
   returnDefaultIfNotFound: 1
   maxDistance: 3
---- !u!114 &3663826196239506372
+--- !u!114 &6692659407020380674
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898411589293591213}
+  m_GameObject: {fileID: 2002441374578969230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f184fbf7a094a64e9a1ea7e88684c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Clone the terrain Object
+  frequency: 0
+  parent: {fileID: 0}
+  whenNullCleanAll: 1
+  gameObjectReaders:
+  - {fileID: 7669613693909303741}
+--- !u!114 &7769390040720993725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002441374578969230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80f3f88e57fb3d449f63945372f605b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Extract Particle System
+  gameObjectReaders:
+  - {fileID: 6692659407020380674}
+  componentType: 1
+--- !u!114 &3370649234587653126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002441374578969230}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69081e5f903b3374e9b56532433b5484, type: 3}
@@ -12856,34 +13068,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: SideForce Reader
   parameter: 2
-  suspension: {fileID: 2041813282546328049}
---- !u!114 &592857728200387515
+  suspension: {fileID: 6997733442064008804}
+--- !u!114 &3060327509687122768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898411589293591213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f79cd111f5cbcf43ab074bce1b969e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Drift Particle System
-  frequency: 0.02
-  parent: {fileID: 0}
-  destroyOldImmediately: 0
-  whenNullCleanAll: 1
-  forceParentScale: 1
-  gameObjectReaders:
-  - {fileID: 1608884711570131291}
---- !u!114 &369532464355201738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898411589293591213}
+  m_GameObject: {fileID: 2002441374578969230}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee01add29b9bd7e48ae82bdcbd3d2374, type: 3}
@@ -12891,15 +13083,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: Check if force is enough
   sources:
-  - {fileID: 3663826196239506372}
+  - {fileID: 3370649234587653126}
   expression: '{0} > 0.6'
---- !u!114 &6645640795799654488
+--- !u!114 &5080897270235955159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898411589293591213}
+  m_GameObject: {fileID: 2002441374578969230}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b9fa89b80e355244a40bf052edd3e93, type: 3}
@@ -12907,9 +13099,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: Drift Particle Enable
   frequency: 0.02
-  valueReader: {fileID: 369532464355201738}
+  valueReader: {fileID: 3060327509687122768}
   particleSystemReaders:
-  - {fileID: 592857728200387515}
+  - {fileID: 7769390040720993725}
   propertyToEdit: 4
   burstRange: {x: 0, y: 0}
 --- !u!1 &2014344791091478943
@@ -13309,9 +13501,9 @@ MonoBehaviour:
   Tag: Check for any Drift
   conditions:
   - {fileID: 3040053292164435989}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3060327509687122768}
+  - {fileID: 1422761688884956899}
+  - {fileID: 7327180194615529801}
   outputTrue: {fileID: 4816688689526559099}
   outputFalse: {fileID: 8227730454696213684}
   mode: 1
@@ -13351,7 +13543,7 @@ MonoBehaviour:
   Tag: Audio Editor Play or Not
   frequency: 0
   audioReaders:
-  - {fileID: 1082615864257517146}
+  - {fileID: 4056907219958340534}
   valueReader: {fileID: 7964086233174695449}
   propertyToEdit: 2
   playStrategy: 1
@@ -13437,7 +13629,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939be00c732f96d409d0d4b08e133067, type: 2}
+  - {fileID: 2100000, guid: 6e1f7a87d63fc1c4c927248e7f62ec69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18268,7 +18460,7 @@ MonoBehaviour:
   Tag: Start/Stop Audio
   frequency: 0
   audioReaders:
-  - {fileID: 5195836834431107577}
+  - {fileID: 3238859331115031397}
   valueReader: {fileID: 4104330593539033898}
   propertyToEdit: 2
   playStrategy: 1
@@ -18683,7 +18875,7 @@ MonoBehaviour:
   Tag: Audio Editor
   frequency: 0
   audioReaders:
-  - {fileID: 1082615864257517146}
+  - {fileID: 4056907219958340534}
   valueReader: {fileID: 1673841757812537709}
   propertyToEdit: 1
   playStrategy: 0
@@ -19513,7 +19705,7 @@ MonoBehaviour:
   Tag: Audio Editor
   frequency: 0
   audioReaders:
-  - {fileID: 5195836834431107577}
+  - {fileID: 3238859331115031397}
   valueReader: {fileID: 7382244724599578480}
   propertyToEdit: 0
   playStrategy: 0
@@ -19836,6 +20028,115 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &3280570697277982833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3374829429201456054}
+  - component: {fileID: 2587065663691313742}
+  - component: {fileID: 2760941601542926661}
+  - component: {fileID: 3942977850664033741}
+  - component: {fileID: 4813849409315561933}
+  m_Layer: 0
+  m_Name: DustParticles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3374829429201456054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280570697277982833}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4269771234002227319}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &2587065663691313742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280570697277982833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76de94b865bcc7c4aab18388ca7ff671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Enable
+  valueType: 0
+  floatValue: 1
+  stringValue: 
+  vector2Value: {x: 0, y: 0}
+  vector3Value: {x: 0, y: 0, z: 0}
+  objectValue: {fileID: 0}
+  objectsValue: []
+--- !u!114 &2760941601542926661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280570697277982833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Dust Particles Reader
+  parameter: 4
+  suspensionOverride: {fileID: 2041813282546328049}
+  returnDefaultIfNotFound: 1
+  maxDistance: 3
+--- !u!114 &3942977850664033741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280570697277982833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f184fbf7a094a64e9a1ea7e88684c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: 
+  frequency: 0
+  parent: {fileID: 0}
+  whenNullCleanAll: 1
+  gameObjectReaders:
+  - {fileID: 2760941601542926661}
+--- !u!114 &4813849409315561933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280570697277982833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9fa89b80e355244a40bf052edd3e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Enable Particles
+  frequency: 0
+  valueReader: {fileID: 2587065663691313742}
+  particleSystemReaders:
+  - {fileID: 3942977850664033741}
+  propertyToEdit: 4
+  burstRange: {x: 0, y: 0}
 --- !u!1 &3459121485288146772
 GameObject:
   m_ObjectHideFlags: 0
@@ -19846,8 +20147,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4543970066822691135}
   - component: {fileID: 6658393125378186938}
+  - component: {fileID: 4202916418047146814}
+  - component: {fileID: 7533002717637366915}
   - component: {fileID: 5854471020632799686}
-  - component: {fileID: 1930107323736848271}
   - component: {fileID: 3040053292164435989}
   - component: {fileID: 1432140625542867764}
   m_Layer: 0
@@ -19889,6 +20191,40 @@ MonoBehaviour:
   suspensionOverride: {fileID: 6997733442064008804}
   returnDefaultIfNotFound: 1
   maxDistance: 3
+--- !u!114 &4202916418047146814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3459121485288146772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f184fbf7a094a64e9a1ea7e88684c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Clone the terrain Object
+  frequency: 0
+  parent: {fileID: 0}
+  whenNullCleanAll: 1
+  gameObjectReaders:
+  - {fileID: 6658393125378186938}
+--- !u!114 &7533002717637366915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3459121485288146772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80f3f88e57fb3d449f63945372f605b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Extract Particle System
+  gameObjectReaders:
+  - {fileID: 4202916418047146814}
+  componentType: 1
 --- !u!114 &5854471020632799686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19904,26 +20240,6 @@ MonoBehaviour:
   Tag: SideForce Reader
   parameter: 2
   suspension: {fileID: 6997733442064008804}
---- !u!114 &1930107323736848271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3459121485288146772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f79cd111f5cbcf43ab074bce1b969e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Drift Particle System
-  frequency: 0.02
-  parent: {fileID: 0}
-  destroyOldImmediately: 0
-  whenNullCleanAll: 1
-  forceParentScale: 1
-  gameObjectReaders:
-  - {fileID: 6658393125378186938}
 --- !u!114 &3040053292164435989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19956,7 +20272,7 @@ MonoBehaviour:
   frequency: 0.02
   valueReader: {fileID: 3040053292164435989}
   particleSystemReaders:
-  - {fileID: 1930107323736848271}
+  - {fileID: 7533002717637366915}
   propertyToEdit: 4
   burstRange: {x: 0, y: 0}
 --- !u!1 &3465917357994468873
@@ -20037,7 +20353,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939be00c732f96d409d0d4b08e133067, type: 2}
+  - {fileID: 2100000, guid: 6e1f7a87d63fc1c4c927248e7f62ec69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -30023,76 +30339,6 @@ MonoBehaviour:
   - {fileID: 1738137422723058558}
   propertyName: _BaseColor
   propertyType: 1
---- !u!1 &3946838952486755296
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 480805570170757669}
-  - component: {fileID: 8735459546783954992}
-  - component: {fileID: 306529065279129512}
-  m_Layer: 0
-  m_Name: DustParticles
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &480805570170757669
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3946838952486755296}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4433428606644328769}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &8735459546783954992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3946838952486755296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Dust Particles Reader
-  parameter: 4
-  suspensionOverride: {fileID: 3353839685754232240}
-  returnDefaultIfNotFound: 1
-  maxDistance: 3
---- !u!114 &306529065279129512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3946838952486755296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f79cd111f5cbcf43ab074bce1b969e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Dust Particle Switcher
-  frequency: 0.02
-  parent: {fileID: 0}
-  destroyOldImmediately: 0
-  whenNullCleanAll: 1
-  forceParentScale: 1
-  gameObjectReaders:
-  - {fileID: 8735459546783954992}
 --- !u!1 &3982917379269271298
 GameObject:
   m_ObjectHideFlags: 0
@@ -30381,7 +30627,7 @@ Transform:
   m_GameObject: {fileID: 4211627594807515342}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.299, z: 0.85}
+  m_LocalPosition: {x: 0, y: -0.299, z: 0.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30828,129 +31074,6 @@ MonoBehaviour:
   axisMask: {x: 0, y: 1, z: 0}
   additive: 0
   useTimeDeltaTime: 0
---- !u!1 &4472392168522016772
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2290293803127887164}
-  - component: {fileID: 6995974686897036167}
-  - component: {fileID: 1089566761527562584}
-  - component: {fileID: 3972523646765669173}
-  - component: {fileID: 7165706488203599794}
-  - component: {fileID: 6692382376084414922}
-  m_Layer: 0
-  m_Name: Drift Particles
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2290293803127887164
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4472392168522016772}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4725208123330079459}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &6995974686897036167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4472392168522016772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Drift Particles Reader
-  parameter: 3
-  suspensionOverride: {fileID: 3796002440465110428}
-  returnDefaultIfNotFound: 1
-  maxDistance: 3
---- !u!114 &1089566761527562584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4472392168522016772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69081e5f903b3374e9b56532433b5484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: SideForce Reader
-  parameter: 2
-  suspension: {fileID: 3796002440465110428}
---- !u!114 &3972523646765669173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4472392168522016772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f79cd111f5cbcf43ab074bce1b969e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Drift Particle System
-  frequency: 0.02
-  parent: {fileID: 0}
-  destroyOldImmediately: 0
-  whenNullCleanAll: 1
-  forceParentScale: 1
-  gameObjectReaders:
-  - {fileID: 6995974686897036167}
---- !u!114 &7165706488203599794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4472392168522016772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee01add29b9bd7e48ae82bdcbd3d2374, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Check if force is enough
-  sources:
-  - {fileID: 1089566761527562584}
-  expression: '{0} > 0.25'
---- !u!114 &6692382376084414922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4472392168522016772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b9fa89b80e355244a40bf052edd3e93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Drift Particle Enable
-  frequency: 0.02
-  valueReader: {fileID: 7165706488203599794}
-  particleSystemReaders:
-  - {fileID: 3972523646765669173}
-  propertyToEdit: 4
-  burstRange: {x: 0, y: 0}
 --- !u!1 &4607294194457642521
 GameObject:
   m_ObjectHideFlags: 0
@@ -31115,7 +31238,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939be00c732f96d409d0d4b08e133067, type: 2}
+  - {fileID: 2100000, guid: 6e1f7a87d63fc1c4c927248e7f62ec69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -36191,7 +36314,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8428837565659126573}
   - component: {fileID: 3925362544008153567}
-  - component: {fileID: 1082615864257517146}
+  - component: {fileID: 7714851741279806513}
+  - component: {fileID: 4056907219958340534}
   - component: {fileID: 8810365598473453171}
   m_Layer: 0
   m_Name: Drift Sound
@@ -36231,11 +36355,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tag: Terrain Reader
-  parameter: 5
+  parameter: 3
   suspensionOverride: {fileID: 0}
   returnDefaultIfNotFound: 1
   maxDistance: 1
---- !u!114 &1082615864257517146
+--- !u!114 &7714851741279806513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36244,17 +36368,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 4741084653681737927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4575143863449b41bc8254e03a8962e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f184fbf7a094a64e9a1ea7e88684c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tag: Drift Sound Builder
+  Tag: Drift GameObject Clone
   frequency: 0
   parent: {fileID: 0}
-  destroyOldImmediately: 0
   whenNullCleanAll: 1
-  fadeOutSpeed: 5
   gameObjectReaders:
   - {fileID: 3925362544008153567}
+--- !u!114 &4056907219958340534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4741084653681737927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80f3f88e57fb3d449f63945372f605b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Extract Audio
+  gameObjectReaders:
+  - {fileID: 7714851741279806513}
+  componentType: 0
 --- !u!114 &8810365598473453171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36270,9 +36408,9 @@ MonoBehaviour:
   Tag: Calculate Median
   sources:
   - {fileID: 5854471020632799686}
-  - {fileID: 3663826196239506372}
-  - {fileID: 2828429484884914992}
-  - {fileID: 1089566761527562584}
+  - {fileID: 3370649234587653126}
+  - {fileID: 1835034619822413547}
+  - {fileID: 1835034619822413547}
   expression: ( {0} + {1} + {2} + {3} ) / 4
 --- !u!1 &4744241421408000967
 GameObject:
@@ -37192,7 +37330,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939be00c732f96d409d0d4b08e133067, type: 2}
+  - {fileID: 2100000, guid: 6e1f7a87d63fc1c4c927248e7f62ec69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -42765,6 +42903,144 @@ MonoBehaviour:
   distorsionMultiplier: 1
   chromaticMultiplier: 1
   shakeMultiplier: 1
+--- !u!1 &5715651325990486521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7968981839843278551}
+  - component: {fileID: 6268064793359255575}
+  - component: {fileID: 2277865829463428293}
+  - component: {fileID: 610670388967876435}
+  - component: {fileID: 4825423649141504129}
+  - component: {fileID: 7327180194615529801}
+  - component: {fileID: 1842142624407204983}
+  m_Layer: 0
+  m_Name: Drift Particles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7968981839843278551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715651325990486521}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4725208123330079459}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &6268064793359255575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715651325990486521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Drift Particles Reader
+  parameter: 3
+  suspensionOverride: {fileID: 3796002440465110428}
+  returnDefaultIfNotFound: 1
+  maxDistance: 3
+--- !u!114 &2277865829463428293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715651325990486521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f184fbf7a094a64e9a1ea7e88684c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Clone the terrain Object
+  frequency: 0
+  parent: {fileID: 0}
+  whenNullCleanAll: 1
+  gameObjectReaders:
+  - {fileID: 6268064793359255575}
+--- !u!114 &610670388967876435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715651325990486521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80f3f88e57fb3d449f63945372f605b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Extract Particle System
+  gameObjectReaders:
+  - {fileID: 2277865829463428293}
+  componentType: 1
+--- !u!114 &4825423649141504129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715651325990486521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69081e5f903b3374e9b56532433b5484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: SideForce Reader
+  parameter: 2
+  suspension: {fileID: 6997733442064008804}
+--- !u!114 &7327180194615529801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715651325990486521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee01add29b9bd7e48ae82bdcbd3d2374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Check if force is enough
+  sources:
+  - {fileID: 4825423649141504129}
+  expression: '{0} > 0.6'
+--- !u!114 &1842142624407204983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715651325990486521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9fa89b80e355244a40bf052edd3e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Drift Particle Enable
+  frequency: 0.02
+  valueReader: {fileID: 7327180194615529801}
+  particleSystemReaders:
+  - {fileID: 610670388967876435}
+  propertyToEdit: 4
+  burstRange: {x: 0, y: 0}
 --- !u!1 &5733481156182352998
 GameObject:
   m_ObjectHideFlags: 0
@@ -43534,7 +43810,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939be00c732f96d409d0d4b08e133067, type: 2}
+  - {fileID: 2100000, guid: 6e1f7a87d63fc1c4c927248e7f62ec69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -48301,76 +48577,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1 &6712451073994147177
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5859966054044972293}
-  - component: {fileID: 4694485539053542393}
-  - component: {fileID: 7578419398172733175}
-  m_Layer: 0
-  m_Name: DustParticles
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5859966054044972293
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6712451073994147177}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4725208123330079459}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &4694485539053542393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6712451073994147177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Dust Particles Reader
-  parameter: 4
-  suspensionOverride: {fileID: 3796002440465110428}
-  returnDefaultIfNotFound: 1
-  maxDistance: 3
---- !u!114 &7578419398172733175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6712451073994147177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f79cd111f5cbcf43ab074bce1b969e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Dust Particle Switcher
-  frequency: 0.02
-  parent: {fileID: 0}
-  destroyOldImmediately: 0
-  whenNullCleanAll: 1
-  forceParentScale: 1
-  gameObjectReaders:
-  - {fileID: 4694485539053542393}
 --- !u!1 &6726066556302727544
 GameObject:
   m_ObjectHideFlags: 0
@@ -48567,6 +48773,115 @@ MonoBehaviour:
   allowOverflowLoop: 0
   range: {x: 0, y: 1}
   useDeltaTime: 1
+--- !u!1 &6801316213704462070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5333316571456529982}
+  - component: {fileID: 7166019632454066245}
+  - component: {fileID: 2471204322230601309}
+  - component: {fileID: 357795687680018907}
+  - component: {fileID: 4305028061238306034}
+  m_Layer: 0
+  m_Name: DustParticles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5333316571456529982
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801316213704462070}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4433428606644328769}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &7166019632454066245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801316213704462070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76de94b865bcc7c4aab18388ca7ff671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Enable
+  valueType: 0
+  floatValue: 1
+  stringValue: 
+  vector2Value: {x: 0, y: 0}
+  vector3Value: {x: 0, y: 0, z: 0}
+  objectValue: {fileID: 0}
+  objectsValue: []
+--- !u!114 &2471204322230601309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801316213704462070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Dust Particles Reader
+  parameter: 4
+  suspensionOverride: {fileID: 3353839685754232240}
+  returnDefaultIfNotFound: 1
+  maxDistance: 3
+--- !u!114 &357795687680018907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801316213704462070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f184fbf7a094a64e9a1ea7e88684c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: 
+  frequency: 0
+  parent: {fileID: 0}
+  whenNullCleanAll: 1
+  gameObjectReaders:
+  - {fileID: 2471204322230601309}
+--- !u!114 &4305028061238306034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801316213704462070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9fa89b80e355244a40bf052edd3e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Enable Particles
+  frequency: 0
+  valueReader: {fileID: 7166019632454066245}
+  particleSystemReaders:
+  - {fileID: 357795687680018907}
+  propertyToEdit: 4
+  burstRange: {x: 0, y: 0}
 --- !u!1 &6833028804011614731
 GameObject:
   m_ObjectHideFlags: 0
@@ -53623,7 +53938,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0e6ceab26f32ff94684e5727dd9be19e, type: 2}
+  - {fileID: 2100000, guid: 6e1f7a87d63fc1c4c927248e7f62ec69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -53646,7 +53961,7 @@ ParticleSystemRenderer:
   m_SortingOrder: 0
   m_RenderMode: 4
   m_MeshDistribution: 0
-  m_SortMode: 2
+  m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
@@ -53740,7 +54055,7 @@ MonoBehaviour:
   Tag: Audio Editor
   frequency: 0
   audioReaders:
-  - {fileID: 5195836834431107577}
+  - {fileID: 3238859331115031397}
   valueReader: {fileID: 3111072181318802828}
   propertyToEdit: 1
   playStrategy: 0
@@ -53805,7 +54120,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939be00c732f96d409d0d4b08e133067, type: 2}
+  - {fileID: 2100000, guid: 6e1f7a87d63fc1c4c927248e7f62ec69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -59195,7 +59510,6 @@ Transform:
   - {fileID: 9083902014408929133}
   - {fileID: 2368720989581680130}
   - {fileID: 3898854805600499354}
-  - {fileID: 3460130973578956958}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!54 &5128913081695988819
@@ -59246,7 +59560,7 @@ MonoBehaviour:
   handling: 3
   offRoad: 2
   centermass: {fileID: 1824291433178082167}
-  maxSpeed: 70
+  maxSpeed: 72
   power: 5000
   engineCurve:
     serializedVersion: 2
@@ -59299,21 +59613,21 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 6
-      inSlope: 0.45597595
-      outSlope: 0.45597595
+      value: 5
+      inSlope: 0.032736775
+      outSlope: 0.032736775
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.20689654
+      outWeight: 0.3267108
     - serializedVersion: 3
       time: 1
       value: 8
-      inSlope: 5.714883
-      outSlope: 5.714883
+      inSlope: 10.153397
+      outSlope: 10.153397
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.038793147
+      inWeight: 0.03364438
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -59363,8 +59677,8 @@ Transform:
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8112943432354193564}
-  - {fileID: 2092906593335432668}
+  - {fileID: 1690214887325726843}
+  - {fileID: 3374829429201456054}
   - {fileID: 9184033497030466050}
   - {fileID: 7249747759946407537}
   m_Father: {fileID: 521242011095403265}
@@ -59782,7 +60096,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7995693414854285858}
   - component: {fileID: 7399860443821828216}
-  - component: {fileID: 5195836834431107577}
+  - component: {fileID: 3093178119449951388}
+  - component: {fileID: 3238859331115031397}
   - component: {fileID: 1287312780210895692}
   m_Layer: 0
   m_Name: Dust Sound
@@ -59822,11 +60137,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tag: Terrain Reader
-  parameter: 6
+  parameter: 4
   suspensionOverride: {fileID: 0}
   returnDefaultIfNotFound: 1
   maxDistance: 1
---- !u!114 &5195836834431107577
+--- !u!114 &3093178119449951388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59835,17 +60150,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 7883229702575975861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4575143863449b41bc8254e03a8962e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f184fbf7a094a64e9a1ea7e88684c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tag: Dust Sound Builder
+  Tag: Dust GameObject Clone
   frequency: 0
   parent: {fileID: 0}
-  destroyOldImmediately: 0
   whenNullCleanAll: 1
-  fadeOutSpeed: 10
   gameObjectReaders:
   - {fileID: 7399860443821828216}
+--- !u!114 &3238859331115031397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7883229702575975861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80f3f88e57fb3d449f63945372f605b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Extract Audio
+  gameObjectReaders:
+  - {fileID: 3093178119449951388}
+  componentType: 0
 --- !u!114 &1287312780210895692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59961,6 +60290,115 @@ MonoBehaviour:
   allowOverflowLoop: 0
   range: {x: 0, y: 2}
   useDeltaTime: 1
+--- !u!1 &7937917688773656257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2485658223124945615}
+  - component: {fileID: 6474657365132211677}
+  - component: {fileID: 1666253009907313158}
+  - component: {fileID: 4967593169557145205}
+  - component: {fileID: 9091467228944664543}
+  m_Layer: 0
+  m_Name: DustParticles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2485658223124945615
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7937917688773656257}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4725208123330079459}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &6474657365132211677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7937917688773656257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76de94b865bcc7c4aab18388ca7ff671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Enable
+  valueType: 0
+  floatValue: 1
+  stringValue: 
+  vector2Value: {x: 0, y: 0}
+  vector3Value: {x: 0, y: 0, z: 0}
+  objectValue: {fileID: 0}
+  objectsValue: []
+--- !u!114 &1666253009907313158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7937917688773656257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Dust Particles Reader
+  parameter: 4
+  suspensionOverride: {fileID: 3796002440465110428}
+  returnDefaultIfNotFound: 1
+  maxDistance: 3
+--- !u!114 &4967593169557145205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7937917688773656257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f184fbf7a094a64e9a1ea7e88684c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: 
+  frequency: 0
+  parent: {fileID: 0}
+  whenNullCleanAll: 1
+  gameObjectReaders:
+  - {fileID: 1666253009907313158}
+--- !u!114 &9091467228944664543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7937917688773656257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9fa89b80e355244a40bf052edd3e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Enable Particles
+  frequency: 0
+  valueReader: {fileID: 6474657365132211677}
+  particleSystemReaders:
+  - {fileID: 4967593169557145205}
+  propertyToEdit: 4
+  burstRange: {x: 0, y: 0}
 --- !u!1 &7977658014228409623
 GameObject:
   m_ObjectHideFlags: 0
@@ -60254,7 +60692,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 0c8f18778df8e7c439bd06a5c03a3e18, type: 3}
   m_Resource: {fileID: 8300000, guid: 0c8f18778df8e7c439bd06a5c03a3e18, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -61119,129 +61557,6 @@ MonoBehaviour:
   vector3Value: {x: 0, y: 0, z: 0}
   objectValue: {fileID: 8513092674285741732}
   objectsValue: []
---- !u!1 &8596557663842402261
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2048283087671736640}
-  - component: {fileID: 3427965880424944830}
-  - component: {fileID: 2828429484884914992}
-  - component: {fileID: 5026488612703782497}
-  - component: {fileID: 2337185864527248103}
-  - component: {fileID: 7339438261240159394}
-  m_Layer: 0
-  m_Name: Drift Particles
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2048283087671736640
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8596557663842402261}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4433428606644328769}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &3427965880424944830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8596557663842402261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Drift Particles Reader
-  parameter: 3
-  suspensionOverride: {fileID: 3353839685754232240}
-  returnDefaultIfNotFound: 1
-  maxDistance: 3
---- !u!114 &2828429484884914992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8596557663842402261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69081e5f903b3374e9b56532433b5484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: SideForce Reader
-  parameter: 2
-  suspension: {fileID: 3353839685754232240}
---- !u!114 &5026488612703782497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8596557663842402261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f79cd111f5cbcf43ab074bce1b969e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Drift Particle System
-  frequency: 0.02
-  parent: {fileID: 0}
-  destroyOldImmediately: 0
-  whenNullCleanAll: 1
-  forceParentScale: 1
-  gameObjectReaders:
-  - {fileID: 3427965880424944830}
---- !u!114 &2337185864527248103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8596557663842402261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee01add29b9bd7e48ae82bdcbd3d2374, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Check if force is enough
-  sources:
-  - {fileID: 2828429484884914992}
-  expression: '{0} > 0.25'
---- !u!114 &7339438261240159394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8596557663842402261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b9fa89b80e355244a40bf052edd3e93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Drift Particle Enable
-  frequency: 0.02
-  valueReader: {fileID: 2337185864527248103}
-  particleSystemReaders:
-  - {fileID: 5026488612703782497}
-  propertyToEdit: 4
-  burstRange: {x: 0, y: 0}
 --- !u!1 &8722036296191200310
 GameObject:
   m_ObjectHideFlags: 0
@@ -61328,76 +61643,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &8783794544715340013
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2092906593335432668}
-  - component: {fileID: 8110357003130514101}
-  - component: {fileID: 829793392121825832}
-  m_Layer: 0
-  m_Name: DustParticles
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2092906593335432668
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8783794544715340013}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4269771234002227319}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &8110357003130514101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8783794544715340013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54031763590bcb4da289b3c67369d15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Dust Particles Reader
-  parameter: 4
-  suspensionOverride: {fileID: 2041813282546328049}
-  returnDefaultIfNotFound: 1
-  maxDistance: 3
---- !u!114 &829793392121825832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8783794544715340013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f79cd111f5cbcf43ab074bce1b969e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tag: Dust Particle Switcher
-  frequency: 0.02
-  parent: {fileID: 0}
-  destroyOldImmediately: 0
-  whenNullCleanAll: 1
-  forceParentScale: 1
-  gameObjectReaders:
-  - {fileID: 8110357003130514101}
 --- !u!1 &8899230588281943413
 GameObject:
   m_ObjectHideFlags: 0
@@ -61466,8 +61711,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2048283087671736640}
-  - {fileID: 480805570170757669}
+  - {fileID: 5271724879947995449}
+  - {fileID: 5333316571456529982}
   - {fileID: 188414938088653663}
   - {fileID: 2702169705983400088}
   m_Father: {fileID: 521242011095403265}
@@ -61538,7 +61783,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.10971785
     - serializedVersion: 3
-      time: 0.55
+      time: 0.5
       value: 0.65
       inSlope: -0.5362113
       outSlope: -0.5362113
@@ -61650,105 +61895,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &1852682121748311052
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 4283564637152202892}
-    m_Modifications:
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.930001
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 3.0000005
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -5.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136399294177084156, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-      propertyPath: m_Name
-      value: Car Tester
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
---- !u!224 &3460130973578956958 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3004699589082512530, guid: 669a61c82cb9ecc438a537a68843da64, type: 3}
-  m_PrefabInstance: {fileID: 1852682121748311052}
-  m_PrefabAsset: {fileID: 0}

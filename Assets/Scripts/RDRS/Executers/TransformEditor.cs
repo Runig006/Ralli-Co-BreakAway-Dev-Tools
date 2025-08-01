@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TransformEditor : RDRSExecutorWithFrequency
+public class TransformEditor : RDRSNodeWithFrequency
 {
     public enum TargetProperty
     {
@@ -17,8 +17,8 @@ public class TransformEditor : RDRSExecutorWithFrequency
         Global
     }
 
-    [SerializeField] private RDRSReaderBase valueReader;
-    [SerializeField] private RDRSReaderBase[] transformsReaders;
+    [SerializeField] private RDRSNode valueReader;
+    [SerializeField] private RDRSNode[] transformsReaders;
 
     [SerializeField] private TargetProperty property = TargetProperty.Position;
     [SerializeField] private SpaceMode space = SpaceMode.Local;
@@ -27,14 +27,9 @@ public class TransformEditor : RDRSExecutorWithFrequency
     [SerializeField] private bool additive = true;
     [SerializeField][Tooltip("Applies Time.deltaTime to input when using Additive mode, making movement FPS-independent.")] private bool useTimeDeltaTime = true;
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
-
     public override void Execute()
     {
-        object valueRaw = this.GetExecuteValue();
+        object valueRaw = this.valueReader?.GetValue();
         Transform[] targets = this.GetTargets();
         if (targets == null || targets.Length == 0)
         {
@@ -168,7 +163,7 @@ public class TransformEditor : RDRSExecutorWithFrequency
     {
         List<Transform> collected = new();
 
-        foreach (RDRSReaderBase reader in this.transformsReaders)
+        foreach (RDRSNode reader in this.transformsReaders)
         {
             if (reader == null)
             {

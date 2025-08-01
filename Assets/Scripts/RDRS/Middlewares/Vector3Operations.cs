@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Vector3OperationsReader : RDRSReaderBase
+public class Vector3OperationsReader : RDRSNode
 {
     public enum Vector3Operations
     {
@@ -22,8 +22,8 @@ public class Vector3OperationsReader : RDRSReaderBase
         LocalScale
     }
 
-    [SerializeField] private RDRSReaderBase inputA;
-    [SerializeField] private RDRSReaderBase inputB;
+    [SerializeField] private RDRSNode inputA;
+    [SerializeField] private RDRSNode inputB;
 
     [SerializeField] private Vector3Operations operation;
     [SerializeField] private TransformVector3Property transformProperty = TransformVector3Property.Position;

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class MaterialEditor : RDRSExecutorWithFrequency
+public class MaterialEditor : RDRSNodeWithFrequency
 {
     public enum MaterialPropertyType
     {
@@ -13,23 +13,18 @@ public class MaterialEditor : RDRSExecutorWithFrequency
         Keyword
     }
 
-    [SerializeField] private RDRSReaderBase valueReader;
-    [SerializeField] private RDRSReaderBase[] materialReaders;
+    [SerializeField] private RDRSNode valueReader;
+    [SerializeField] private RDRSNode[] materialReaders;
     [SerializeField] private string propertyName = "_Color";
     [SerializeField] private MaterialPropertyType propertyType = MaterialPropertyType.Color;
 
     private object[] lastInputs;
     private Material[] cachedMaterials;
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
-
     
     public override void Execute()
     {
-        object value = this.GetExecuteValue();
+        object value = this.valueReader?.GetValue();
     
         Material[] materials = this.GetTargetMaterials();
         if (materials == null || materials.Length == 0)
@@ -107,7 +102,7 @@ public class MaterialEditor : RDRSExecutorWithFrequency
 
         for (int i = 0; i < this.materialReaders.Length; i++)
         {
-            RDRSReaderBase reader = this.materialReaders[i];
+            RDRSNode reader = this.materialReaders[i];
             currentInputs[i] = reader != null ? reader.GetValue() : null;
 
             if (!needsRefresh && (this.lastInputs == null || this.lastInputs.Length != currentInputs.Length || !ReferenceEquals(currentInputs[i], this.lastInputs[i])))

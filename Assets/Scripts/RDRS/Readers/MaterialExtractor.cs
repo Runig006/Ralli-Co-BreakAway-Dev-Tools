@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaterialExtractor : RDRSReaderBase
+public class MaterialExtractor : RDRSNode
 {
-    [SerializeField] private RDRSReaderBase[] sourceReaders;
+    [SerializeField] private RDRSNode[] sourceReaders;
     [SerializeField] private int[] materialIndices = new int[] { 0 };
 
     private object[] lastInputs;
@@ -26,7 +26,7 @@ public class MaterialExtractor : RDRSReaderBase
 
         for (int i = 0; i < this.sourceReaders.Length; i++)
         {
-            RDRSReaderBase reader = this.sourceReaders[i];
+            RDRSNode reader = this.sourceReaders[i];
             currentInputs[i] = reader != null ? reader.GetValue() : null;
 
             if (!needsRefresh && (this.lastInputs == null || this.lastInputs.Length != currentInputs.Length || !ReferenceEquals(currentInputs[i], this.lastInputs[i])))

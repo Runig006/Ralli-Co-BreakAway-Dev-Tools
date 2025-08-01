@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightEditor : RDRSExecutorWithFrequency
+public class LightEditor : RDRSNodeWithFrequency
 {
     public enum LightProperty
     {
@@ -11,21 +11,16 @@ public class LightEditor : RDRSExecutorWithFrequency
         Enabled
     }
 
-    [SerializeField] private RDRSReaderBase valueReader;
-    [SerializeField] private RDRSReaderBase[] lightReaders;
+    [SerializeField] private RDRSNode valueReader;
+    [SerializeField] private RDRSNode[] lightReaders;
     [SerializeField] private LightProperty propertyToEdit;
 
     private object[] lastInputs;
     private Light[] cachedLights;
 
-    public override object GetExecuteValue()
-    {
-        return this.valueReader?.GetValue();
-    }
-
     public override void Execute()
     {
-        object value = this.GetExecuteValue();
+        object value = this.valueReader?.GetValue();
         
         Light[] targets = GetTargetLights();
         if (targets == null || targets.Length == 0)
@@ -89,7 +84,7 @@ public class LightEditor : RDRSExecutorWithFrequency
 
         for (int i = 0; i < this.lightReaders.Length; i++)
         {
-            RDRSReaderBase reader = this.lightReaders[i];
+            RDRSNode reader = this.lightReaders[i];
             currentInputs[i] = reader != null ? reader.GetValue() : null;
 
             if (!needsRefresh && (this.lastInputs == null || this.lastInputs.Length != currentInputs.Length || !ReferenceEquals(currentInputs[i], this.lastInputs[i])))
