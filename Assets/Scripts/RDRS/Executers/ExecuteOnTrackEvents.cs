@@ -27,15 +27,15 @@ public class ExecuteOnTrackEvents : RDRSNode
         switch (loopMoment)
         {
             case LoopMoment.TrackLoaded:
-                FindFirstObjectByType<TrackManager>().RegisterToTrackLoaded(priority, MakeCalls);
+                FindFirstObjectByType<TrackManager>().RegisterToTrackLoaded(Execute,priority);
                 break;
 
             case LoopMoment.TrackStart:
-                FindFirstObjectByType<GameManager>().RegisterToTrackStart(priority, MakeCalls);
+                FindFirstObjectByType<GameManager>().RegisterToTrackStart(Execute,priority);
                 break;
 
             case LoopMoment.TrackStartDelay:
-                FindFirstObjectByType<GameManager>().RegisterToTrackStartDelay(priority, MakeCalls);
+                FindFirstObjectByType<GameManager>().RegisterToTrackStartDelay(Execute,priority);
                 break;
         }
         #else

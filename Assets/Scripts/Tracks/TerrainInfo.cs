@@ -7,8 +7,6 @@ public class TerrainInfo : MonoBehaviour
 	[SerializeField] private float resistanceMultipler = 0.0f;
 	[SerializeField] private GameObject driftGameObject; 	
 	[SerializeField] private GameObject dustGameObject; 
-	
-	[SerializeField] [Range(0.0f, 1.0f)] private float roughness = 0.0f;
 
 	// Getters
 	public float GetPowerMultipler()
@@ -34,11 +32,5 @@ public class TerrainInfo : MonoBehaviour
 	public GameObject GetDustGameObject()
 	{
 		return this.dustGameObject;
-	}
-		
-	//For FFB
-	public float GetRoughness()
-	{
-		return this.roughness;
 	}
 }

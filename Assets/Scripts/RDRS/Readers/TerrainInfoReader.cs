@@ -76,9 +76,6 @@ public class TerrainInfoReader : RDRSNode
             case TerrainReaderParameterType.DustGameObject:
                 value = terrain.GetDustGameObject();
                 break;
-            case TerrainReaderParameterType.Roughness:
-                value = terrain.GetRoughness();
-                break;
         }
         if (value is UnityEngine.Object unityObj && unityObj == null)
         {

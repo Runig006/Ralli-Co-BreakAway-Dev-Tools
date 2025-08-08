@@ -5341,7 +5341,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fe6489e9a30d03c4eb0b92a2d852eb05, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: fe6489e9a30d03c4eb0b92a2d852eb05, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.7
@@ -10366,7 +10366,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 741810b9e5488cf499a70d3fcce769c8, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 741810b9e5488cf499a70d3fcce769c8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.7
@@ -11327,7 +11327,7 @@ Transform:
   m_GameObject: {fileID: 897978582385397086}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.216, y: 0.155, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.155, z: 0}
   m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11599,7 +11599,7 @@ Transform:
   m_GameObject: {fileID: 1011895451820925499}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.74, y: 0, z: 0}
+  m_LocalPosition: {x: -0.736, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -11654,19 +11654,28 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.3
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.08
         inSlope: -0.061909173
         outSlope: -0.061909173
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 1
+      - serializedVersion: 3
+        time: 0.25
+        value: 0.1
+        inSlope: -0.03166666
+        outSlope: -0.03166666
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.94767445
         value: 0
@@ -11681,8 +11690,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 0.36078432}
-      key1: {r: 1, g: 1, b: 1, a: 0}
+      key0: {r: 0.8443396, g: 1, b: 0.98496073, a: 0}
+      key1: {r: 0.84313726, g: 1, b: 0.9843137, a: 0.6431373}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -11698,8 +11707,8 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 16384
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -11708,19 +11717,19 @@ TrailRenderer:
       m_Mode: 0
       m_ColorSpace: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+      m_NumAlphaKeys: 3
+    numCornerVertices: 1
+    numCapVertices: 2
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
     shadowBias: 0
     generateLightingData: 0
-  m_MinVertexDistance: 0
+  m_MinVertexDistance: 0.06
   m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
-  m_ApplyActiveColorSpace: 1
+  m_ApplyActiveColorSpace: 0
 --- !u!1 &1062220191501831417
 GameObject:
   m_ObjectHideFlags: 0
@@ -13185,19 +13194,28 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.3
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.08
         inSlope: -0.061909173
         outSlope: -0.061909173
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 1
+      - serializedVersion: 3
+        time: 0.25
+        value: 0.1
+        inSlope: -0.03166666
+        outSlope: -0.03166666
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.94767445
         value: 0
@@ -13212,8 +13230,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 0.36078432}
-      key1: {r: 1, g: 1, b: 1, a: 0}
+      key0: {r: 0.8443396, g: 1, b: 0.98496073, a: 0}
+      key1: {r: 0.84313726, g: 1, b: 0.9843137, a: 0.6431373}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -13229,8 +13247,8 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 16384
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -13239,19 +13257,19 @@ TrailRenderer:
       m_Mode: 0
       m_ColorSpace: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+      m_NumAlphaKeys: 3
+    numCornerVertices: 1
+    numCapVertices: 2
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
     shadowBias: 0
     generateLightingData: 0
-  m_MinVertexDistance: 0
+  m_MinVertexDistance: 0.06
   m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
-  m_ApplyActiveColorSpace: 1
+  m_ApplyActiveColorSpace: 0
 --- !u!1 &2152162082946928167
 GameObject:
   m_ObjectHideFlags: 0
@@ -18595,7 +18613,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6eba65afbb0c63344bbbe3ba19c0fd07, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 6eba65afbb0c63344bbbe3ba19c0fd07, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -19011,7 +19029,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1a739c683b4fa70418d11d9918deb769, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 1a739c683b4fa70418d11d9918deb769, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -29972,7 +29990,7 @@ Transform:
   m_GameObject: {fileID: 3688430966803496458}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.39399725}
+  m_LocalPosition: {x: -0, y: 0, z: -1.397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -59140,7 +59158,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a8445e138a7c4a54cb114a0b99724242, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: a8445e138a7c4a54cb114a0b99724242, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -59519,10 +59537,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7414929022585804968}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1000
-  m_Drag: 0
-  m_AngularDrag: 0.2
+  m_LinearDamping: 0
+  m_AngularDamping: 0.2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -59538,7 +59556,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!114 &2861573780550228987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60689,7 +60707,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0c8f18778df8e7c439bd06a5c03a3e18, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 0c8f18778df8e7c439bd06a5c03a3e18, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.7
@@ -61527,7 +61545,7 @@ Transform:
   m_GameObject: {fileID: 8513092674285741732}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.216, y: 0.155, z: -0}
+  m_LocalPosition: {x: 0.05, y: 0.155, z: -0}
   m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_ConstrainProportionsScale: 1
   m_Children:
