@@ -18,7 +18,7 @@ public class ComponentExtractor : RDRSNode
     [SerializeField] private CollectableComponentType componentType = CollectableComponentType.AudioSource;
 
     private object[] lastInputs;
-    private Component[] cachedComponents;
+    public Component[] cachedComponents;
 
 
     public override object GetValue()
@@ -41,7 +41,6 @@ public class ComponentExtractor : RDRSNode
                 needsRefresh = true;
             }
         }
-
         if (!needsRefresh && this.cachedComponents != null)
         {
             return this.cachedComponents;
@@ -58,6 +57,7 @@ public class ComponentExtractor : RDRSNode
 
         foreach (object result in inputs)
         {
+
             if (result == null)
             {
                 continue;
@@ -113,7 +113,7 @@ public class ComponentExtractor : RDRSNode
             {
                 continue;
             }
-            
+
             Component[] comps = go.GetComponentsInChildren(targetType);
             if (comps != null && comps.Length > 0)
             {
@@ -126,14 +126,32 @@ public class ComponentExtractor : RDRSNode
 
     private Type GetTypeFromEnum(CollectableComponentType typeEnum)
     {
-        return typeEnum switch
+        switch (typeEnum)
         {
-            CollectableComponentType.AudioSource => typeof(AudioSource),
-            CollectableComponentType.ParticleSystem => typeof(ParticleSystem),
-            CollectableComponentType.Transform => typeof(Transform),
-            CollectableComponentType.Light => typeof(Light),
-            CollectableComponentType.Renderer => typeof(Renderer),
-            _ => null
-        };
+            case CollectableComponentType.AudioSource:
+                {
+                    return typeof(AudioSource);
+                }
+            case CollectableComponentType.ParticleSystem:
+                {
+                    return typeof(ParticleSystem);
+                }
+            case CollectableComponentType.Transform:
+                {
+                    return typeof(Transform);
+                }
+            case CollectableComponentType.Light:
+                {
+                    return typeof(Light);
+                }
+            case CollectableComponentType.Renderer:
+                {
+                    return typeof(Renderer);
+                }
+            default:
+                {
+                    return null;
+                }
+        }
     }
 }

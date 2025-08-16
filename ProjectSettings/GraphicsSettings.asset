@@ -25,7 +25,7 @@ GraphicsSettings:
   m_LensFlare:
     m_Mode: 1
     m_Shader: {fileID: 102, guid: 0000000000000000f000000000000000, type: 0}
-  m_VideoShadersIncludeMode: 2
+  m_VideoShadersIncludeMode: 0
   m_AlwaysIncludedShaders:
   - {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 15104, guid: 0000000000000000f000000000000000, type: 0}
@@ -34,11 +34,7 @@ GraphicsSettings:
   - {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10770, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10783, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: -6465566751694194690, guid: e30edde65c09bdb43b33c5df1208786b, type: 3}
-  - {fileID: 4800000, guid: ed2c3588f14a3fc4b896a0893f95150c, type: 3}
   - {fileID: 10750, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: -6465566751694194690, guid: b509c59b15b9b65408ceb6a92418de43, type: 3}
-  - {fileID: -6465566751694194690, guid: 37429d031928eea4b923267b8ea8f42a, type: 3}
   m_PreloadedShaders: []
   m_PreloadShadersBatchTimeLimit: -1
   m_SpritesDefaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
@@ -48,18 +44,18 @@ GraphicsSettings:
   m_DefaultRenderingPath: 1
   m_DefaultMobileRenderingPath: 1
   m_TierSettings: []
-  m_LightmapStripping: 0
-  m_FogStripping: 0
+  m_LightmapStripping: 1
+  m_FogStripping: 1
   m_InstancingStripping: 0
   m_BrgStripping: 0
-  m_LightmapKeepPlain: 1
-  m_LightmapKeepDirCombined: 1
+  m_LightmapKeepPlain: 0
+  m_LightmapKeepDirCombined: 0
   m_LightmapKeepDynamicPlain: 1
   m_LightmapKeepDynamicDirCombined: 1
-  m_LightmapKeepShadowMask: 1
-  m_LightmapKeepSubtractive: 1
-  m_FogKeepLinear: 1
-  m_FogKeepExp: 1
+  m_LightmapKeepShadowMask: 0
+  m_LightmapKeepSubtractive: 0
+  m_FogKeepLinear: 0
+  m_FogKeepExp: 0
   m_FogKeepExp2: 1
   m_AlbedoSwatchInfos: []
   m_RenderPipelineGlobalSettingsMap:

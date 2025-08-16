@@ -21,21 +21,21 @@ public class ExecuteOnTrackEvents : RDRSNode
         return this.valueToSend;
     }
 
-    void Start()
+    void OnEnable()
     {
         #if FULL_GAME
         switch (loopMoment)
         {
             case LoopMoment.TrackLoaded:
-                FindFirstObjectByType<TrackManager>().RegisterToTrackLoaded(Execute,priority);
+                FindFirstObjectByType<TrackManager>().RegisterToTrackLoaded(Execute, priority);
                 break;
 
             case LoopMoment.TrackStart:
-                FindFirstObjectByType<GameManager>().RegisterToTrackStart(Execute,priority);
+                FindFirstObjectByType<GameManager>().RegisterToTrackStart(Execute, priority);
                 break;
 
             case LoopMoment.TrackStartDelay:
-                FindFirstObjectByType<GameManager>().RegisterToTrackStartDelay(Execute,priority);
+                FindFirstObjectByType<GameManager>().RegisterToTrackStartDelay(Execute, priority);
                 break;
         }
         #else

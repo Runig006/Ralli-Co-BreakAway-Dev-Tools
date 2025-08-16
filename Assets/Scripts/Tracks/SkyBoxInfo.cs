@@ -58,11 +58,8 @@ public class SkyBoxInfo : MonoBehaviour
 	[SerializeField] private Color ambientColor = new Color(0.255f, 0.255f, 0.255f, 1f);
 
 	[Header("Fog")]
-	[SerializeField] private bool overrideFog = false;
-	[SerializeField] private FogMode fogMode = FogMode.Linear;
 	[SerializeField] private Color fogColor = new Color(0.255f, 0.255f, 0.255f, 1f);
-	[SerializeField] private float fogStartDistanceOrDensity = 0f;
-	[SerializeField] private float fogEndDistance = 300f;
+	[SerializeField] private float fogDensity = 0f;
 
 	[Header("Textures")]
 	[SerializeField] private Texture2D sunTextureOverride = null;
@@ -281,29 +278,13 @@ public class SkyBoxInfo : MonoBehaviour
 		return this.ambientColor;
 	}
 
-	public bool GetOverrideFog()
-	{
-		return this.overrideFog;
-	}
-
-	public FogMode GetFogMode()
-	{
-		return this.fogMode;
-	}
-
 	public Color GetFogColor()
 	{
 		return this.fogColor;
 	}
 
-	public float GetFogStartDistanceOrDensity()
+	public float GetFogDensity()
 	{
-		return this.fogStartDistanceOrDensity;
+		return this.fogDensity;
 	}
-
-	public float GetFogEndDistance()
-	{
-		return this.fogEndDistance;
-	}
-
 }

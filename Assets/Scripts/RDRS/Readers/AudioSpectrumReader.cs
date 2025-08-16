@@ -13,6 +13,8 @@ public class AudioSpectrumReader : RDRSNode
     [SerializeField] private float minValue = 0f;
     [SerializeField] private float maxValue = 0f;
 
+    static AudioVisualizer radioAudioVisualizer;
+
     private void OnValidate()
     {
         switch (this.frequencyRange)
@@ -38,15 +40,25 @@ public class AudioSpectrumReader : RDRSNode
         }
     }
 
-    private void OnEnable()
+    public void findAudioVisualizer()
     {
-        this.audioVisualizer = FindFirstObjectByType<AudioVisualizer>();
+        if(this.audioVisualizer != null)
+        {
+            return;
+        }
+        if(radioAudioVisualizer == null)
+        {
+            radioAudioVisualizer = FindFirstObjectByType<AudioVisualizer>();
+            Debug.Log(radioAudioVisualizer);
+        }
+        this.audioVisualizer = radioAudioVisualizer;
     }
 
     public override object GetValue()
     {
         if (this.audioVisualizer == null)
         {
+            this.findAudioVisualizer();
             return 0.0f;
         }
 

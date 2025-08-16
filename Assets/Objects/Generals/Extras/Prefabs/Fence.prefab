@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 268eef5d539ba904aa5f3255cd8c8038, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: d7261cb16c2498142b93bee5d579e8c2, type: 2}
+      objectReference: {fileID: 2100000, guid: c4f2e37a222027e4fac304208d44d4b7, type: 2}
     - target: {fileID: -7511558181221131132, guid: 268eef5d539ba904aa5f3255cd8c8038, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
@@ -99,10 +99,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3219988004393207708}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 25
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -196,7 +196,6 @@ MonoBehaviour:
   allowOverflowLoop: 1
   range: {x: 0, y: 2}
   useDeltaTime: 0
-  accumulated: 0
 --- !u!114 &7598370197979793976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,8 +213,8 @@ MonoBehaviour:
   valueReader: {fileID: 2204150530480821313}
   materialReaders:
   - {fileID: 5354737008168703587}
-  propertyName: _EMISSION
-  propertyType: 4
+  propertyName: _EmissionIntense
+  propertyType: 0
 --- !u!23 &4012512068842284617 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 268eef5d539ba904aa5f3255cd8c8038, type: 3}

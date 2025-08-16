@@ -115,6 +115,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particles
       objectReference: {fileID: 0}
+    - target: {fileID: 4475456711477509065, guid: 3685088c2326ba8429f2f47089fbf3e6, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475456711477509065, guid: 3685088c2326ba8429f2f47089fbf3e6, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475456711477509065, guid: 3685088c2326ba8429f2f47089fbf3e6, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6050232710843427884, guid: 3685088c2326ba8429f2f47089fbf3e6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

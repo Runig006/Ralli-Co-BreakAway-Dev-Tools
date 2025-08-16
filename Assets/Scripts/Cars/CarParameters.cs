@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public enum EngineSoundPrefabs
@@ -533,6 +534,10 @@ public class CarParameters : MonoBehaviour
 	// Road
 	public bool GetGrounded()
 	{
+		if(this.suspensions == null || this.suspensions.Count() == 0)
+		{
+			return true;
+		}
 		foreach(SuspensionPhysic su in this.suspensions)
 		{
 			if(su.GetGrounded())

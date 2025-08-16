@@ -112,6 +112,7 @@ public class AudioSourceEditor : RDRSNodeWithFrequency
                     }
                     else if (enabled == false && source.isPlaying)
                     {
+                       
                         switch (this.stopStrategy)
                         {
                             case StopStrategy.StopImmediate:

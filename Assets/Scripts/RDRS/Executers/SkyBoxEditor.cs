@@ -17,7 +17,14 @@ public class SkyBoxEditor : RDRSNodeWithFrequency
     {
         this.skyBoxConnector = UnityEngine.Object.FindFirstObjectByType<SkyBoxConnector>();
     }
-    #endif
+
+    protected override void OnEnable()
+    {
+        this.lastChecker = false;
+        this.currentSkyBox = null;
+        base.OnEnable();
+    }
+#endif
 
 
     public override void Execute()

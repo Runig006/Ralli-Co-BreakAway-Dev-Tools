@@ -11554,6 +11554,8 @@ MonoBehaviour:
   whenNullCleanAll: 1
   gameObjectReaders:
   - {fileID: 8014627285861084927}
+  smoothMaxTime: 1
+  currentInstances: []
 --- !u!114 &1013529712895164712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12694,6 +12696,8 @@ MonoBehaviour:
   whenNullCleanAll: 1
   gameObjectReaders:
   - {fileID: 493370823684165317}
+  smoothMaxTime: 1
+  currentInstances: []
 --- !u!114 &6079255724414938167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12710,6 +12714,7 @@ MonoBehaviour:
   gameObjectReaders:
   - {fileID: 9112166570027949969}
   componentType: 1
+  cachedComponents: []
 --- !u!114 &1835034619822413547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13047,6 +13052,8 @@ MonoBehaviour:
   whenNullCleanAll: 1
   gameObjectReaders:
   - {fileID: 7669613693909303741}
+  smoothMaxTime: 1
+  currentInstances: []
 --- !u!114 &7769390040720993725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13063,6 +13070,7 @@ MonoBehaviour:
   gameObjectReaders:
   - {fileID: 6692659407020380674}
   componentType: 1
+  cachedComponents: []
 --- !u!114 &3370649234587653126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18424,6 +18432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6974366962687765123}
   - component: {fileID: 4104330593539033898}
+  - component: {fileID: 1042553362485101816}
   - component: {fileID: 8296108763468247906}
   m_Layer: 0
   m_Name: EnableLogic
@@ -18463,6 +18472,25 @@ MonoBehaviour:
   sources:
   - {fileID: 1287312780210895692}
   expression: '|{0}| > 0.1'
+--- !u!114 &1042553362485101816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2437350050659032831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20976c330cb493349a32fc09fa0b1f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Check speed and grounded
+  conditions:
+  - {fileID: 4104330593539033898}
+  - {fileID: 5434076010426306846}
+  outputTrue: {fileID: 0}
+  outputFalse: {fileID: 0}
+  mode: 0
 --- !u!114 &8296108763468247906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18479,7 +18507,7 @@ MonoBehaviour:
   frequency: 0
   audioReaders:
   - {fileID: 3238859331115031397}
-  valueReader: {fileID: 4104330593539033898}
+  valueReader: {fileID: 1042553362485101816}
   propertyToEdit: 2
   playStrategy: 1
   playVolumeStrategy: 0
@@ -20136,6 +20164,8 @@ MonoBehaviour:
   whenNullCleanAll: 1
   gameObjectReaders:
   - {fileID: 2760941601542926661}
+  smoothMaxTime: 1
+  currentInstances: []
 --- !u!114 &4813849409315561933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20227,6 +20257,8 @@ MonoBehaviour:
   whenNullCleanAll: 1
   gameObjectReaders:
   - {fileID: 6658393125378186938}
+  smoothMaxTime: 1
+  currentInstances: []
 --- !u!114 &7533002717637366915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20243,6 +20275,7 @@ MonoBehaviour:
   gameObjectReaders:
   - {fileID: 4202916418047146814}
   componentType: 1
+  cachedComponents: []
 --- !u!114 &5854471020632799686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36395,6 +36428,8 @@ MonoBehaviour:
   whenNullCleanAll: 1
   gameObjectReaders:
   - {fileID: 3925362544008153567}
+  smoothMaxTime: 0.25
+  currentInstances: []
 --- !u!114 &4056907219958340534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36411,6 +36446,7 @@ MonoBehaviour:
   gameObjectReaders:
   - {fileID: 7714851741279806513}
   componentType: 0
+  cachedComponents: []
 --- !u!114 &8810365598473453171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42993,6 +43029,8 @@ MonoBehaviour:
   whenNullCleanAll: 1
   gameObjectReaders:
   - {fileID: 6268064793359255575}
+  smoothMaxTime: 1
+  currentInstances: []
 --- !u!114 &610670388967876435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43009,6 +43047,7 @@ MonoBehaviour:
   gameObjectReaders:
   - {fileID: 2277865829463428293}
   componentType: 1
+  cachedComponents: []
 --- !u!114 &4825423649141504129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48881,6 +48920,8 @@ MonoBehaviour:
   whenNullCleanAll: 1
   gameObjectReaders:
   - {fileID: 2471204322230601309}
+  smoothMaxTime: 1
+  currentInstances: []
 --- !u!114 &4305028061238306034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60117,6 +60158,7 @@ GameObject:
   - component: {fileID: 3093178119449951388}
   - component: {fileID: 3238859331115031397}
   - component: {fileID: 1287312780210895692}
+  - component: {fileID: 5434076010426306846}
   m_Layer: 0
   m_Name: Dust Sound
   m_TagString: Untagged
@@ -60177,6 +60219,8 @@ MonoBehaviour:
   whenNullCleanAll: 1
   gameObjectReaders:
   - {fileID: 7399860443821828216}
+  smoothMaxTime: 0.25
+  currentInstances: []
 --- !u!114 &3238859331115031397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60193,6 +60237,7 @@ MonoBehaviour:
   gameObjectReaders:
   - {fileID: 3093178119449951388}
   componentType: 0
+  cachedComponents: []
 --- !u!114 &1287312780210895692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60207,6 +60252,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: Car Speed Normalize
   parameter: 1
+  carParameters: {fileID: 0}
+  autoFromParent: 1
+  findByDistance: 0
+  playerID: -1
+  maxDistance: 20000
+--- !u!114 &5434076010426306846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7883229702575975861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b55f7bdb828d3e4fa04d961b790c97c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tag: Is Grounded
+  parameter: 9
   carParameters: {fileID: 0}
   autoFromParent: 1
   findByDistance: 0
@@ -60398,6 +60462,8 @@ MonoBehaviour:
   whenNullCleanAll: 1
   gameObjectReaders:
   - {fileID: 1666253009907313158}
+  smoothMaxTime: 1
+  currentInstances: []
 --- !u!114 &9091467228944664543
 MonoBehaviour:
   m_ObjectHideFlags: 0
